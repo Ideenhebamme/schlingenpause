@@ -40,14 +40,29 @@ Ausgangspunkt war die „Pause App“ (ReZuKi-Begleiter) im Ordner
   "ablauf": ["Schritt 1", "Schritt 2"],
   "achte_auf": "Wichtigster Technikhinweis",
   "warum": "Kurze Begründung ohne Heilversprechen",
+  "vorsicht": "optional – z. B. Außenrotation vorsichtig testen",
   "stufen": [
     { "hinweis": "Körperwinkel/Fußposition dieser Stufe", "einheit": "wdh", "min": 8, "max": 12 }
-  ]
+  ],
+  "bild": { "ansicht": "seite", "gurt": "zwei", "posen": [ {…Start…}, {…Ende…} ] }
 }
 ```
 
-`npm test` prüft die Bibliothek mit `src/logik/schema.js`.
-Aktuell: 10 **Platzhalter**-Übungen (`"platzhalter": true` → Hinweis-Banner in der App).
+Progression der Stufen: Zugübungen mit Blick zum Anker werden schwerer, je weiter die Füße
+Richtung/unter den Ankerpunkt gehen; Druckübungen mit Rücken zum Anker werden schwerer,
+je näher die Füße Richtung Ankerpunkt kommen (Körper flacher).
+
+## Piktogramme
+
+`scripts/piktogramme.mjs` erzeugt aus `bild` je Übung `public/bilder/<id>.svg`
+(Start- und Endposition nebeneinander, Strichfigur mit Anker und Gurt).
+Posen werden über Gelenkwinkel beschrieben – Doku im Kopf des Skripts.
+Läuft automatisch bei `npm run build`; einzeln mit `npm run bilder`.
+
+`npm test` prüft die Bibliothek mit `src/logik/schema.js` und rendert alle Piktogramme.
+Aktuell: Bibliothek 1.0.0 mit 29 Übungen (Kraft, Haltung & Rücken, Mobilität).
+Anker bei Nils: Mittelsäule der Wendeltreppe, 2,0–2,2 m; Körpergröße 1,83 m.
+Außenrotation der Schulter (Face Pull, W-Heben) ist mit `vorsicht` markiert – Nils testet, was geht.
 
 ## Logik
 
@@ -69,6 +84,5 @@ Aktuell: 10 **Platzhalter**-Übungen (`"platzhalter": true` → Hinweis-Banner i
 
 ## Offen
 
-- Vollständige Übungsbibliothek (nächster Schritt)
-- Abbildungen/Skizzen je Übung (Feld `bild` wäre zu ergänzen)
+- Feedback aus der Nutzung: Stufen, Wiederholungsbereiche, Piktogramme nachschärfen
 - Finaler App-Name (Arbeitstitel „Schlingenpause“)

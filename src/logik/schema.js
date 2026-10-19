@@ -37,6 +37,11 @@ export function pruefeBibliothek(daten) {
     if (!Array.isArray(u.ablauf) || u.ablauf.length === 0 || !u.ablauf.every(istText)) {
       fehler.push(`${p} ablauf ungültig`);
     }
+    if (u.vorsicht !== undefined && !istText(u.vorsicht)) fehler.push(`${p} vorsicht muss Text sein`);
+    if (u.bild !== undefined) {
+      if (!['seite', 'front'].includes(u.bild.ansicht ?? 'seite')) fehler.push(`${p} bild.ansicht ungültig`);
+      if (!Array.isArray(u.bild.posen) || u.bild.posen.length === 0) fehler.push(`${p} bild.posen fehlen`);
+    }
     if (!Array.isArray(u.stufen) || u.stufen.length === 0) {
       fehler.push(`${p} stufen fehlen`);
     } else {

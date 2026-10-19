@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { pruefeBibliothek } from '../src/logik/schema.js';
 import { startZustand, wendeRueckmeldungAn, zustandFuer } from '../src/logik/progression.js';
 import { erstelleSession, tauscheUebung, schaetzeMinuten } from '../src/logik/auswahl.js';
+import { renderBild } from '../scripts/piktogramme.mjs';
 
 const bib = JSON.parse(readFileSync(new URL('../src/daten/uebungen.json', import.meta.url)));
 const nach = (id) => bib.uebungen.find((u) => u.id === id);
@@ -108,4 +109,19 @@ test('Zeitschätzung liegt im erwarteten Rahmen', () => {
   const ml = schaetzeMinuten(lang, bib);
   assert.ok(mk >= 2 && mk <= 5, `kurz: ${mk}`);
   assert.ok(ml >= 6 && ml <= 12, `lang: ${ml}`);
+});
+
+test('Jede Übung hat ein Piktogramm ohne Rechenfehler', () => {
+  for (const u of bib.uebungen) {
+    assert.ok(u.bild, `${u.id} ohne bild`);
+    const svg = renderBild(u.bild);
+    assert.ok(!/NaN|undefined/.test(svg), `${u.id}: ungültige Koordinaten`);
+  }
+});
+
+test('Jedes Ziel hat genug Übungen mit verschiedenen Mustern', () => {
+  for (const ziel of ['kraft', 'haltung', 'mobilitaet']) {
+    const muster = new Set(bib.uebungen.filter((u) => u.ziele.includes(ziel)).map((u) => u.muster));
+    assert.ok(muster.size >= 3, `${ziel}: nur ${muster.size} Muster`);
+  }
 });

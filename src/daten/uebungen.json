@@ -1,39 +1,326 @@
 {
-  "schema_version": "1.0.0",
-  "library_version": "0.0.1",
-  "platzhalter": true,
+  "schema_version": "1.1.0",
+  "library_version": "1.0.0",
+  "platzhalter": false,
   "uebungen": [
     {
       "id": "zug-rudern",
       "titel": "Rudern",
-      "ziele": ["kraft", "haltung"],
+      "ziele": [
+        "kraft",
+        "haltung"
+      ],
       "muster": "zug",
       "intensitaet": 2,
       "einseitig": false,
-      "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe in den Händen, Arme gestreckt.",
+      "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Füße hüftbreit, Griffe mit Daumen nach oben, Arme gestreckt.",
       "ablauf": [
-        "Körper gerade wie ein Brett, Gewicht auf den Fersen.",
-        "Brust zu den Griffen ziehen, Ellbogen eng am Körper.",
-        "Schulterblätter am Ende kurz zusammenziehen.",
+        "Körper in eine gerade Linie bringen und nach hinten lehnen, Gewicht auf den Fersen.",
+        "Brust zu den Griffen ziehen, Ellbogen eng am Körper nach hinten führen.",
+        "Am Ende die Schulterblätter kurz zusammenziehen.",
         "Kontrolliert zurück in die Streckung."
       ],
-      "achte_auf": "Schultern weg von den Ohren, Hüfte nicht durchhängen lassen.",
+      "achte_auf": "Schultern weg von den Ohren, Hüfte bleibt in einer Linie mit Schultern und Fersen.",
       "warum": "Kräftigt den oberen Rücken und die Muskeln zwischen den Schulterblättern – ein Gegengewicht zur nach vorn gerichteten Sitzhaltung.",
       "stufen": [
-        { "hinweis": "Füße einen großen Schritt hinter dem Anker, Körper fast aufrecht.", "einheit": "wdh", "min": 8, "max": 12 },
-        { "hinweis": "Füße einen kleinen Schritt hinter dem Anker, Körper leicht zurückgelehnt.", "einheit": "wdh", "min": 8, "max": 12 },
-        { "hinweis": "Füße direkt unter dem Anker, Körper etwa 45° geneigt.", "einheit": "wdh", "min": 8, "max": 12 },
-        { "hinweis": "Füße vor dem Anker, Körper flacher als 45°.", "einheit": "wdh", "min": 8, "max": 12 }
-      ]
+        {
+          "hinweis": "Füße einen großen Schritt hinter dem Ankerpunkt, Körper fast aufrecht.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Füße eine Fußlänge hinter dem Ankerpunkt, Körper etwa 30° zurückgelehnt.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Füße direkt unter dem Ankerpunkt, Körper etwa 45°.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Füße eine Fußlänge vor dem Ankerpunkt, Körper flacher als 45°.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Wie Stufe 4, oben zwei Sekunden halten, in drei Sekunden absenken.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "gurt": "zwei",
+        "posen": [
+          {
+            "b": -1,
+            "x": 70,
+            "r": -32,
+            "l1": [
+              32,
+              32
+            ],
+            "a1": "anker"
+          },
+          {
+            "b": -1,
+            "x": 70,
+            "r": -32,
+            "l1": [
+              32,
+              32
+            ],
+            "a1": [
+              -10,
+              110
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zug-rudern-einarmig",
+      "titel": "Einarmiges Rudern",
+      "ziele": [
+        "kraft",
+        "haltung"
+      ],
+      "muster": "zug",
+      "intensitaet": 2,
+      "einseitig": true,
+      "aufbau": "Gurte auf mittlere Länge, Einhand-Modus (beide Griffe zu einem zusammenführen). Blick zum Anker, Griff in einer Hand, freie Hand locker an der Seite.",
+      "ablauf": [
+        "Körper gerade nach hinten lehnen, Füße etwas breiter als hüftbreit.",
+        "Griff zur Brust ziehen, Ellbogen nah am Körper.",
+        "Schultern bleiben parallel zum Boden – der Körper dreht nicht zur Seite weg.",
+        "Langsam zurück in die Streckung."
+      ],
+      "achte_auf": "Die Drehung verhindern ist Teil der Übung: Bauch und Gesäß fest.",
+      "warum": "Fordert den Rücken einseitig und zusätzlich die Rumpfmuskulatur, die der Drehung entgegenhält.",
+      "stufen": [
+        {
+          "hinweis": "Körper fast aufrecht, Füße hinter dem Ankerpunkt.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "Körper etwa 30° zurückgelehnt.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "Füße unter dem Ankerpunkt, Körper etwa 45°.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "gurt": "arm1",
+        "posen": [
+          {
+            "b": -1,
+            "x": 70,
+            "r": -28,
+            "l1": [
+              28,
+              28
+            ],
+            "a1": "anker",
+            "a2": [
+              -15,
+              -10
+            ]
+          },
+          {
+            "b": -1,
+            "x": 70,
+            "r": -28,
+            "l1": [
+              28,
+              28
+            ],
+            "a1": [
+              -10,
+              110
+            ],
+            "a2": [
+              -15,
+              -10
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zug-bizeps",
+      "titel": "Bizeps-Curl",
+      "ziele": [
+        "kraft"
+      ],
+      "muster": "zug",
+      "intensitaet": 2,
+      "einseitig": false,
+      "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe im Untergriff (Handflächen nach oben), Arme gestreckt etwa auf Schulterhöhe.",
+      "ablauf": [
+        "Körper gerade nach hinten lehnen.",
+        "Nur die Ellbogen beugen und die Hände Richtung Stirn ziehen.",
+        "Die Oberarme bleiben auf Schulterhöhe und bewegen sich nicht.",
+        "Langsam strecken."
+      ],
+      "achte_auf": "Ellbogen nicht absinken lassen, Rumpf bleibt fest.",
+      "warum": "Kräftigt die Armbeuger; die Ganzkörperspannung arbeitet mit.",
+      "stufen": [
+        {
+          "hinweis": "Füße hinter dem Ankerpunkt, Körper fast aufrecht.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Körper etwa 30° zurückgelehnt.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Füße unter dem Ankerpunkt, Körper etwa 45°.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "gurt": "zwei",
+        "posen": [
+          {
+            "b": -1,
+            "x": 70,
+            "r": -28,
+            "l1": [
+              28,
+              28
+            ],
+            "a1": "anker"
+          },
+          {
+            "b": -1,
+            "x": 70,
+            "r": -24,
+            "l1": [
+              24,
+              24
+            ],
+            "a1": [
+              "anker",
+              {
+                "rel": 135
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zug-face-pull",
+      "titel": "Face Pull",
+      "ziele": [
+        "haltung",
+        "kraft"
+      ],
+      "muster": "zug",
+      "intensitaet": 2,
+      "einseitig": false,
+      "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe im Obergriff (Handflächen nach unten), Arme gestreckt auf Schulterhöhe.",
+      "ablauf": [
+        "Körper leicht nach hinten lehnen.",
+        "Griffe Richtung Stirn ziehen, die Ellbogen gehen hoch und weit nach außen.",
+        "Am Ende die Hände nach oben drehen, bis sie neben den Ohren sind.",
+        "Kontrolliert zurück in die Streckung."
+      ],
+      "achte_auf": "Ellbogen bleiben auf Schulterhöhe, Nacken lang.",
+      "vorsicht": "Enthält Außenrotation der Schulter. Zuerst mit kleinem Bewegungsumfang und fast aufrechtem Körper testen.",
+      "warum": "Spricht die hintere Schulter und die Schulterblattmuskulatur an – ein Ausgleich zur nach vorn gezogenen Schulterhaltung am Schreibtisch.",
+      "stufen": [
+        {
+          "hinweis": "Füße hinter dem Ankerpunkt, Körper fast aufrecht.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Körper etwa 30° zurückgelehnt.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Füße unter dem Ankerpunkt, Körper etwa 45°.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        }
+      ],
+      "bild": {
+        "ansicht": "front",
+        "gurt": "zwei",
+        "anker_x": 0,
+        "posen": [
+          {
+            "al": [
+              [
+                160,
+                0.35
+              ],
+              [
+                160,
+                0.35
+              ]
+            ],
+            "ar": [
+              [
+                160,
+                0.35
+              ],
+              [
+                160,
+                0.35
+              ]
+            ]
+          },
+          {
+            "al": [
+              90,
+              175
+            ],
+            "ar": [
+              90,
+              175
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "schulter-y",
       "titel": "Y-Heben",
-      "ziele": ["haltung"],
+      "ziele": [
+        "haltung"
+      ],
       "muster": "schulter",
       "intensitaet": 1,
       "einseitig": false,
-      "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Arme gestreckt vor dem Körper.",
+      "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Arme gestreckt vor dem Körper, Handflächen zueinander.",
       "ablauf": [
         "Körper gerade, leicht zurückgelehnt.",
         "Arme gestreckt schräg nach oben ziehen, bis sie ein Y bilden.",
@@ -42,159 +329,1561 @@
       "achte_auf": "Nicht ins Hohlkreuz gehen; die Bewegung kommt aus den Schulterblättern.",
       "warum": "Spricht die untere Schulterblattmuskulatur an, die beim Sitzen am Bildschirm kaum gefordert wird.",
       "stufen": [
-        { "hinweis": "Fast aufrecht stehen.", "einheit": "wdh", "min": 6, "max": 10 },
-        { "hinweis": "Füße einen halben Schritt nach vorn, Körper weiter geneigt.", "einheit": "wdh", "min": 6, "max": 10 },
-        { "hinweis": "Füße unter dem Anker, deutlich geneigt.", "einheit": "wdh", "min": 6, "max": 10 }
-      ]
+        {
+          "hinweis": "Fast aufrecht stehen.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "Füße einen halben Schritt nach vorn, Körper weiter zurückgelehnt.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "Füße unter dem Ankerpunkt, deutlich zurückgelehnt.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        }
+      ],
+      "bild": {
+        "ansicht": "front",
+        "gurt": "zwei",
+        "anker_x": 0,
+        "posen": [
+          {
+            "al": [
+              [
+                160,
+                0.35
+              ],
+              [
+                160,
+                0.35
+              ]
+            ],
+            "ar": [
+              [
+                160,
+                0.35
+              ],
+              [
+                160,
+                0.35
+              ]
+            ]
+          },
+          {
+            "al": [
+              148,
+              148
+            ],
+            "ar": [
+              148,
+              148
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "schulter-t",
+      "titel": "T-Heben",
+      "ziele": [
+        "haltung",
+        "kraft"
+      ],
+      "muster": "schulter",
+      "intensitaet": 1,
+      "einseitig": false,
+      "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Arme gestreckt vor dem Körper, Handflächen zueinander.",
+      "ablauf": [
+        "Körper gerade, leicht zurückgelehnt.",
+        "Arme gestreckt seitlich öffnen, bis sie mit dem Körper ein T bilden.",
+        "Schulterblätter am Ende zusammenführen, langsam zurück."
+      ],
+      "achte_auf": "Arme bleiben fast gestreckt, Kopf in Verlängerung der Wirbelsäule.",
+      "warum": "Kräftigt die hintere Schulter und die Muskeln zwischen den Schulterblättern.",
+      "stufen": [
+        {
+          "hinweis": "Fast aufrecht stehen.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "Füße einen halben Schritt nach vorn, Körper weiter zurückgelehnt.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "Füße unter dem Ankerpunkt, deutlich zurückgelehnt.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        }
+      ],
+      "bild": {
+        "ansicht": "front",
+        "gurt": "zwei",
+        "anker_x": 0,
+        "posen": [
+          {
+            "al": [
+              [
+                160,
+                0.35
+              ],
+              [
+                160,
+                0.35
+              ]
+            ],
+            "ar": [
+              [
+                160,
+                0.35
+              ],
+              [
+                160,
+                0.35
+              ]
+            ]
+          },
+          {
+            "al": [
+              90,
+              90
+            ],
+            "ar": [
+              90,
+              90
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "schulter-w",
+      "titel": "W-Heben",
+      "ziele": [
+        "haltung"
+      ],
+      "muster": "schulter",
+      "intensitaet": 1,
+      "einseitig": false,
+      "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Arme gestreckt vor dem Körper.",
+      "ablauf": [
+        "Körper gerade, leicht zurückgelehnt.",
+        "Ellbogen beugen und nach unten-außen ziehen, die Hände gehen nach oben.",
+        "Am Ende bilden die Arme ein W, Schulterblätter nach hinten-unten.",
+        "Langsam zurück in die Streckung."
+      ],
+      "achte_auf": "Hände bleiben über den Ellbogen, Schultern weg von den Ohren.",
+      "vorsicht": "Enthält Außenrotation der Schulter. Zuerst fast aufrecht und mit kleinem Bewegungsumfang testen.",
+      "warum": "Verbindet Schulterblattarbeit mit Außenrotation – beides wird in der Sitzhaltung kaum gebraucht.",
+      "stufen": [
+        {
+          "hinweis": "Fast aufrecht stehen.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "Körper etwas weiter zurückgelehnt.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "Füße unter dem Ankerpunkt, deutlich zurückgelehnt.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        }
+      ],
+      "bild": {
+        "ansicht": "front",
+        "gurt": "zwei",
+        "anker_x": 0,
+        "posen": [
+          {
+            "al": [
+              [
+                160,
+                0.35
+              ],
+              [
+                160,
+                0.35
+              ]
+            ],
+            "ar": [
+              [
+                160,
+                0.35
+              ],
+              [
+                160,
+                0.35
+              ]
+            ]
+          },
+          {
+            "al": [
+              55,
+              165
+            ],
+            "ar": [
+              55,
+              165
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "schulter-blatt",
+      "titel": "Schulterblatt-Rudern",
+      "ziele": [
+        "haltung"
+      ],
+      "muster": "schulter",
+      "intensitaet": 1,
+      "einseitig": false,
+      "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Arme gestreckt, Körper zurückgelehnt.",
+      "ablauf": [
+        "Arme bleiben die ganze Zeit gestreckt.",
+        "Die Schulterblätter zusammen- und nach unten ziehen – der Körper hebt sich dabei ein kleines Stück.",
+        "Locker lassen, bis die Schulterblätter auseinandergleiten.",
+        "Kleine, ruhige Bewegung."
+      ],
+      "achte_auf": "Keine Armbewegung, kein Hochziehen der Schultern.",
+      "warum": "Übt die Bewegung der Schulterblätter isoliert – die Grundlage für jede Zugübung und eine aufrechte Schulterposition.",
+      "stufen": [
+        {
+          "hinweis": "Körper etwa 20° zurückgelehnt.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 15
+        },
+        {
+          "hinweis": "Körper etwa 35° zurückgelehnt.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 15
+        },
+        {
+          "hinweis": "Körper etwa 45°, am Ende zwei Sekunden halten.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "gurt": "zwei",
+        "posen": [
+          {
+            "b": -1,
+            "x": 70,
+            "r": -34,
+            "l1": [
+              34,
+              34
+            ],
+            "a1": "anker"
+          },
+          {
+            "b": -1,
+            "x": 70,
+            "r": -28,
+            "l1": [
+              28,
+              28
+            ],
+            "a1": "anker"
+          }
+        ]
+      }
     },
     {
       "id": "druck-brustpresse",
       "titel": "Brustpresse",
-      "ziele": ["kraft"],
+      "ziele": [
+        "kraft"
+      ],
       "muster": "druck",
       "intensitaet": 2,
       "einseitig": false,
-      "aufbau": "Gurte auf lange Länge. Rücken zum Anker, Griffe auf Brusthöhe.",
+      "aufbau": "Gurte auf lange Länge. Rücken zum Anker, Griffe auf Brusthöhe, Füße hüftbreit oder in Schrittstellung.",
       "ablauf": [
-        "Körper gerade nach vorn lehnen, Arme gestreckt.",
+        "Arme vor der Brust strecken und den Körper gerade nach vorn lehnen.",
         "Ellbogen beugen und die Brust zwischen die Griffe sinken lassen.",
         "Kräftig zurück in die Streckung drücken."
       ],
-      "achte_auf": "Rumpf fest, kein Durchhängen in der Hüfte; Gurte berühren die Arme nicht.",
-      "warum": "Kräftigt Brust, Schultern und Trizeps als Gegenspieler zur Zugbewegung.",
+      "achte_auf": "Rumpf fest, Hüfte hängt nicht durch; die Gurte reiben nicht an den Armen.",
+      "warum": "Kräftigt Brust, vordere Schulter und Trizeps – der Gegenspieler zu den Zugübungen.",
       "stufen": [
-        { "hinweis": "Füße nah am Anker, Körper fast aufrecht.", "einheit": "wdh", "min": 8, "max": 12 },
-        { "hinweis": "Füße einen Schritt weiter vor, stärker geneigt.", "einheit": "wdh", "min": 8, "max": 12 },
-        { "hinweis": "Füße weit vor dem Anker, stark geneigt.", "einheit": "wdh", "min": 8, "max": 12 }
-      ]
+        {
+          "hinweis": "Füße einen großen Schritt vor dem Ankerpunkt, Körper fast aufrecht.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Füße einen halben Schritt näher Richtung Ankerpunkt, Körper stärker geneigt.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Füße noch näher am Ankerpunkt, Körper deutlich geneigt.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Wie Stufe 3, in drei Sekunden absenken.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "gurt": "zwei",
+        "posen": [
+          {
+            "b": 1,
+            "x": 60,
+            "r": 32,
+            "l1": [
+              -32,
+              -32
+            ],
+            "a1": [
+              65,
+              65
+            ]
+          },
+          {
+            "b": 1,
+            "x": 60,
+            "r": 40,
+            "l1": [
+              -40,
+              -40
+            ],
+            "a1": [
+              -95,
+              75
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "druck-trizeps",
+      "titel": "Trizeps-Strecken",
+      "ziele": [
+        "kraft"
+      ],
+      "muster": "druck",
+      "intensitaet": 2,
+      "einseitig": false,
+      "aufbau": "Gurte auf lange Länge. Rücken zum Anker, Arme gestreckt nach vorn-oben, Griffe im Obergriff.",
+      "ablauf": [
+        "Körper gerade nach vorn lehnen.",
+        "Nur die Ellbogen beugen: Die Hände wandern zur Stirn, der Körper sinkt nach vorn.",
+        "Die Oberarme bleiben ruhig.",
+        "Arme strecken und den Körper zurückdrücken."
+      ],
+      "achte_auf": "Ellbogen zeigen nach vorn, nicht nach außen.",
+      "warum": "Kräftigt die Armstrecker, die bei allen Druckbewegungen mitarbeiten.",
+      "stufen": [
+        {
+          "hinweis": "Füße weit vor dem Ankerpunkt, Körper fast aufrecht.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Füße näher Richtung Ankerpunkt, stärker geneigt.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Füße nah am Ankerpunkt, deutlich geneigt.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "gurt": "zwei",
+        "posen": [
+          {
+            "b": 1,
+            "x": 60,
+            "r": 28,
+            "l1": [
+              -28,
+              -28
+            ],
+            "a1": [
+              135,
+              135
+            ]
+          },
+          {
+            "b": 1,
+            "x": 60,
+            "r": 38,
+            "l1": [
+              -38,
+              -38
+            ],
+            "a1": [
+              150,
+              {
+                "rel": 140
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "druck-einarmig",
+      "titel": "Einarmige Brustpresse",
+      "ziele": [
+        "kraft"
+      ],
+      "muster": "druck",
+      "intensitaet": 3,
+      "einseitig": true,
+      "aufbau": "Gurte auf lange Länge, Einhand-Modus. Rücken zum Anker, Griff in einer Hand auf Brusthöhe, Schrittstellung.",
+      "ablauf": [
+        "Arm vor der Brust strecken, Körper gerade nach vorn lehnen.",
+        "Ellbogen beugen und den Körper absinken lassen.",
+        "Zurückdrücken, ohne dass sich der Oberkörper zur Seite dreht."
+      ],
+      "achte_auf": "Schultern bleiben parallel zum Boden, Bauch fest.",
+      "warum": "Druckkraft plus Rumpfstabilität gegen die Drehung.",
+      "stufen": [
+        {
+          "hinweis": "Fast aufrecht, Füße weit vor dem Ankerpunkt.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "Füße näher Richtung Ankerpunkt.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "Deutlich geneigt.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "gurt": "arm1",
+        "posen": [
+          {
+            "b": 1,
+            "x": 60,
+            "r": 28,
+            "l1": [
+              -28,
+              -28
+            ],
+            "l2": [
+              -10,
+              -28
+            ],
+            "a1": [
+              62,
+              62
+            ],
+            "a2": [
+              10,
+              10
+            ]
+          },
+          {
+            "b": 1,
+            "x": 60,
+            "r": 36,
+            "l1": [
+              -36,
+              -36
+            ],
+            "l2": [
+              -18,
+              -36
+            ],
+            "a1": [
+              -95,
+              75
+            ],
+            "a2": [
+              10,
+              10
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "beine-kniebeuge",
       "titel": "Kniebeuge mit Halt",
-      "ziele": ["kraft"],
+      "ziele": [
+        "kraft"
+      ],
       "muster": "beine",
       "intensitaet": 2,
       "einseitig": false,
-      "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe vor der Brust, Füße hüftbreit.",
+      "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe vor der Brust, Füße hüftbreit oder etwas breiter.",
       "ablauf": [
         "Hüfte nach hinten schieben und in die Kniebeuge sinken.",
-        "Die Gurte nur so viel nutzen, wie zum Gleichgewicht nötig.",
-        "Über die Fersen zurück in den Stand drücken."
+        "Die Gurte nur so viel nutzen, wie für das Gleichgewicht nötig.",
+        "Über die ganze Fußsohle zurück in den Stand drücken."
       ],
-      "achte_auf": "Knie zeigen in Richtung der Fußspitzen.",
-      "warum": "Bewegt Hüft- und Kniegelenke durch den ganzen Bewegungsumfang und kräftigt Beine und Gesäß.",
+      "achte_auf": "Knie zeigen in Richtung der Fußspitzen, Fersen bleiben am Boden.",
+      "warum": "Bewegt Hüfte und Knie durch den ganzen Bewegungsumfang und kräftigt Beine und Gesäß.",
       "stufen": [
-        { "hinweis": "Mit deutlicher Unterstützung durch die Gurte.", "einheit": "wdh", "min": 10, "max": 15 },
-        { "hinweis": "Gurte nur leicht halten, tiefer gehen.", "einheit": "wdh", "min": 10, "max": 15 },
-        { "hinweis": "Unten zwei Sekunden halten, dann hoch.", "einheit": "wdh", "min": 8, "max": 12 }
-      ]
+        {
+          "hinweis": "Mit deutlicher Unterstützung durch die Gurte.",
+          "einheit": "wdh",
+          "min": 10,
+          "max": 15
+        },
+        {
+          "hinweis": "Gurte nur leicht halten, tiefer gehen.",
+          "einheit": "wdh",
+          "min": 10,
+          "max": 15
+        },
+        {
+          "hinweis": "Unten zwei Sekunden halten, dann hoch.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "gurt": "zwei",
+        "posen": [
+          {
+            "b": -1,
+            "x": 70,
+            "r": 3,
+            "a1": "anker"
+          },
+          {
+            "b": -1,
+            "x": 70,
+            "r": 38,
+            "l1": [
+              82,
+              -28
+            ],
+            "a1": "anker"
+          }
+        ]
+      }
     },
     {
       "id": "beine-ausfallschritt",
       "titel": "Ausfallschritt rückwärts",
-      "ziele": ["kraft"],
+      "ziele": [
+        "kraft"
+      ],
       "muster": "beine",
       "intensitaet": 2,
       "einseitig": true,
       "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe vor der Brust.",
       "ablauf": [
-        "Ein Bein großen Schritt nach hinten setzen.",
-        "Hinteres Knie Richtung Boden sinken lassen.",
+        "Ein Bein einen großen Schritt nach hinten setzen.",
+        "Das hintere Knie Richtung Boden sinken lassen.",
         "Über das vordere Bein zurück in den Stand."
       ],
-      "achte_auf": "Oberkörper bleibt aufrecht, vorderes Knie über dem Fuß.",
+      "achte_auf": "Oberkörper aufrecht, vorderes Knie bleibt über dem Fuß.",
       "warum": "Kräftigt Beine und Gesäß einseitig und fordert das Gleichgewicht.",
       "stufen": [
-        { "hinweis": "Mit Unterstützung durch die Gurte.", "einheit": "wdh", "min": 6, "max": 10 },
-        { "hinweis": "Gurte nur zur Balance.", "einheit": "wdh", "min": 6, "max": 10 },
-        { "hinweis": "Langsam absenken (drei Sekunden).", "einheit": "wdh", "min": 6, "max": 10 }
-      ]
+        {
+          "hinweis": "Mit Unterstützung durch die Gurte.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "Gurte nur zur Balance.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "In drei Sekunden absenken.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "gurt": "zwei",
+        "posen": [
+          {
+            "b": -1,
+            "x": 70,
+            "a1": "anker"
+          },
+          {
+            "b": -1,
+            "x": 70,
+            "r": 5,
+            "l1": [
+              75,
+              -5
+            ],
+            "l2": [
+              -18,
+              -78
+            ],
+            "z2": true,
+            "boden": 1,
+            "a1": "anker"
+          }
+        ]
+      }
+    },
+    {
+      "id": "beine-einbeinig",
+      "titel": "Einbeinige Kniebeuge",
+      "ziele": [
+        "kraft"
+      ],
+      "muster": "beine",
+      "intensitaet": 3,
+      "einseitig": true,
+      "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe vor der Brust, ein Bein leicht nach vorn angehoben.",
+      "ablauf": [
+        "Auf einem Bein stehen, das andere Bein gestreckt nach vorn halten.",
+        "Hüfte nach hinten schieben und so tief sinken, wie es kontrolliert geht.",
+        "Mit Hilfe der Gurte zurück in den Stand."
+      ],
+      "achte_auf": "Standknie bleibt über dem Fuß und knickt nicht nach innen.",
+      "warum": "Hoher Kraftreiz für Beine und Gesäß ohne Zusatzgewicht, dazu Gleichgewichtsarbeit.",
+      "stufen": [
+        {
+          "hinweis": "Viel Unterstützung durch die Arme, nur halbe Tiefe.",
+          "einheit": "wdh",
+          "min": 5,
+          "max": 8
+        },
+        {
+          "hinweis": "Weniger Zug an den Armen, tiefer.",
+          "einheit": "wdh",
+          "min": 5,
+          "max": 8
+        },
+        {
+          "hinweis": "Arme nur zur Balance, volle Tiefe.",
+          "einheit": "wdh",
+          "min": 5,
+          "max": 8
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "gurt": "zwei",
+        "posen": [
+          {
+            "b": -1,
+            "x": 70,
+            "r": 5,
+            "l2": [
+              30,
+              30
+            ],
+            "boden": 1,
+            "a1": "anker"
+          },
+          {
+            "b": -1,
+            "x": 70,
+            "r": 40,
+            "l1": [
+              85,
+              -30
+            ],
+            "l2": [
+              85,
+              85
+            ],
+            "boden": 1,
+            "a1": "anker"
+          }
+        ]
+      }
+    },
+    {
+      "id": "beine-seitlich",
+      "titel": "Seitlicher Ausfallschritt",
+      "ziele": [
+        "kraft",
+        "mobilitaet"
+      ],
+      "muster": "beine",
+      "intensitaet": 2,
+      "einseitig": true,
+      "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe vor der Brust, breiter Stand.",
+      "ablauf": [
+        "Gewicht auf ein Bein verlagern und in dieses Knie sinken, Hüfte nach hinten.",
+        "Das andere Bein bleibt gestreckt, beide Füße zeigen nach vorn.",
+        "Zurück in die Mitte drücken."
+      ],
+      "achte_auf": "Ferse des gebeugten Beins bleibt am Boden.",
+      "warum": "Kräftigt Beine und Gesäß in seitlicher Richtung und dehnt die Innenseite des gestreckten Beins.",
+      "stufen": [
+        {
+          "hinweis": "Mit Unterstützung, halbe Tiefe.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "Gurte nur zur Balance, tiefer.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "Unten zwei Sekunden halten.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        }
+      ],
+      "bild": {
+        "ansicht": "front",
+        "gurt": "zwei",
+        "anker_x": 0,
+        "posen": [
+          {
+            "ll": [
+              16,
+              16
+            ],
+            "lr": [
+              16,
+              16
+            ],
+            "al": [
+              [
+                160,
+                0.4
+              ],
+              [
+                160,
+                0.4
+              ]
+            ],
+            "ar": [
+              [
+                160,
+                0.4
+              ],
+              [
+                160,
+                0.4
+              ]
+            ]
+          },
+          {
+            "x": 22,
+            "ll": [
+              52,
+              52
+            ],
+            "lr": [
+              [
+                25,
+                0.75
+              ],
+              [
+                -12,
+                0.85
+              ]
+            ],
+            "al": [
+              [
+                160,
+                0.4
+              ],
+              [
+                160,
+                0.4
+              ]
+            ],
+            "ar": [
+              [
+                160,
+                0.4
+              ],
+              [
+                160,
+                0.4
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "beine-kreuzheben",
+      "titel": "Einbeiniges Kreuzheben",
+      "ziele": [
+        "kraft",
+        "haltung"
+      ],
+      "muster": "beine",
+      "intensitaet": 2,
+      "einseitig": true,
+      "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe in den Händen, Arme gestreckt.",
+      "ablauf": [
+        "Auf einem Bein stehen, Knie leicht gebeugt.",
+        "Oberkörper nach vorn neigen, das freie Bein gestreckt nach hinten heben.",
+        "Rücken bleibt lang, Becken bleibt gerade.",
+        "Über das Gesäß zurück in den Stand."
+      ],
+      "achte_auf": "Becken nicht aufdrehen – die Hüfte des freien Beins zeigt zum Boden.",
+      "warum": "Kräftigt Gesäß und Beinrückseite und schult das Gleichgewicht.",
+      "stufen": [
+        {
+          "hinweis": "Mit viel Halt an den Gurten, kleine Neigung.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "Weniger Halt, Oberkörper bis fast waagerecht.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "Gurte nur antippen, langsam absenken.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "gurt": "zwei",
+        "posen": [
+          {
+            "b": -1,
+            "x": 70,
+            "r": 0,
+            "l2": [
+              -8,
+              -8
+            ],
+            "boden": 1,
+            "a1": "anker"
+          },
+          {
+            "b": -1,
+            "x": 70,
+            "r": 75,
+            "l1": [
+              6,
+              6
+            ],
+            "l2": [
+              -100,
+              -100
+            ],
+            "boden": 1,
+            "a1": "anker"
+          }
+        ]
+      }
+    },
+    {
+      "id": "beine-sprung",
+      "titel": "Sprung-Kniebeuge",
+      "ziele": [
+        "kraft"
+      ],
+      "muster": "beine",
+      "intensitaet": 3,
+      "einseitig": false,
+      "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe vor der Brust.",
+      "ablauf": [
+        "In die Kniebeuge sinken.",
+        "Explosiv strecken und abspringen, die Gurte helfen mit.",
+        "Weich landen und direkt in die nächste Kniebeuge."
+      ],
+      "achte_auf": "Leise landen, Knie über den Füßen.",
+      "warum": "Schnellkraft und ein kurzer Kreislaufreiz.",
+      "stufen": [
+        {
+          "hinweis": "Ohne Sprung: explosiv strecken bis auf die Zehenspitzen.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Kleiner Sprung mit Unterstützung durch die Gurte.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Voller Sprung, Gurte nur zur Balance.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "gurt": "zwei",
+        "posen": [
+          {
+            "b": -1,
+            "x": 70,
+            "r": 38,
+            "l1": [
+              82,
+              -28
+            ],
+            "a1": "anker"
+          },
+          {
+            "b": -1,
+            "x": 70,
+            "r": 0,
+            "l1": [
+              0,
+              0
+            ],
+            "z1": true,
+            "hoch": 12,
+            "a1": "anker"
+          }
+        ]
+      }
+    },
+    {
+      "id": "beine-wade",
+      "titel": "Wadenheben",
+      "ziele": [
+        "kraft"
+      ],
+      "muster": "beine",
+      "intensitaet": 1,
+      "einseitig": false,
+      "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe locker in den Händen, Füße hüftbreit.",
+      "ablauf": [
+        "Auf die Zehenspitzen hochdrücken.",
+        "Oben kurz halten.",
+        "Langsam absenken."
+      ],
+      "achte_auf": "Gewicht über dem Großzeh, Knöchel kippen nicht nach außen.",
+      "warum": "Die Wadenmuskulatur unterstützt den Rückfluss des Blutes aus den Beinen – nach langem Sitzen ein spürbarer Unterschied.",
+      "stufen": [
+        {
+          "hinweis": "Beidbeinig.",
+          "einheit": "wdh",
+          "min": 12,
+          "max": 20
+        },
+        {
+          "hinweis": "Beidbeinig, oben zwei Sekunden halten.",
+          "einheit": "wdh",
+          "min": 10,
+          "max": 15
+        },
+        {
+          "hinweis": "Einbeinig, Gurte zur Balance – Angabe je Seite.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "gurt": "zwei",
+        "posen": [
+          {
+            "b": -1,
+            "x": 70,
+            "r": -4,
+            "l1": [
+              4,
+              4
+            ],
+            "a1": "anker"
+          },
+          {
+            "b": -1,
+            "x": 70,
+            "r": -4,
+            "l1": [
+              4,
+              4
+            ],
+            "z1": true,
+            "a1": "anker"
+          }
+        ]
+      }
     },
     {
       "id": "rumpf-fallout",
-      "titel": "Rumpf-Fallout im Stand",
-      "ziele": ["kraft", "haltung"],
+      "titel": "Rumpf-Fallout",
+      "ziele": [
+        "kraft",
+        "haltung"
+      ],
       "muster": "rumpf",
       "intensitaet": 2,
       "einseitig": false,
-      "aufbau": "Gurte auf lange Länge. Rücken zum Anker, Arme gestreckt vor dem Körper.",
+      "aufbau": "Gurte auf lange Länge. Rücken zum Anker, Arme gestreckt vor dem Körper auf Brusthöhe.",
       "ablauf": [
         "Körper als Brett nach vorn lehnen.",
-        "Arme gestreckt nach oben-vorn führen, Körper sinkt dabei mit.",
-        "Mit festem Bauch zurück in die Ausgangsposition."
+        "Arme gestreckt nach vorn-oben führen, der Körper sinkt dabei mit.",
+        "Mit festem Bauch zurück in die Ausgangsposition ziehen."
       ],
       "achte_auf": "Kein Hohlkreuz. Nur so weit gehen, wie der Rücken neutral bleibt.",
       "warum": "Fordert die vordere Rumpfmuskulatur, die die Wirbelsäule stabil hält.",
       "stufen": [
-        { "hinweis": "Fast aufrecht, kleine Bewegung.", "einheit": "wdh", "min": 6, "max": 10 },
-        { "hinweis": "Stärker geneigt.", "einheit": "wdh", "min": 6, "max": 10 },
-        { "hinweis": "Stark geneigt, Arme bis über den Kopf.", "einheit": "wdh", "min": 6, "max": 10 }
-      ]
+        {
+          "hinweis": "Füße weit vor dem Ankerpunkt, fast aufrecht, kleine Bewegung.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "Füße näher Richtung Ankerpunkt, stärker geneigt.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "Füße nah am Ankerpunkt, Arme bis über den Kopf.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "gurt": "zwei",
+        "posen": [
+          {
+            "b": 1,
+            "x": 60,
+            "r": 25,
+            "l1": [
+              -25,
+              -25
+            ],
+            "a1": [
+              80,
+              80
+            ]
+          },
+          {
+            "b": 1,
+            "x": 60,
+            "r": 45,
+            "l1": [
+              -45,
+              -45
+            ],
+            "a1": [
+              165,
+              165
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "rumpf-pallof",
+      "titel": "Anti-Rotations-Presse",
+      "ziele": [
+        "kraft",
+        "haltung"
+      ],
+      "muster": "rumpf",
+      "intensitaet": 1,
+      "einseitig": true,
+      "aufbau": "Gurte auf mittlere Länge, Einhand-Modus. Seitlich zum Anker, beide Hände am Griff vor der Brust, Füße schulterbreit.",
+      "ablauf": [
+        "Einen kleinen Schritt seitlich weg vom Anker, bis der Gurt spannt.",
+        "Arme langsam gerade nach vorn strecken – der Gurt will dich zum Anker drehen.",
+        "Zwei Sekunden halten, Hände zurück zur Brust."
+      ],
+      "achte_auf": "Becken und Schultern zeigen die ganze Zeit nach vorn.",
+      "warum": "Trainiert die Rumpfmuskulatur darin, einer Drehung standzuhalten – wichtig für eine stabile Wirbelsäule im Alltag.",
+      "stufen": [
+        {
+          "hinweis": "Füße nah unter dem Anker, wenig Zug.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "Einen Schritt weiter weg vom Anker.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "Weiter weg, Arme vorn drei Sekunden halten.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        }
+      ],
+      "bild": {
+        "ansicht": "front",
+        "gurt": "einer",
+        "anker_x": -90,
+        "posen": [
+          {
+            "x": 15,
+            "al": [
+              12,
+              -88
+            ],
+            "ar": [
+              12,
+              -88
+            ]
+          },
+          {
+            "x": 15,
+            "al": [
+              [
+                -8,
+                0.55
+              ],
+              [
+                -8,
+                0.45
+              ]
+            ],
+            "ar": [
+              [
+                -8,
+                0.55
+              ],
+              [
+                -8,
+                0.45
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "rumpf-hip-drop",
+      "titel": "Seitliches Hüftsenken",
+      "ziele": [
+        "kraft",
+        "haltung"
+      ],
+      "muster": "rumpf",
+      "intensitaet": 2,
+      "einseitig": true,
+      "aufbau": "Gurte auf mittlere Länge, Einhand-Modus. Seitlich zum Anker, Griff mit beiden Händen über dem Kopf, Füße zusammen.",
+      "ablauf": [
+        "Füße ein Stück Richtung Anker setzen, sodass der Körper als Linie seitlich vom Anker weg hängt.",
+        "Die Hüfte langsam Richtung Anker absinken lassen.",
+        "Die Hüfte mit der seitlichen Rumpfmuskulatur wieder nach außen drücken, bis der Körper gerade ist."
+      ],
+      "achte_auf": "Körper bleibt in einer Ebene, nicht nach vorn oder hinten abknicken.",
+      "warum": "Kräftigt die seitliche Rumpfmuskulatur, ohne dass du dich auf den Boden legen musst.",
+      "stufen": [
+        {
+          "hinweis": "Füße nur wenig Richtung Anker, kleine Neigung.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "Füße weiter Richtung Anker, stärkere Neigung.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "Starke Neigung, oben zwei Sekunden halten.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        }
+      ],
+      "bild": {
+        "ansicht": "front",
+        "gurt": "einer",
+        "anker_x": -95,
+        "posen": [
+          {
+            "x": 10,
+            "n": 14,
+            "ll": [
+              14,
+              14
+            ],
+            "lr": [
+              -14,
+              -14
+            ],
+            "griff": [
+              -30,
+              50
+            ]
+          },
+          {
+            "x": -6,
+            "n": 28,
+            "ll": [
+              4,
+              4
+            ],
+            "lr": [
+              -4,
+              -4
+            ],
+            "griff": [
+              -34,
+              46
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mob-rotation",
+      "titel": "Rotation im Stand",
+      "ziele": [
+        "mobilitaet",
+        "haltung"
+      ],
+      "muster": "wirbelsaeule",
+      "intensitaet": 1,
+      "einseitig": true,
+      "aufbau": "Gurte auf mittlere Länge, Einhand-Modus. Seitlich zum Anker, beide Hände am Griff, Arme gestreckt Richtung Anker.",
+      "ablauf": [
+        "Oberkörper vom Anker weg drehen, der Blick folgt den Händen.",
+        "Die Hüfte bleibt nach vorn ausgerichtet.",
+        "Langsam zurück zum Anker."
+      ],
+      "achte_auf": "Die Drehung kommt aus der Brustwirbelsäule, nicht aus dem unteren Rücken.",
+      "warum": "Mobilisiert die Brustwirbelsäule, die beim Sitzen kaum Drehbewegung bekommt.",
+      "stufen": [
+        {
+          "hinweis": "Kleiner Bewegungsumfang, wenig Zug am Gurt.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        },
+        {
+          "hinweis": "Voller Bewegungsumfang, am Ende eine Sekunde halten.",
+          "einheit": "wdh",
+          "min": 6,
+          "max": 10
+        }
+      ],
+      "bild": {
+        "ansicht": "front",
+        "gurt": "einer",
+        "anker_x": -90,
+        "posen": [
+          {
+            "x": 10,
+            "griff": [
+              -55,
+              18
+            ]
+          },
+          {
+            "x": 10,
+            "al": [
+              -75,
+              -85
+            ],
+            "ar": [
+              80,
+              85
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mob-lat",
+      "titel": "Überkopf-Dehnung",
+      "ziele": [
+        "mobilitaet",
+        "haltung"
+      ],
+      "muster": "schulter",
+      "intensitaet": 1,
+      "einseitig": false,
+      "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe hoch, Arme gestreckt.",
+      "ablauf": [
+        "Hüfte nach hinten schieben, die Arme bleiben gestreckt über dem Kopf.",
+        "Brust Richtung Boden sinken lassen, bis an den Seiten des Rumpfs eine Dehnung entsteht.",
+        "Ruhig atmen und halten."
+      ],
+      "achte_auf": "Knie dürfen leicht gebeugt sein, Rücken bleibt lang.",
+      "warum": "Dehnt den breiten Rückenmuskel und öffnet die Brustwirbelsäule nach langem Sitzen in Beugehaltung.",
+      "stufen": [
+        {
+          "hinweis": "Kleine Neigung, Knie gebeugt.",
+          "einheit": "sek",
+          "min": 20,
+          "max": 40
+        },
+        {
+          "hinweis": "Oberkörper fast waagerecht.",
+          "einheit": "sek",
+          "min": 20,
+          "max": 40
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "gurt": "zwei",
+        "posen": [
+          {
+            "b": -1,
+            "x": 80,
+            "r": 0,
+            "a1": "anker"
+          },
+          {
+            "b": -1,
+            "x": 80,
+            "r": 78,
+            "l1": [
+              18,
+              8
+            ],
+            "a1": "anker"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mob-seitneigung",
+      "titel": "Seitneigung mit Halt",
+      "ziele": [
+        "mobilitaet"
+      ],
+      "muster": "wirbelsaeule",
+      "intensitaet": 1,
+      "einseitig": true,
+      "aufbau": "Gurte auf mittlere Länge, Einhand-Modus. Seitlich zum Anker, beide Hände am Griff über dem Kopf.",
+      "ablauf": [
+        "Die Hüfte seitlich vom Anker weg schieben.",
+        "Der Körper bildet einen Bogen, die Dehnung entsteht an der ankerfernen Seite.",
+        "Ruhig atmen und halten."
+      ],
+      "achte_auf": "Nicht nach vorn einknicken, Brust bleibt offen.",
+      "warum": "Dehnt die seitliche Rumpf- und Hüftmuskulatur, die im Sitzen dauerhaft verkürzt bleibt.",
+      "stufen": [
+        {
+          "hinweis": "Kleiner Bogen.",
+          "einheit": "sek",
+          "min": 20,
+          "max": 40
+        },
+        {
+          "hinweis": "Füße überkreuzt, großer Bogen.",
+          "einheit": "sek",
+          "min": 20,
+          "max": 40
+        }
+      ],
+      "bild": {
+        "ansicht": "front",
+        "gurt": "einer",
+        "anker_x": -90,
+        "posen": [
+          {
+            "x": 5,
+            "griff": [
+              -8,
+              62
+            ]
+          },
+          {
+            "x": 25,
+            "n": -18,
+            "ll": [
+              24,
+              24
+            ],
+            "lr": [
+              -20,
+              -20
+            ],
+            "griff": [
+              -30,
+              55
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mob-brustdehnung",
       "titel": "Brustöffner",
-      "ziele": ["mobilitaet", "haltung"],
+      "ziele": [
+        "mobilitaet",
+        "haltung"
+      ],
       "muster": "schulter",
       "intensitaet": 1,
       "einseitig": false,
-      "aufbau": "Gurte auf mittlere Länge. Rücken zum Anker, Arme seitlich in T-Position.",
+      "aufbau": "Gurte auf mittlere Länge. Rücken zum Anker, Arme seitlich etwa auf Schulterhöhe.",
       "ablauf": [
-        "Einen kleinen Schritt nach vorn gehen.",
+        "Einen Schritt nach vorn gehen.",
         "Die Arme hinter dem Körper lassen, bis vorn in der Brust eine Dehnung entsteht.",
         "Ruhig weiteratmen und halten."
       ],
-      "achte_auf": "Nur angenehme Dehnung, kein Ziehen in den Schultergelenken.",
+      "achte_auf": "Nur angenehme Dehnung, kein Ziehen im Schultergelenk.",
       "warum": "Öffnet die Brustmuskulatur, die sich bei vorgebeugter Sitzhaltung verkürzt anfühlen kann.",
       "stufen": [
-        { "hinweis": "Kleiner Schritt nach vorn.", "einheit": "sek", "min": 20, "max": 40 },
-        { "hinweis": "Großer Schritt nach vorn, Arme etwas höher.", "einheit": "sek", "min": 20, "max": 40 }
-      ]
+        {
+          "hinweis": "Kleiner Schritt nach vorn.",
+          "einheit": "sek",
+          "min": 20,
+          "max": 40
+        },
+        {
+          "hinweis": "Großer Schritt nach vorn, Arme etwas höher.",
+          "einheit": "sek",
+          "min": 20,
+          "max": 40
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "gurt": "zwei",
+        "posen": [
+          {
+            "b": 1,
+            "x": 55,
+            "r": 0,
+            "a1": "anker"
+          },
+          {
+            "b": 1,
+            "x": 80,
+            "r": 12,
+            "l1": [
+              22,
+              -5
+            ],
+            "l2": [
+              -22,
+              -22
+            ],
+            "a1": "anker"
+          }
+        ]
+      }
     },
     {
       "id": "mob-hueftbeuger",
       "titel": "Hüftbeuger-Dehnung",
-      "ziele": ["mobilitaet"],
+      "ziele": [
+        "mobilitaet"
+      ],
       "muster": "huefte",
       "intensitaet": 1,
       "einseitig": true,
       "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe für die Balance.",
       "ablauf": [
-        "Großer Schritt nach hinten in eine tiefe Schrittstellung.",
+        "Einen großen Schritt nach hinten in eine tiefe Schrittstellung.",
         "Becken leicht nach vorn schieben, Gesäß des hinteren Beins anspannen.",
         "Dehnung vorn an der Hüfte halten."
       ],
       "achte_auf": "Oberkörper aufrecht, nicht ins Hohlkreuz fallen.",
       "warum": "Langes Sitzen hält die Hüftbeuger in verkürzter Stellung; die Dehnung bewegt sie in die Gegenrichtung.",
       "stufen": [
-        { "hinweis": "Hinteres Knie leicht gebeugt.", "einheit": "sek", "min": 20, "max": 40 },
-        { "hinweis": "Tiefer, Arm der hinteren Seite nach oben strecken.", "einheit": "sek", "min": 20, "max": 40 }
-      ]
-    },
-    {
-      "id": "mob-rotation",
-      "titel": "Rotation im Stand",
-      "ziele": ["mobilitaet", "haltung"],
-      "muster": "wirbelsaeule",
-      "intensitaet": 1,
-      "einseitig": true,
-      "aufbau": "Gurte zusammen in eine Hand (Einhand-Modus). Seitlich zum Anker stehen.",
-      "ablauf": [
-        "Griff mit beiden Händen vor der Brust, Arme gestreckt.",
-        "Oberkörper vom Anker weg drehen, Blick folgt den Händen.",
-        "Langsam zurück, Hüfte bleibt nach vorn ausgerichtet."
+        {
+          "hinweis": "Hinteres Knie leicht gebeugt.",
+          "einheit": "sek",
+          "min": 20,
+          "max": 40
+        },
+        {
+          "hinweis": "Tiefer, Arm der hinteren Seite nach oben strecken.",
+          "einheit": "sek",
+          "min": 20,
+          "max": 40
+        }
       ],
-      "achte_auf": "Drehung aus der Brustwirbelsäule, nicht aus dem unteren Rücken.",
-      "warum": "Mobilisiert die Brustwirbelsäule, die beim Sitzen wenig Drehbewegung bekommt.",
-      "stufen": [
-        { "hinweis": "Kleiner Bewegungsumfang.", "einheit": "wdh", "min": 6, "max": 10 },
-        { "hinweis": "Voller Bewegungsumfang, am Ende eine Sekunde halten.", "einheit": "wdh", "min": 6, "max": 10 }
-      ]
+      "bild": {
+        "ansicht": "seite",
+        "gurt": "zwei",
+        "posen": [
+          {
+            "b": -1,
+            "x": 70,
+            "a1": "anker"
+          },
+          {
+            "b": -1,
+            "x": 70,
+            "r": -6,
+            "l1": [
+              55,
+              -5
+            ],
+            "l2": [
+              -38,
+              -38
+            ],
+            "z2": true,
+            "boden": 1,
+            "a1": "anker"
+          }
+        ]
+      }
     },
     {
       "id": "mob-tiefe-hocke",
       "titel": "Tiefe Hocke mit Halt",
-      "ziele": ["mobilitaet"],
+      "ziele": [
+        "mobilitaet"
+      ],
       "muster": "huefte",
       "intensitaet": 1,
       "einseitig": false,
@@ -202,14 +1891,183 @@
       "ablauf": [
         "Füße etwas breiter als hüftbreit.",
         "Mit Halt an den Gurten so tief wie angenehm in die Hocke sinken.",
-        "Unten ruhig atmen, Knie sanft nach außen drücken."
+        "Unten ruhig atmen, die Knie sanft nach außen drücken."
       ],
       "achte_auf": "Fersen am Boden lassen, wenn möglich.",
       "warum": "Bewegt Hüfte, Knie und Sprunggelenke in einen Umfang, der im Büroalltag selten vorkommt.",
       "stufen": [
-        { "hinweis": "Mit viel Halt an den Gurten.", "einheit": "sek", "min": 20, "max": 40 },
-        { "hinweis": "Mit wenig Halt, Oberkörper aufrichten.", "einheit": "sek", "min": 20, "max": 40 }
-      ]
+        {
+          "hinweis": "Mit viel Halt an den Gurten.",
+          "einheit": "sek",
+          "min": 20,
+          "max": 40
+        },
+        {
+          "hinweis": "Mit wenig Halt, Oberkörper aufrichten.",
+          "einheit": "sek",
+          "min": 20,
+          "max": 40
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "gurt": "zwei",
+        "posen": [
+          {
+            "b": -1,
+            "x": 70,
+            "a1": "anker"
+          },
+          {
+            "b": -1,
+            "x": 70,
+            "r": 20,
+            "l1": [
+              100,
+              -45
+            ],
+            "a1": "anker"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mob-beinrueckseite",
+      "titel": "Dehnung Beinrückseite",
+      "ziele": [
+        "mobilitaet"
+      ],
+      "muster": "huefte",
+      "intensitaet": 1,
+      "einseitig": true,
+      "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe in den Händen.",
+      "ablauf": [
+        "Einen Fuß eine halbe Schrittlänge nach vorn setzen, Ferse am Boden, Fußspitze hoch.",
+        "Hüfte nach hinten schieben, hinteres Knie leicht beugen.",
+        "Mit langem Rücken nach vorn neigen, bis hinten im vorderen Bein eine Dehnung entsteht."
+      ],
+      "achte_auf": "Rücken bleibt gerade – die Bewegung kommt aus der Hüfte.",
+      "warum": "Dehnt die Beinrückseite, die im Sitzen dauerhaft in verkürzter Position bleibt.",
+      "stufen": [
+        {
+          "hinweis": "Kleine Neigung.",
+          "einheit": "sek",
+          "min": 20,
+          "max": 40
+        },
+        {
+          "hinweis": "Stärkere Neigung, Fußspitze aktiv hochziehen.",
+          "einheit": "sek",
+          "min": 20,
+          "max": 40
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "gurt": "zwei",
+        "posen": [
+          {
+            "b": -1,
+            "x": 55,
+            "r": 0,
+            "l1": [
+              22,
+              22
+            ],
+            "f1": true,
+            "l2": [
+              -4,
+              -4
+            ],
+            "a1": "anker"
+          },
+          {
+            "b": -1,
+            "x": 55,
+            "r": 55,
+            "l1": [
+              32,
+              32
+            ],
+            "f1": true,
+            "l2": [
+              12,
+              -18
+            ],
+            "a1": "anker"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mob-gesaess",
+      "titel": "Gesäß-Dehnung",
+      "ziele": [
+        "mobilitaet"
+      ],
+      "muster": "huefte",
+      "intensitaet": 1,
+      "einseitig": true,
+      "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe in den Händen.",
+      "ablauf": [
+        "Den Knöchel eines Beins oberhalb des anderen Knies ablegen (Figur 4).",
+        "Mit Halt an den Gurten auf dem Standbein nach hinten-unten sinken, wie auf einen Stuhl.",
+        "Dehnung im Gesäß des aufgelegten Beins halten."
+      ],
+      "achte_auf": "Rücken lang, das aufgelegte Knie sinkt locker nach außen.",
+      "warum": "Dehnt die Gesäß- und Hüftaußenmuskulatur, die beim Sitzen wenig Bewegung bekommt.",
+      "stufen": [
+        {
+          "hinweis": "Nur leicht absinken.",
+          "einheit": "sek",
+          "min": 20,
+          "max": 40
+        },
+        {
+          "hinweis": "Tiefer sinken, Oberkörper leicht nach vorn.",
+          "einheit": "sek",
+          "min": 20,
+          "max": 40
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "gurt": "zwei",
+        "posen": [
+          {
+            "b": -1,
+            "x": 70,
+            "r": 5,
+            "l2": [
+              62,
+              [
+                100,
+                0.35
+              ]
+            ],
+            "boden": 1,
+            "a1": "anker"
+          },
+          {
+            "b": -1,
+            "x": 70,
+            "r": 35,
+            "l1": [
+              78,
+              -22
+            ],
+            "l2": [
+              95,
+              [
+                95,
+                0.35
+              ]
+            ],
+            "boden": 1,
+            "a1": "anker"
+          }
+        ]
+      }
     }
   ]
 }

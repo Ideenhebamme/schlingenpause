@@ -7,7 +7,21 @@ import { laden, speichern, leererZustand, alsBackupText, ausBackupText, speicher
 import { h, knopf } from './ui/dom.js';
 import { tonVorbereiten, piep, piepEnde, wachHalten } from './ui/geraet.js';
 
-const VERSION = '0.1.0';
+const VERSION = '0.2.0';
+
+function piktogramm(u) {
+  if (!u.bild) return null;
+  return h('img', {
+    class: 'piktogramm',
+    src: `${import.meta.env.BASE_URL}bilder/${u.id}.svg`,
+    alt: `Piktogramm ${u.titel}: links Startposition, rechts Endposition`,
+    width: '464', height: '256', loading: 'lazy', decoding: 'async',
+  });
+}
+
+function vorsichtHinweis(u) {
+  return u.vorsicht ? h('div', { class: 'vorsicht' }, h('p', { class: 'label' }, 'Vorsichtig testen'), h('p', {}, u.vorsicht)) : null;
+}
 
 const pruefung = pruefeBibliothek(bibliothek);
 if (!pruefung.ok) console.error('Übungsbibliothek fehlerhaft:', pruefung.fehler);
@@ -297,6 +311,8 @@ function zeigeSchritt() {
       h('h1', { class: 'titel-gross' }, u.titel),
       h('p', { class: 'vorgabe' }, formatVorgabe(eintrag.einheit, eintrag.ziel, u.einseitig)),
       h('p', { class: 'stufe' }, `Stufe ${eintrag.stufeIndex + 1} von ${eintrag.anzahlStufen}`),
+      piktogramm(u),
+      vorsichtHinweis(u),
 
       h('div', { class: 'position' },
         h('p', { class: 'label' }, 'Position'),
@@ -463,6 +479,8 @@ function zeigeDetail(u) {
     h('section', { class: 'seite' },
       h('p', { class: 'leise' }, `${MUSTER[u.muster]} · ${u.ziele.map((k) => ZIELE[k].name).join(', ')}`),
       h('h1', { class: 'titel-gross' }, u.titel),
+      piktogramm(u),
+      vorsichtHinweis(u),
       h('div', { class: 'block' }, h('p', { class: 'label' }, 'Aufbau'), h('p', {}, u.aufbau)),
       h('div', { class: 'block' }, h('p', { class: 'label' }, 'Ablauf'), h('ol', { class: 'ablauf' }, u.ablauf.map((s) => h('li', {}, s)))),
       h('div', { class: 'block' }, h('p', { class: 'label' }, 'Achte auf'), h('p', {}, u.achte_auf)),

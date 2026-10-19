@@ -394,3 +394,23 @@ button:focus-visible, summary:focus-visible, input:focus-visible {
 .verlauf-uebungen { font-size: 13px; color: var(--leise); }
 
 .version { margin-top: 32px; }
+
+/* ---------- Piktogramm & Vorsicht ---------- */
+
+.piktogramm {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 16px;
+  padding: 10px 8px 6px;
+  background: var(--flaeche);
+  border-radius: var(--radius);
+}
+.vorsicht {
+  margin-top: 14px;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  background: #F3EEDF;
+  border-left: 4px solid var(--gold);
+  font-size: 15px;
+}
