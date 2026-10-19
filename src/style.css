@@ -414,3 +414,27 @@ button:focus-visible, summary:focus-visible, input:focus-visible {
   border-left: 4px solid var(--gold);
   font-size: 15px;
 }
+
+/* ---------- Gurtlänge ---------- */
+
+.gurt-pill {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  vertical-align: 2px;
+  background: #ECE8DC;
+  color: var(--leise);
+}
+.gurt-pill.gurt-lang { background: #E4EAD6; color: #4E6128; }
+.gurt-hinweis {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #ECE8DC;
+  font-size: 15px;
+  font-weight: 600;
+}
+.gurt-hinweis.gurt-wechsel { background: var(--gruen); color: #fff; }

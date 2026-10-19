@@ -4,6 +4,7 @@
 export const ZIELE = ['kraft', 'haltung', 'mobilitaet'];
 export const MUSTER = ['zug', 'druck', 'beine', 'rumpf', 'schulter', 'huefte', 'wirbelsaeule'];
 export const EINHEITEN = ['wdh', 'sek'];
+export const GURTLAENGEN = ['kurz', 'mittel', 'lang'];
 
 const istText = (v) => typeof v === 'string' && v.trim().length > 0;
 const istZahl = (v) => Number.isInteger(v) && v > 0;
@@ -34,6 +35,7 @@ export function pruefeBibliothek(daten) {
     if (!MUSTER.includes(u.muster)) fehler.push(`${p} muster ungültig: ${u.muster}`);
     if (![1, 2, 3].includes(u.intensitaet)) fehler.push(`${p} intensitaet muss 1–3 sein`);
     if (typeof u.einseitig !== 'boolean') fehler.push(`${p} einseitig muss true/false sein`);
+    if (!GURTLAENGEN.includes(u.gurt)) fehler.push(`${p} gurt muss kurz/mittel/lang sein`);
     if (!Array.isArray(u.ablauf) || u.ablauf.length === 0 || !u.ablauf.every(istText)) {
       fehler.push(`${p} ablauf ungültig`);
     }

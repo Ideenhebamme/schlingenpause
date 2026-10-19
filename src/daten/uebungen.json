@@ -1,6 +1,6 @@
 {
   "schema_version": "1.1.0",
-  "library_version": "1.0.0",
+  "library_version": "1.1.0",
   "platzhalter": false,
   "uebungen": [
     {
@@ -13,6 +13,7 @@
       "muster": "zug",
       "intensitaet": 2,
       "einseitig": false,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Füße hüftbreit, Griffe mit Daumen nach oben, Arme gestreckt.",
       "ablauf": [
         "Körper in eine gerade Linie bringen und nach hinten lehnen, Gewicht auf den Fersen.",
@@ -94,6 +95,7 @@
       "muster": "zug",
       "intensitaet": 2,
       "einseitig": true,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge, Einhand-Modus (beide Griffe zu einem zusammenführen). Blick zum Anker, Griff in einer Hand, freie Hand locker an der Seite.",
       "ablauf": [
         "Körper gerade nach hinten lehnen, Füße etwas breiter als hüftbreit.",
@@ -170,6 +172,7 @@
       "muster": "zug",
       "intensitaet": 2,
       "einseitig": false,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe im Untergriff (Handflächen nach oben), Arme gestreckt etwa auf Schulterhöhe.",
       "ablauf": [
         "Körper gerade nach hinten lehnen.",
@@ -241,6 +244,7 @@
       "muster": "zug",
       "intensitaet": 2,
       "einseitig": false,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe im Obergriff (Handflächen nach unten), Arme gestreckt auf Schulterhöhe.",
       "ablauf": [
         "Körper leicht nach hinten lehnen.",
@@ -320,6 +324,7 @@
       "muster": "schulter",
       "intensitaet": 1,
       "einseitig": false,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Arme gestreckt vor dem Körper, Handflächen zueinander.",
       "ablauf": [
         "Körper gerade, leicht zurückgelehnt.",
@@ -398,6 +403,7 @@
       "muster": "schulter",
       "intensitaet": 1,
       "einseitig": false,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Arme gestreckt vor dem Körper, Handflächen zueinander.",
       "ablauf": [
         "Körper gerade, leicht zurückgelehnt.",
@@ -475,6 +481,7 @@
       "muster": "schulter",
       "intensitaet": 1,
       "einseitig": false,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Arme gestreckt vor dem Körper.",
       "ablauf": [
         "Körper gerade, leicht zurückgelehnt.",
@@ -554,6 +561,7 @@
       "muster": "schulter",
       "intensitaet": 1,
       "einseitig": false,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Arme gestreckt, Körper zurückgelehnt.",
       "ablauf": [
         "Arme bleiben die ganze Zeit gestreckt.",
@@ -619,6 +627,7 @@
       "muster": "druck",
       "intensitaet": 2,
       "einseitig": false,
+      "gurt": "lang",
       "aufbau": "Gurte auf lange Länge. Rücken zum Anker, Griffe auf Brusthöhe, Füße hüftbreit oder in Schrittstellung.",
       "ablauf": [
         "Arme vor der Brust strecken und den Körper gerade nach vorn lehnen.",
@@ -695,6 +704,7 @@
       "muster": "druck",
       "intensitaet": 2,
       "einseitig": false,
+      "gurt": "lang",
       "aufbau": "Gurte auf lange Länge. Rücken zum Anker, Arme gestreckt nach vorn-oben, Griffe im Obergriff.",
       "ablauf": [
         "Körper gerade nach vorn lehnen.",
@@ -768,6 +778,7 @@
       "muster": "druck",
       "intensitaet": 3,
       "einseitig": true,
+      "gurt": "lang",
       "aufbau": "Gurte auf lange Länge, Einhand-Modus. Rücken zum Anker, Griff in einer Hand auf Brusthöhe, Schrittstellung.",
       "ablauf": [
         "Arm vor der Brust strecken, Körper gerade nach vorn lehnen.",
@@ -854,6 +865,7 @@
       "muster": "beine",
       "intensitaet": 2,
       "einseitig": false,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe vor der Brust, Füße hüftbreit oder etwas breiter.",
       "ablauf": [
         "Hüfte nach hinten schieben und in die Kniebeuge sinken.",
@@ -914,6 +926,7 @@
       "muster": "beine",
       "intensitaet": 2,
       "einseitig": true,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe vor der Brust.",
       "ablauf": [
         "Ein Bein einen großen Schritt nach hinten setzen.",
@@ -979,6 +992,7 @@
       "muster": "beine",
       "intensitaet": 3,
       "einseitig": true,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe vor der Brust, ein Bein leicht nach vorn angehoben.",
       "ablauf": [
         "Auf einem Bein stehen, das andere Bein gestreckt nach vorn halten.",
@@ -1050,6 +1064,7 @@
       "muster": "beine",
       "intensitaet": 2,
       "einseitig": true,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe vor der Brust, breiter Stand.",
       "ablauf": [
         "Gewicht auf ein Bein verlagern und in dieses Knie sinken, Hüfte nach hinten.",
@@ -1163,6 +1178,7 @@
       "muster": "beine",
       "intensitaet": 2,
       "einseitig": true,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe in den Händen, Arme gestreckt.",
       "ablauf": [
         "Auf einem Bein stehen, Knie leicht gebeugt.",
@@ -1234,6 +1250,7 @@
       "muster": "beine",
       "intensitaet": 3,
       "einseitig": false,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe vor der Brust.",
       "ablauf": [
         "In die Kniebeuge sinken.",
@@ -1300,6 +1317,7 @@
       "muster": "beine",
       "intensitaet": 1,
       "einseitig": false,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe locker in den Händen, Füße hüftbreit.",
       "ablauf": [
         "Auf die Zehenspitzen hochdrücken.",
@@ -1366,6 +1384,7 @@
       "muster": "rumpf",
       "intensitaet": 2,
       "einseitig": false,
+      "gurt": "lang",
       "aufbau": "Gurte auf lange Länge. Rücken zum Anker, Arme gestreckt vor dem Körper auf Brusthöhe.",
       "ablauf": [
         "Körper als Brett nach vorn lehnen.",
@@ -1437,6 +1456,7 @@
       "muster": "rumpf",
       "intensitaet": 1,
       "einseitig": true,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge, Einhand-Modus. Seitlich zum Anker, beide Hände am Griff vor der Brust, Füße schulterbreit.",
       "ablauf": [
         "Einen kleinen Schritt seitlich weg vom Anker, bis der Gurt spannt.",
@@ -1517,6 +1537,7 @@
       "muster": "rumpf",
       "intensitaet": 2,
       "einseitig": true,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge, Einhand-Modus. Seitlich zum Anker, Griff mit beiden Händen über dem Kopf, Füße zusammen.",
       "ablauf": [
         "Füße ein Stück Richtung Anker setzen, sodass der Körper als Linie seitlich vom Anker weg hängt.",
@@ -1595,6 +1616,7 @@
       "muster": "wirbelsaeule",
       "intensitaet": 1,
       "einseitig": true,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge, Einhand-Modus. Seitlich zum Anker, beide Hände am Griff, Arme gestreckt Richtung Anker.",
       "ablauf": [
         "Oberkörper vom Anker weg drehen, der Blick folgt den Händen.",
@@ -1653,6 +1675,7 @@
       "muster": "schulter",
       "intensitaet": 1,
       "einseitig": false,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe hoch, Arme gestreckt.",
       "ablauf": [
         "Hüfte nach hinten schieben, die Arme bleiben gestreckt über dem Kopf.",
@@ -1707,6 +1730,7 @@
       "muster": "wirbelsaeule",
       "intensitaet": 1,
       "einseitig": true,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge, Einhand-Modus. Seitlich zum Anker, beide Hände am Griff über dem Kopf.",
       "ablauf": [
         "Die Hüfte seitlich vom Anker weg schieben.",
@@ -1770,6 +1794,7 @@
       "muster": "schulter",
       "intensitaet": 1,
       "einseitig": false,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge. Rücken zum Anker, Arme seitlich etwa auf Schulterhöhe.",
       "ablauf": [
         "Einen Schritt nach vorn gehen.",
@@ -1828,6 +1853,7 @@
       "muster": "huefte",
       "intensitaet": 1,
       "einseitig": true,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe für die Balance.",
       "ablauf": [
         "Einen großen Schritt nach hinten in eine tiefe Schrittstellung.",
@@ -1887,6 +1913,7 @@
       "muster": "huefte",
       "intensitaet": 1,
       "einseitig": false,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe in den Händen.",
       "ablauf": [
         "Füße etwas breiter als hüftbreit.",
@@ -1940,6 +1967,7 @@
       "muster": "huefte",
       "intensitaet": 1,
       "einseitig": true,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe in den Händen.",
       "ablauf": [
         "Einen Fuß eine halbe Schrittlänge nach vorn setzen, Ferse am Boden, Fußspitze hoch.",
@@ -2008,6 +2036,7 @@
       "muster": "huefte",
       "intensitaet": 1,
       "einseitig": true,
+      "gurt": "mittel",
       "aufbau": "Gurte auf mittlere Länge. Blick zum Anker, Griffe in den Händen.",
       "ablauf": [
         "Den Knöchel eines Beins oberhalb des anderen Knies ablegen (Figur 4).",

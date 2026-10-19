@@ -1,13 +1,13 @@
 import './style.css';
 import bibliothek from './daten/uebungen.json';
 import { pruefeBibliothek } from './logik/schema.js';
-import { erstelleSession, tauscheUebung, schaetzeMinuten } from './logik/auswahl.js';
+import { erstelleSession, tauscheUebung, schaetzeMinuten, schrittFolge, anzahlGurtwechsel, gurtVon } from './logik/auswahl.js';
 import { zustandFuer, wendeRueckmeldungAn, formatVorgabe, setzeStufe, startZustand, vorgabe } from './logik/progression.js';
 import { laden, speichern, leererZustand, alsBackupText, ausBackupText, speicherVerfuegbar } from './logik/speicher.js';
 import { h, knopf } from './ui/dom.js';
 import { tonVorbereiten, piep, piepEnde, wachHalten } from './ui/geraet.js';
 
-const VERSION = '0.2.0';
+const VERSION = '0.3.0';
 
 function piktogramm(u) {
   if (!u.bild) return null;
@@ -41,6 +41,7 @@ const MUSTER = {
   schulter: 'Schulter', huefte: 'Hüfte', wirbelsaeule: 'Wirbelsäule',
 };
 const DAUER_LABEL = { kurz: 'kurz', lang: 'länger' };
+const GURT_LABEL = { kurz: 'kurz', mittel: 'mittel', lang: 'lang' };
 
 function sichern() {
   speichern(zustand);
@@ -184,7 +185,7 @@ function zeigePlan(session, getauscht = []) {
     return h('li', { class: 'plan-karte' },
       h('div', { class: 'plan-nr', 'aria-hidden': 'true' }, String(i + 1)),
       h('div', { class: 'plan-inhalt' },
-        h('p', { class: 'plan-titel' }, u.titel),
+        h('p', { class: 'plan-titel' }, u.titel, h('span', { class: `gurt-pill gurt-${e.gurt ?? gurtVon(u)}` }, `Gurt ${GURT_LABEL[e.gurt ?? gurtVon(u)]}`)),
         h('p', { class: 'plan-vorgabe' }, `Stufe ${e.stufeIndex + 1}/${e.anzahlStufen} · ${formatVorgabe(e.einheit, e.ziel, u.einseitig)}`),
         h('p', { class: 'plan-aufbau' }, u.aufbau.split('.')[0] + '.'),
       ),
@@ -202,6 +203,7 @@ function zeigePlan(session, getauscht = []) {
       h('h1', { class: 'titel-gross' }, `ca. ${minuten} Min`),
       h('p', { class: 'leise' },
         `${session.eintraege.length} Übungen · ${session.runden} ${session.runden === 1 ? 'Runde' : 'Runden'}`),
+      h('p', { class: 'leise' }, gurtZusammenfassung(session)),
       h('ol', { class: 'plan-liste' }, session.eintraege.map(karte)),
     ),
     aktionsleiste(knopf('Los geht’s', () => {
@@ -211,16 +213,20 @@ function zeigePlan(session, getauscht = []) {
   );
 }
 
+function gurtZusammenfassung(session) {
+  const start = session.eintraege[0]?.gurt ?? 'mittel';
+  const n = anzahlGurtwechsel(session);
+  if (n === 0) return `Gurte die ganze Zeit auf „${GURT_LABEL[start]}“`;
+  return `Start mit Gurten auf „${GURT_LABEL[start]}“ · ${n}× umstellen`;
+}
+
 // ---------- Durchlauf ----------
 
 let lauf = null;
 let timer = null;
 
 function starteDurchlauf(session) {
-  const schritte = [];
-  for (let r = 0; r < session.runden; r++) {
-    session.eintraege.forEach((_, i) => schritte.push({ index: i, runde: r }));
-  }
+  const schritte = schrittFolge(session);
   lauf = { session, schritte, pos: 0, start: Date.now(), ergebnisse: [] };
   wachHalten(true);
   zeigeSchritt();
@@ -286,6 +292,15 @@ function zeigeSchritt() {
 
   const bereich = eintrag.einheit === 'sek' ? halteTimer(eintrag, u) : null;
 
+  const gurt = eintrag.gurt ?? gurtVon(u);
+  const vorher = lauf.pos > 0 ? lauf.session.eintraege[lauf.schritte[lauf.pos - 1].index] : null;
+  const gurtVorher = vorher ? (vorher.gurt ?? gurtVon(nachId.get(vorher.id))) : null;
+  const gurtHinweis = gurtVorher === null
+    ? h('div', { class: 'gurt-hinweis' }, `Gurte auf „${GURT_LABEL[gurt]}“ einstellen`)
+    : gurt !== gurtVorher
+      ? h('div', { class: 'gurt-hinweis gurt-wechsel' }, `Jetzt umstellen: Gurte auf „${GURT_LABEL[gurt]}“`)
+      : null;
+
   const unten = letzteRunde
     ? aktionsleiste(
         h('p', { class: 'frage' }, 'Wie war’s?'),
@@ -308,6 +323,7 @@ function zeigeSchritt() {
       lauf.session.runden > 1
         ? h('p', { class: 'leise' }, `Runde ${schritt.runde + 1} von ${lauf.session.runden}`)
         : null,
+      gurtHinweis,
       h('h1', { class: 'titel-gross' }, u.titel),
       h('p', { class: 'vorgabe' }, formatVorgabe(eintrag.einheit, eintrag.ziel, u.einseitig)),
       h('p', { class: 'stufe' }, `Stufe ${eintrag.stufeIndex + 1} von ${eintrag.anzahlStufen}`),

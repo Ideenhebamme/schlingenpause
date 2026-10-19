@@ -77,7 +77,53 @@ function waehle(pool, anzahl, ctx, schonGewaehlt = []) {
 
 function alsEintrag(u, zustaende) {
   const z = zustandFuer(zustaende, u);
-  return { id: u.id, ...vorgabe(u, z) };
+  return { id: u.id, gurt: gurtVon(u), ...vorgabe(u, z) };
+}
+
+export function gurtVon(u) {
+  return u?.gurt ?? 'mittel';
+}
+
+// Reihenfolge innerhalb einer Pause:
+// Übungen mit gleicher Gurtlänge stehen zusammen (weniger Umstellen).
+// Zuerst die Gruppe mit der ruhigsten Übung, innerhalb der Gruppe ruhigere zuerst.
+const GURT_RANG = { kurz: 0, mittel: 1, lang: 2 };
+export function ordne(uebungen) {
+  const gruppen = new Map();
+  uebungen.forEach((u, i) => {
+    const g = gurtVon(u);
+    if (!gruppen.has(g)) gruppen.set(g, []);
+    gruppen.get(g).push({ u, i });
+  });
+  const sortiert = [...gruppen.entries()].map(([g, liste]) => ({
+    g,
+    liste: liste.sort((a, b) => a.u.intensitaet - b.u.intensitaet || a.i - b.i),
+  }));
+  sortiert.sort((a, b) =>
+    a.liste[0].u.intensitaet - b.liste[0].u.intensitaet || GURT_RANG[a.g] - GURT_RANG[b.g]);
+  return sortiert.flatMap((x) => x.liste.map(({ u }) => u));
+}
+
+// Ablauf über alle Runden. Jede zweite Runde läuft rückwärts, damit am
+// Rundenwechsel keine Gurtlänge umgestellt werden muss.
+export function schrittFolge(session) {
+  const n = session.eintraege.length;
+  const schritte = [];
+  for (let r = 0; r < session.runden; r++) {
+    for (let k = 0; k < n; k++) schritte.push({ index: r % 2 === 0 ? k : n - 1 - k, runde: r });
+  }
+  return schritte;
+}
+
+export function anzahlGurtwechsel(session) {
+  let wechsel = 0;
+  let vorher = null;
+  for (const s of schrittFolge(session)) {
+    const g = session.eintraege[s.index].gurt;
+    if (vorher && g !== vorher) wechsel++;
+    vorher = g;
+  }
+  return wechsel;
 }
 
 export function erstelleSession({ bibliothek, zustaende, ziel, dauer, jetzt = Date.now(), rng = Math.random }) {
@@ -86,11 +132,7 @@ export function erstelleSession({ bibliothek, zustaende, ziel, dauer, jetzt = Da
   const pool = bevorzugt.length >= par.anzahl ? bevorzugt : alle;
   const ctx = { zustaende, musterZeit: musterZuletzt(bibliothek, zustaende), jetzt, rng };
 
-  const gewaehlt = waehle(pool, par.anzahl, ctx)
-    // ruhigere Übungen zuerst – wirkt wie ein kurzes Aufwärmen
-    .map((u, i) => ({ u, i }))
-    .sort((a, b) => a.u.intensitaet - b.u.intensitaet || a.i - b.i)
-    .map(({ u }) => u);
+  const gewaehlt = ordne(waehle(pool, par.anzahl, ctx));
 
   return {
     ziel,
@@ -120,7 +162,8 @@ export function tauscheUebung(session, index, { bibliothek, zustaende, jetzt = D
   const [u] = waehle(pool, 1, ctx, andere);
   const eintraege = [...session.eintraege];
   eintraege[index] = alsEintrag(u, zustaende);
-  return { ...session, eintraege };
+  const geordnet = ordne(eintraege.map((e) => nachId.get(e.id)));
+  return { ...session, eintraege: geordnet.map((x) => eintraege.find((e) => e.id === x.id)) };
 }
 
 // Grobe Zeitschätzung in Minuten.

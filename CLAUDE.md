@@ -36,6 +36,7 @@ Ausgangspunkt war die „Pause App“ (ReZuKi-Begleiter) im Ordner
   "muster": "zug",                         // zug | druck | beine | rumpf | schulter | huefte | wirbelsaeule
   "intensitaet": 2,                        // 1 kaum schwitzen … 3 fordernd (kurz: max. 2)
   "einseitig": false,                      // true → Vorgabe gilt je Seite
+  "gurt": "mittel",                        // kurz | mittel | lang – Gurtlänge für die Übung
   "aufbau": "Gurtlänge, Stand zum Anker, Griffhaltung",
   "ablauf": ["Schritt 1", "Schritt 2"],
   "achte_auf": "Wichtigster Technikhinweis",
@@ -60,7 +61,7 @@ Posen werden über Gelenkwinkel beschrieben – Doku im Kopf des Skripts.
 Läuft automatisch bei `npm run build`; einzeln mit `npm run bilder`.
 
 `npm test` prüft die Bibliothek mit `src/logik/schema.js` und rendert alle Piktogramme.
-Aktuell: Bibliothek 1.0.0 mit 29 Übungen (Kraft, Haltung & Rücken, Mobilität).
+Aktuell: Bibliothek 1.1.0 mit 29 Übungen (4 davon mit Gurt „lang“: Brustpressen, Trizeps, Fallout) (Kraft, Haltung & Rücken, Mobilität).
 Anker bei Nils: Mittelsäule der Wendeltreppe, 2,0–2,2 m; Körpergröße 1,83 m.
 Außenrotation der Schulter (Face Pull, W-Heben) ist mit `vorsicht` markiert – Nils testet, was geht.
 
@@ -71,7 +72,11 @@ Außenrotation der Schulter (Face Pull, W-Heben) ist mit `vorsicht` markiert –
   zu leicht → nächste Stufe; zu schwer → −2 Wdh./−10 Sek., unter min → vorherige Stufe.
 - `src/logik/auswahl.js` – Session: Punktzahl aus „lange nicht gemacht“,
   „Muster lange nicht trainiert“, Strafe für doppeltes Muster, Zufall.
-  Ruhigere Übungen zuerst.
+- Reihenfolge (`ordne`): Übungen mit gleicher Gurtlänge stehen zusammen; zuerst die Gruppe
+  mit der ruhigsten Übung, innerhalb der Gruppe ruhigere zuerst.
+- Runden laufen im Wechsel vorwärts/rückwärts (`schrittFolge`), damit am Rundenwechsel
+  nicht umgestellt werden muss → höchstens ein Gurtwechsel pro Runde.
+- Die App zeigt zu Beginn die Gurtlänge und bei jedem Wechsel einen grünen Hinweis.
 - Rückmeldung nur in der letzten Runde einer Übung.
 
 ## Regeln

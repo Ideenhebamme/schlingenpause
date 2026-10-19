@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { pruefeBibliothek } from '../src/logik/schema.js';
 import { startZustand, wendeRueckmeldungAn, zustandFuer } from '../src/logik/progression.js';
-import { erstelleSession, tauscheUebung, schaetzeMinuten } from '../src/logik/auswahl.js';
+import { erstelleSession, tauscheUebung, schaetzeMinuten, schrittFolge, anzahlGurtwechsel } from '../src/logik/auswahl.js';
 import { renderBild } from '../scripts/piktogramme.mjs';
 
 const bib = JSON.parse(readFileSync(new URL('../src/daten/uebungen.json', import.meta.url)));
@@ -123,5 +123,34 @@ test('Jedes Ziel hat genug Übungen mit verschiedenen Mustern', () => {
   for (const ziel of ['kraft', 'haltung', 'mobilitaet']) {
     const muster = new Set(bib.uebungen.filter((u) => u.ziele.includes(ziel)).map((u) => u.muster));
     assert.ok(muster.size >= 3, `${ziel}: nur ${muster.size} Muster`);
+  }
+});
+
+test('Gleiche Gurtlänge steht zusammen, höchstens ein Wechsel pro Runde', () => {
+  for (const ziel of ['kraft', 'haltung', 'mix']) {
+    for (const dauer of ['kurz', 'lang']) {
+      for (let seed = 1; seed < 40; seed++) {
+        const s = erstelleSession({ bibliothek: bib, zustaende: {}, ziel, dauer, jetzt: t0, rng: rngAus(seed) });
+        const laengen = new Set(s.eintraege.map((e) => e.gurt));
+        assert.ok(anzahlGurtwechsel(s) <= (laengen.size - 1) * s.runden, `${ziel}/${dauer}/${seed}: ${anzahlGurtwechsel(s)} Wechsel`);
+      }
+    }
+  }
+});
+
+test('Zweite Runde läuft rückwärts', () => {
+  const s = { runden: 2, eintraege: [{ gurt: 'mittel' }, { gurt: 'mittel' }, { gurt: 'lang' }] };
+  assert.deepEqual(schrittFolge(s).map((x) => x.index), [0, 1, 2, 2, 1, 0]);
+  assert.equal(anzahlGurtwechsel(s), 2);
+});
+
+test('Nach dem Tauschen bleibt die Gruppierung erhalten', () => {
+  for (let seed = 1; seed < 30; seed++) {
+    let s = erstelleSession({ bibliothek: bib, zustaende: {}, ziel: 'kraft', dauer: 'lang', jetzt: t0, rng: rngAus(seed) });
+    for (let i = 0; i < 4; i++) {
+      s = tauscheUebung(s, i % s.eintraege.length, { bibliothek: bib, zustaende: {}, jetzt: t0, rng: rngAus(seed + i) }) ?? s;
+      const laengen = new Set(s.eintraege.map((e) => e.gurt));
+      assert.ok(anzahlGurtwechsel(s) <= (laengen.size - 1) * s.runden);
+    }
   }
 });
