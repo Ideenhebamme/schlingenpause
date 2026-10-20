@@ -25,6 +25,15 @@
 // bild.pfeil: "haende" | "huefte" | "kopf" | "fuss" | false – Bewegungspfeil im Endbild
 //             (ohne Angabe: der Punkt mit der größten Bewegung)
 // bild.geist: false – keine helle Startpose im Endbild
+// bild.anker: false – kein Anker/Gurt (Ball-Übungen)
+//
+// Bälle (Seitenansicht, je Pose):
+//   ball1 / ball2  Fuß von Bein 1/2 steht auf einem Ball; Wert 0…1 = Position unter dem Fuß
+//                  (0 Ferse, 1 Zehen)
+//   ballR          Ball zwischen Rücken und Wand; Wert 0…1 = Höhe am Rumpf (0 Hüfte, 1 Schulter)
+//   ballR2         true – zwei Bälle nebeneinander (links/rechts der Wirbelsäule)
+//   ballH          true – Ball zwischen Hand (Arm 1) und Wand
+// Bälle (Frontansicht, je Pose): ballK – Ball zwischen den Knien; ballFuesse – beide Füße auf Bällen
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -32,7 +41,8 @@ import { dirname, join } from 'node:path';
 
 const L = { kopf: 12, hals: 5, rumpf: 52, oberarm: 30, unterarm: 33, ober: 46, unter: 46, fuss: 15, knoechel: 6, schulter: 19, huefte: 9 };
 const ANKER_Y = 212;
-const FARBE = { koerper: '#1B1F23', hinten: '#A3A8AE', geist: '#E4E1D8', gurt: '#6C8538', pfeil: '#024B89', boden: '#C9C6BC', saeule: '#D8D5CC', text: '#8A8F96' };
+const BALL_R = 8; // Franklin-Ball (leicht vergrößert, damit er im Piktogramm sichtbar ist)
+const FARBE = { ball: '#3FA88B', ballRand: '#2B7D66', wand: '#D8D5CC', koerper: '#1B1F23', hinten: '#A3A8AE', geist: '#E4E1D8', gurt: '#6C8538', pfeil: '#024B89', boden: '#C9C6BC', saeule: '#D8D5CC', text: '#8A8F96' };
 const rad = (g) => (g * Math.PI) / 180;
 
 function segWinkel(spec) {
@@ -65,9 +75,11 @@ function seitePose(p, ankerX = 0) {
   };
   const b1 = bein(p.l1 ?? [0, 0], p.z1, p.f1);
   const b2 = bein(p.l2, p.z2, p.f2);
+  if (b1) b1.ball = p.ball1;
+  if (b2) b2.ball = p.ball2;
 
   // Boden: Knöchel auf Knöchelhöhe (bzw. Zehen am Boden)
-  const tiefster = (bb) => (bb.zehen ? bb.fuss[1] : bb.kn[1] - L.knoechel);
+  const tiefster = (bb) => (bb.ball !== undefined ? bb.kn[1] - L.knoechel - 2 * BALL_R : bb.zehen ? bb.fuss[1] : bb.kn[1] - L.knoechel);
   let boden = tiefster(b1);
   if (b2 && p.boden !== 1) boden = Math.min(boden, tiefster(b2));
   const dy = -boden + (p.hoch ?? 0);
@@ -95,14 +107,31 @@ function seitePose(p, ankerX = 0) {
     return { E, Hd };
   };
   const Sw = T(S);
-  return {
-    H: T(H), S: Sw, K: T(K),
-    beine: [b1, b2].map((bb) => bb && { knie: T(bb.knie), kn: T(bb.kn), fuss: T(bb.fuss) }),
-    arme: [arm(p.a1 ?? [0, 0], Sw), arm(p.a2, Sw)],
-    schultern: [Sw],
-    hueften: [T(H)],
-    anker,
-  };
+  const beine = [b1, b2].map((bb) => bb && { knie: T(bb.knie), kn: T(bb.kn), fuss: T(bb.fuss), ball: bb.ball });
+  const arme = [arm(p.a1 ?? [0, 0], Sw), arm(p.a2, Sw)];
+  const Hw = T(H);
+
+  // Bälle und Wand
+  const baelle = [];
+  let wand = null;
+  beine.forEach((bb) => {
+    if (bb && bb.ball !== undefined) baelle.push([bb.kn[0] + b * bb.ball * L.fuss, bb.kn[1] - L.knoechel - BALL_R]);
+  });
+  if (p.ballR !== undefined) {
+    const u = [(Sw[0] - Hw[0]) / L.rumpf, (Sw[1] - Hw[1]) / L.rumpf];
+    const n = [-b * u[1], b * u[0]]; // zeigt zum Rücken
+    const P = [Hw[0] + (Sw[0] - Hw[0]) * p.ballR, Hw[1] + (Sw[1] - Hw[1]) * p.ballR];
+    const c = [P[0] + n[0] * (8 + BALL_R), P[1] + n[1] * (8 + BALL_R)];
+    baelle.push(c);
+    if (p.ballR2) baelle.push([c[0] + n[0] * 1.5, c[1] + 5]);
+    wand = c[0] + Math.sign(n[0] || -b) * BALL_R;
+  }
+  if (p.ballH) {
+    const c = [arme[0].Hd[0] + b * (BALL_R + 3), arme[0].Hd[1]];
+    baelle.push(c);
+    wand = c[0] + b * BALL_R;
+  }
+  return { H: Hw, S: Sw, K: T(K), beine, arme, schultern: [Sw], hueften: [Hw], anker, baelle, wand };
 }
 
 // ---------- Frontansicht ----------
@@ -143,7 +172,7 @@ function frontPose(p, ankerX) {
   const aL = p.griff ? amGriff(sL) : p.al === 'anker' ? zumGriff(sL) : glied(sL, p.al ?? [8, 8], -1, L.oberarm, L.unterarm);
   const aR = p.griff ? amGriff(sR) : p.ar === 'anker' ? zumGriff(sR) : glied(sR, p.ar ?? [8, 8], 1, L.oberarm, L.unterarm);
 
-  const boden = Math.min(bL.e[1], bR.e[1]) - L.knoechel;
+  const boden = Math.min(bL.e[1], bR.e[1]) - L.knoechel - (p.ballFuesse ? 2 * BALL_R : 0);
   const dy = -boden + (p.hoch ?? 0);
   const dx = (p.x ?? 0) - 0;
   const T = (pt) => [pt[0] + dx, pt[1] + dy];
@@ -157,6 +186,11 @@ function frontPose(p, ankerX) {
     ],
     arme: [{ E: T(aL.m), Hd: T(aL.e), S: T(sL) }, { E: T(aR.m), Hd: T(aR.e), S: T(sR) }],
     anker: [ankerX, ANKER_Y],
+    baelle: [
+      ...(p.ballK ? [T([(bL.m[0] + bR.m[0]) / 2, (bL.m[1] + bR.m[1]) / 2])] : []),
+      ...(p.ballFuesse ? [T([bL.e[0] - 4, bL.e[1] - L.knoechel - BALL_R]), T([bR.e[0] + 4, bR.e[1] - L.knoechel - BALL_R])] : []),
+    ],
+    wand: null,
   };
 }
 
@@ -257,22 +291,41 @@ function pfeil(von, nach, ansicht) {
     `<path d="M ${pt(p1)} L ${pt(e)} L ${pt(p2)}" fill="none" stroke="${FARBE.pfeil}" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>`;
 }
 
+function zeichneBaelle(fig, farbe) {
+  return (fig.baelle ?? []).map((c) => farbe
+    ? `<circle cx="${f(c[0])}" cy="${f(-c[1])}" r="${BALL_R}" fill="${farbe}"/>`
+    : `<circle cx="${f(c[0])}" cy="${f(-c[1])}" r="${BALL_R}" fill="${FARBE.ball}" stroke="${FARBE.ballRand}" stroke-width="1.5"/>` +
+      `<circle cx="${f(c[0] - 2)}" cy="${f(-c[1] - 2)}" r="2.2" fill="#FFFFFF" opacity="0.7"/>`).join('');
+}
+
 function zeichnePanel(fig, vorher, bild, ansicht, ox, nummer) {
   const out = [];
   const [ax, ay] = fig.anker;
-  out.push(`<line x1="${ax}" y1="${-ay}" x2="${ax}" y2="${-246}" stroke="${FARBE.saeule}" stroke-width="8" stroke-linecap="round"/>`);
+  const mitAnker = bild.anker !== false;
+  if (mitAnker) out.push(`<line x1="${ax}" y1="${-ay}" x2="${ax}" y2="${-246}" stroke="${FARBE.saeule}" stroke-width="8" stroke-linecap="round"/>`);
+  if (fig.wand !== null && fig.wand !== undefined) {
+    const w = fig.wand;
+    const seite = w < 80 ? -1 : 1;
+    out.push(`<rect x="${f(seite < 0 ? w - 14 : w)}" y="-232" width="14" height="232" fill="#EFEDE6"/>`);
+    out.push(`<line x1="${f(w)}" y1="0" x2="${f(w)}" y2="-232" stroke="${FARBE.wand}" stroke-width="3"/>`);
+  }
   const bx0 = ansicht === 'front' ? -105 : -25, bx1 = ansicht === 'front' ? 105 : 185;
   out.push(`<line x1="${bx0}" y1="0" x2="${bx1}" y2="0" stroke="${FARBE.boden}" stroke-width="3" stroke-linecap="round"/>`);
 
   // helle Startpose im Endbild
   if (vorher && bild.geist !== false) {
-    out.push(zeichneGurt(vorher, griffpunkte(vorher, bild, ansicht), FARBE.geist));
+    if (mitAnker) out.push(zeichneGurt(vorher, griffpunkte(vorher, bild, ansicht), FARBE.geist));
+    out.push(zeichneBaelle(vorher, FARBE.geist));
     out.push(zeichneKoerper(vorher, ansicht, FARBE.geist));
   }
-  const ziele = griffpunkte(fig, bild, ansicht);
-  out.push(zeichneGurt(fig, ziele, FARBE.gurt));
-  out.push(`<circle cx="${ax}" cy="${-ay}" r="5.5" fill="${FARBE.gurt}"/>`);
+  const ziele = mitAnker ? griffpunkte(fig, bild, ansicht) : [];
+  if (mitAnker) {
+    out.push(zeichneGurt(fig, ziele, FARBE.gurt));
+    out.push(`<circle cx="${ax}" cy="${-ay}" r="5.5" fill="${FARBE.gurt}"/>`);
+  }
+  out.push(zeichneBaelle(fig));
   out.push(zeichneKoerper(fig, ansicht));
+  if (ansicht === 'front' && fig.baelle?.length) out.push(zeichneBaelle({ baelle: fig.baelle.slice(0, bild.posen.some((q) => q.ballK) ? 1 : 0) }));
   ziele.forEach((z) => out.push(`<rect x="${f(z[0] - 5)}" y="${f(-z[1] - 2.5)}" width="10" height="5" rx="2.5" fill="${FARBE.gurt}"/>`));
 
   if (vorher && bild.pfeil !== false) {

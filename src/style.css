@@ -11,6 +11,7 @@
   --gold: #B8A56C;
   --silber: #C0C1C3;
   --warnung: #9A3B26;
+  --ball: #3FA88B;
 
   --radius: 14px;
   --gutter: 20px;
@@ -207,6 +208,9 @@ button:focus-visible, summary:focus-visible, input:focus-visible {
 .z-haltung    { --akzent: var(--blau); }
 .z-mobilitaet { --akzent: var(--gold); }
 .z-mix        { --akzent: var(--silber); }
+.z-fuesse     { --akzent: var(--ball); }
+.z-becken     { --akzent: var(--gold); }
+.z-ruecken    { --akzent: var(--blau); }
 
 .fussnav {
   display: flex;
@@ -440,3 +444,6 @@ button:focus-visible, summary:focus-visible, input:focus-visible {
 .gurt-hinweis.gurt-wechsel { background: var(--gruen); color: #fff; }
 
 .gurt-hoehe { display: block; font-size: 13px; font-weight: 400; opacity: 0.85; }
+
+.segment-einzeilig { min-height: 46px; justify-content: center; }
+.pill-ball { background: #DDF0E9; color: #23705A; }

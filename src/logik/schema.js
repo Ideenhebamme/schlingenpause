@@ -1,8 +1,11 @@
 // Prüft die Übungsbibliothek. Gibt { ok, fehler[] } zurück.
 // Texte aus der Bibliothek werden in der App nur über textContent ausgegeben.
 
-export const ZIELE = ['kraft', 'haltung', 'mobilitaet'];
-export const MUSTER = ['zug', 'druck', 'beine', 'rumpf', 'schulter', 'huefte', 'wirbelsaeule'];
+export const ZIELE_SCHLINGE = ['kraft', 'haltung', 'mobilitaet'];
+export const ZIELE_BAELLE = ['fuesse', 'becken', 'ruecken'];
+export const ZIELE = [...ZIELE_SCHLINGE, ...ZIELE_BAELLE];
+export const GERAETE = ['schlinge', 'baelle'];
+export const MUSTER = ['zug', 'druck', 'beine', 'rumpf', 'schulter', 'huefte', 'wirbelsaeule', 'fuss', 'balance', 'becken', 'ruecken'];
 export const EINHEITEN = ['wdh', 'sek'];
 export const GURTLAENGEN = ['kurz', 'mittel', 'lang'];
 
@@ -29,13 +32,17 @@ export function pruefeBibliothek(daten) {
     for (const feld of ['titel', 'aufbau', 'achte_auf', 'warum']) {
       if (!istText(u[feld])) fehler.push(`${p} ${feld} fehlt`);
     }
-    if (!Array.isArray(u.ziele) || u.ziele.length === 0 || !u.ziele.every((z) => ZIELE.includes(z))) {
+    const geraet = u.geraet ?? 'schlinge';
+    if (!GERAETE.includes(geraet)) fehler.push(`${p} geraet ungültig`);
+    const erlaubteZiele = geraet === 'baelle' ? ZIELE_BAELLE : ZIELE_SCHLINGE;
+    if (!Array.isArray(u.ziele) || u.ziele.length === 0 || !u.ziele.every((z) => erlaubteZiele.includes(z))) {
       fehler.push(`${p} ziele ungültig`);
     }
     if (!MUSTER.includes(u.muster)) fehler.push(`${p} muster ungültig: ${u.muster}`);
     if (![1, 2, 3].includes(u.intensitaet)) fehler.push(`${p} intensitaet muss 1–3 sein`);
     if (typeof u.einseitig !== 'boolean') fehler.push(`${p} einseitig muss true/false sein`);
-    if (!GURTLAENGEN.includes(u.gurt)) fehler.push(`${p} gurt muss kurz/mittel/lang sein`);
+    if (geraet === 'schlinge' && !GURTLAENGEN.includes(u.gurt)) fehler.push(`${p} gurt muss kurz/mittel/lang sein`);
+    if (geraet === 'baelle' && u.gurt !== undefined && u.gurt !== 'keiner') fehler.push(`${p} Ball-Übung ohne Gurt`);
     if (!Array.isArray(u.ablauf) || u.ablauf.length === 0 || !u.ablauf.every(istText)) {
       fehler.push(`${p} ablauf ungültig`);
     }

@@ -4,8 +4,8 @@ Lies diese Datei zu Beginn jeder Arbeitssitzung.
 
 ## Was das ist
 
-Persönliche Web-App (PWA) für Nils: kurze Schlingentrainings-Pausen am Schreibtisch,
-vor allem auf dem iPhone. Die Schlinge (TRX-Prinzip: ein Ankerpunkt, Y-Gurt, zwei Griffe)
+Persönliche Web-App (PWA) für Nils: kurze Bewegungspausen am Schreibtisch,
+vor allem auf dem iPhone – mit Schlingentrainer und mit zwei Franklin-Bällen. Die Schlinge (TRX-Prinzip: ein Ankerpunkt, Y-Gurt, zwei Griffe)
 hängt an der Mittelsäule einer Wendeltreppe, ca. 2 m neben dem Schreibtisch.
 
 Ausgangspunkt war die „Pause App“ (ReZuKi-Begleiter) im Ordner
@@ -69,6 +69,19 @@ Anker bei Nils: Ankerschlaufe an der Außenseite der Wendeltreppe, ca. 2,2 m; vo
 Neue Übungen orientieren sich an den Übungsseiten von variosling.de – Texte eigen formuliert,
 Piktogramme aus eigenen Posen gerendert (keine Bilder des Herstellers übernehmen).
 Außenrotation der Schulter (Face Pull, W-Heben) ist mit `vorsicht` markiert – Nils testet, was geht.
+
+## Bälle (zweite Übungsform)
+
+- Zwei grüne Original-Franklin-Bälle. Übungen nur im Stehen (Nils sitzt auf einem Swopper,
+  Sitzübungen auf dem Ball entfallen); Regionen: Füße, Becken, Rücken (+ Überrasch mich).
+- Ball-Übungen tragen `"geraet": "baelle"`, `"gurt": "keiner"`, Ziele `fuesse | becken | ruecken`,
+  Muster `fuss | balance | becken | ruecken | schulter | wirbelsaeule`.
+- Startbildschirm: Gerät wählen (Schlinge/Bälle). Bei der Schlinge optional
+  „Mit Ball-Übung als Einstieg“ → ein Ball-Eintrag mit `einmalig: true`, läuft nur zu Beginn.
+- Piktogramme: `anker: false`, Bälle über `ball1/ball2` (unter dem Fuß), `ballR` (Rücken–Wand),
+  `ballH` (Hand–Wand), `ballK`/`ballFuesse` (Frontansicht). Texte ohne Bezug auf die
+  Franklin-Methode als Lehre – nur „zwei weiche Noppenbälle“.
+- Bibliothek 1.3.0: 42 Schlingen- + 13 Ball-Übungen.
 
 ## Logik
 

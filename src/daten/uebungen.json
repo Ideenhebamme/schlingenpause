@@ -1,6 +1,6 @@
 {
   "schema_version": "1.1.0",
-  "library_version": "1.2.0",
+  "library_version": "1.3.0",
   "platzhalter": false,
   "uebungen": [
     {
@@ -3082,6 +3082,981 @@
             ]
           }
         ]
+      }
+    },
+    {
+      "id": "ball-fuss-ausrollen",
+      "titel": "Fußsohle ausrollen",
+      "geraet": "baelle",
+      "ziele": [
+        "fuesse"
+      ],
+      "muster": "fuss",
+      "intensitaet": 1,
+      "einseitig": true,
+      "gurt": "keiner",
+      "aufbau": "Ein Ball, ohne Schuhe. Mit einer Hand am Schreibtisch oder Treppengeländer festhalten.",
+      "ablauf": [
+        "Einen Fuß auf den Ball stellen, das Gewicht bleibt auf dem Standbein.",
+        "Den Ball langsam von der Ferse bis unter die Zehen rollen, dann an der Innen- und Außenkante entlang.",
+        "Stellen, die sich fest anfühlen, kurz mit etwas mehr Druck halten."
+      ],
+      "achte_auf": "Druck nur so stark, dass es angenehm bleibt.",
+      "warum": "Die Fußsohle bekommt in Schuhen und beim Sitzen wenig Reize. Das Rollen bringt Bewegung und Wahrnehmung in den Fuß.",
+      "stufen": [
+        {
+          "hinweis": "Wenig Gewicht auf dem Ball.",
+          "einheit": "sek",
+          "min": 30,
+          "max": 60
+        },
+        {
+          "hinweis": "Mehr Gewicht auf den Ball verlagern, langsamer rollen.",
+          "einheit": "sek",
+          "min": 30,
+          "max": 60
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "anker": false,
+        "gurt": "keiner",
+        "posen": [
+          {
+            "b": 1,
+            "x": 92,
+            "l1": [
+              12,
+              6
+            ],
+            "ball1": 0.1,
+            "l2": [
+              0,
+              0
+            ],
+            "a1": [
+              8,
+              8
+            ]
+          },
+          {
+            "b": 1,
+            "x": 86,
+            "l1": [
+              16,
+              10
+            ],
+            "ball1": 0.95,
+            "l2": [
+              0,
+              0
+            ],
+            "a1": [
+              8,
+              8
+            ]
+          }
+        ],
+        "pfeil": "fuss"
+      }
+    },
+    {
+      "id": "ball-zehen-greifen",
+      "titel": "Ball mit dem Fuß umgreifen",
+      "geraet": "baelle",
+      "ziele": [
+        "fuesse"
+      ],
+      "muster": "fuss",
+      "intensitaet": 1,
+      "einseitig": true,
+      "gurt": "keiner",
+      "aufbau": "Ein Ball, ohne Schuhe. Mit einer Hand am Schreibtisch oder Treppengeländer festhalten.",
+      "ablauf": [
+        "Den Vorfuß auf den Ball legen, die Ferse bleibt am Boden.",
+        "Die Zehen um den Ball krallen und zwei Sekunden halten.",
+        "Lösen und die Zehen so weit wie möglich spreizen."
+      ],
+      "achte_auf": "Die Ferse bleibt am Boden, der Knöchel kippt nicht nach außen.",
+      "warum": "Kräftigt die kleinen Fußmuskeln, die das Fußgewölbe tragen.",
+      "stufen": [
+        {
+          "hinweis": "Langsam, mit kurzer Pause zwischen den Wiederholungen.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Drei Sekunden halten.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "anker": false,
+        "gurt": "keiner",
+        "posen": [
+          {
+            "b": 1,
+            "x": 84,
+            "l1": [
+              18,
+              4
+            ],
+            "f1": true,
+            "l2": [
+              0,
+              0
+            ],
+            "a1": [
+              8,
+              8
+            ]
+          },
+          {
+            "b": 1,
+            "x": 84,
+            "l1": [
+              18,
+              4
+            ],
+            "ball1": 0.85,
+            "l2": [
+              0,
+              0
+            ],
+            "a1": [
+              8,
+              8
+            ]
+          }
+        ],
+        "pfeil": false
+      }
+    },
+    {
+      "id": "ball-stand-zwei",
+      "titel": "Stand auf beiden Bällen",
+      "geraet": "baelle",
+      "ziele": [
+        "fuesse"
+      ],
+      "muster": "balance",
+      "intensitaet": 1,
+      "einseitig": false,
+      "gurt": "keiner",
+      "aufbau": "Zwei Bälle, ohne Schuhe. Direkt neben dem Schreibtisch oder Treppengeländer stehen.",
+      "ablauf": [
+        "Mit einer Hand festhalten und einen Fuß auf einen Ball stellen, der Ball liegt unter dem Fußgewölbe.",
+        "Den zweiten Fuß auf den anderen Ball stellen.",
+        "Aufrecht stehen, Knie locker, und das Gleichgewicht halten."
+      ],
+      "achte_auf": "Die Knie bleiben leicht gebeugt, der Blick geht nach vorn.",
+      "vorsicht": "Nur mit festem Halt in Reichweite. Auf glattem Boden die Bälle nicht verwenden.",
+      "warum": "Die weiche Unterlage fordert Fuß- und Beinmuskulatur bei jeder kleinen Gewichtsverlagerung.",
+      "stufen": [
+        {
+          "hinweis": "Mit beiden Händen festhalten.",
+          "einheit": "sek",
+          "min": 20,
+          "max": 40
+        },
+        {
+          "hinweis": "Mit einer Hand festhalten.",
+          "einheit": "sek",
+          "min": 20,
+          "max": 40
+        },
+        {
+          "hinweis": "Nur mit den Fingerspitzen festhalten.",
+          "einheit": "sek",
+          "min": 30,
+          "max": 60
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "anker": false,
+        "gurt": "keiner",
+        "posen": [
+          {
+            "b": 1,
+            "x": 80,
+            "l1": [
+              14,
+              4
+            ],
+            "ball1": 0.4,
+            "l2": [
+              0,
+              0
+            ],
+            "a1": [
+              8,
+              8
+            ]
+          },
+          {
+            "b": 1,
+            "x": 80,
+            "l1": [
+              4,
+              4
+            ],
+            "ball1": 0.4,
+            "l2": [
+              -4,
+              -4
+            ],
+            "ball2": 0.4,
+            "a1": [
+              8,
+              8
+            ]
+          }
+        ],
+        "pfeil": "fuss"
+      }
+    },
+    {
+      "id": "ball-kniebeuge-ballen",
+      "titel": "Mini-Kniebeuge auf den Bällen",
+      "geraet": "baelle",
+      "ziele": [
+        "fuesse",
+        "becken"
+      ],
+      "muster": "balance",
+      "intensitaet": 2,
+      "einseitig": false,
+      "gurt": "keiner",
+      "aufbau": "Zwei Bälle, ohne Schuhe. Neben dem Schreibtisch oder Treppengeländer, ein Ball unter jedem Fußgewölbe.",
+      "ablauf": [
+        "Auf beiden Bällen stehen und festhalten.",
+        "Langsam ein Stück in die Knie gehen, das Gesäß schiebt nach hinten.",
+        "Ebenso langsam wieder aufrichten."
+      ],
+      "achte_auf": "Knie zeigen über die Füße, kleiner Bewegungsumfang.",
+      "vorsicht": "Nur mit festem Halt in Reichweite. Auf glattem Boden die Bälle nicht verwenden.",
+      "warum": "Verbindet Gleichgewicht auf weicher Unterlage mit Beinarbeit.",
+      "stufen": [
+        {
+          "hinweis": "Beidhändig festhalten, kleine Kniebeuge.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Einhändig festhalten.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Unten zwei Sekunden halten.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "anker": false,
+        "gurt": "keiner",
+        "posen": [
+          {
+            "b": 1,
+            "x": 80,
+            "l1": [
+              4,
+              4
+            ],
+            "ball1": 0.4,
+            "l2": [
+              -4,
+              -4
+            ],
+            "ball2": 0.4,
+            "a1": [
+              20,
+              20
+            ]
+          },
+          {
+            "b": 1,
+            "x": 80,
+            "r": 22,
+            "l1": [
+              45,
+              -14
+            ],
+            "ball1": 0.4,
+            "l2": [
+              41,
+              -18
+            ],
+            "ball2": 0.4,
+            "a1": [
+              45,
+              45
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ball-einbein",
+      "titel": "Einbeinstand auf dem Ball",
+      "geraet": "baelle",
+      "ziele": [
+        "fuesse"
+      ],
+      "muster": "balance",
+      "intensitaet": 2,
+      "einseitig": true,
+      "gurt": "keiner",
+      "aufbau": "Ein Ball, ohne Schuhe. Direkt neben dem Schreibtisch oder Treppengeländer stehen.",
+      "ablauf": [
+        "Einen Fuß auf den Ball stellen, der Ball liegt unter dem Fußgewölbe.",
+        "Mit Halt das andere Bein anheben.",
+        "Ruhig stehen und das Gleichgewicht halten, das Standknie bleibt leicht gebeugt."
+      ],
+      "achte_auf": "Das Becken bleibt waagerecht.",
+      "vorsicht": "Nur mit festem Halt in Reichweite. Auf glattem Boden den Ball nicht verwenden.",
+      "warum": "Fordert Fuß, Sprunggelenk und Hüfte, das Gleichgewicht auf einem Bein zu halten.",
+      "stufen": [
+        {
+          "hinweis": "Mit einer Hand festhalten.",
+          "einheit": "sek",
+          "min": 15,
+          "max": 30
+        },
+        {
+          "hinweis": "Nur mit den Fingerspitzen festhalten.",
+          "einheit": "sek",
+          "min": 15,
+          "max": 30
+        },
+        {
+          "hinweis": "Kurz loslassen, Hand bleibt in Reichweite.",
+          "einheit": "sek",
+          "min": 15,
+          "max": 30
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "anker": false,
+        "gurt": "keiner",
+        "posen": [
+          {
+            "b": 1,
+            "x": 80,
+            "l1": [
+              4,
+              4
+            ],
+            "ball1": 0.4,
+            "l2": [
+              0,
+              0
+            ],
+            "a1": [
+              8,
+              8
+            ]
+          },
+          {
+            "b": 1,
+            "x": 80,
+            "l1": [
+              6,
+              -4
+            ],
+            "ball1": 0.4,
+            "l2": [
+              60,
+              -30
+            ],
+            "boden": 1,
+            "a1": [
+              20,
+              20
+            ]
+          }
+        ],
+        "pfeil": "fuss"
+      }
+    },
+    {
+      "id": "ball-knie-kniebeuge",
+      "titel": "Kniebeuge mit Ball zwischen den Knien",
+      "geraet": "baelle",
+      "ziele": [
+        "becken"
+      ],
+      "muster": "becken",
+      "intensitaet": 2,
+      "einseitig": false,
+      "gurt": "keiner",
+      "aufbau": "Ein Ball zwischen den Knien, Füße hüftbreit.",
+      "ablauf": [
+        "Den Ball mit den Knien leicht festhalten.",
+        "In eine Kniebeuge gehen, das Gesäß schiebt nach hinten.",
+        "Beim Aufrichten den Ball etwas fester zusammendrücken."
+      ],
+      "achte_auf": "Rücken lang, Fersen bleiben am Boden.",
+      "warum": "Die Innenseite der Oberschenkel und der Beckenbereich arbeiten zusammen mit den Beinen.",
+      "stufen": [
+        {
+          "hinweis": "Halbe Kniebeuge.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Tiefere Kniebeuge.",
+          "einheit": "wdh",
+          "min": 10,
+          "max": 15
+        },
+        {
+          "hinweis": "Unten drei Sekunden halten und dabei drücken.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        }
+      ],
+      "bild": {
+        "ansicht": "front",
+        "anker": false,
+        "gurt": "keiner",
+        "posen": [
+          {
+            "ll": [
+              2,
+              6
+            ],
+            "lr": [
+              2,
+              6
+            ],
+            "ballK": true,
+            "al": [
+              10,
+              10
+            ],
+            "ar": [
+              10,
+              10
+            ]
+          },
+          {
+            "ll": [
+              [
+                2,
+                0.62
+              ],
+              [
+                6,
+                0.92
+              ]
+            ],
+            "lr": [
+              [
+                2,
+                0.62
+              ],
+              [
+                6,
+                0.92
+              ]
+            ],
+            "ballK": true,
+            "al": [
+              [
+                -40,
+                0.6
+              ],
+              [
+                -140,
+                0.42
+              ]
+            ],
+            "ar": [
+              [
+                -40,
+                0.6
+              ],
+              [
+                -140,
+                0.42
+              ]
+            ]
+          }
+        ],
+        "pfeil": "huefte"
+      }
+    },
+    {
+      "id": "ball-becken-kippen",
+      "titel": "Becken kippen am Ball",
+      "geraet": "baelle",
+      "ziele": [
+        "becken",
+        "ruecken"
+      ],
+      "muster": "becken",
+      "intensitaet": 1,
+      "einseitig": false,
+      "gurt": "keiner",
+      "aufbau": "Rücken zur Wand oder zum Schrank, ein Ball zwischen Kreuzbein und Wand. Füße eine Fußlänge vor der Wand, Knie leicht gebeugt.",
+      "ablauf": [
+        "Das Becken nach vorn kippen, der Ball rollt ein Stück nach unten.",
+        "Das Becken aufrichten und den unteren Rücken lang machen, der Ball rollt nach oben.",
+        "Langsam im Wechsel, im Atemrhythmus."
+      ],
+      "achte_auf": "Der Oberkörper bleibt ruhig, nur das Becken bewegt sich.",
+      "warum": "Bringt Bewegung in Becken und unteren Rücken, die im Sitzen lange in einer Stellung bleiben.",
+      "stufen": [
+        {
+          "hinweis": "Kleine Bewegung.",
+          "einheit": "wdh",
+          "min": 10,
+          "max": 15
+        },
+        {
+          "hinweis": "Größere Bewegung, am Ende kurz halten.",
+          "einheit": "wdh",
+          "min": 10,
+          "max": 15
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "anker": false,
+        "gurt": "keiner",
+        "posen": [
+          {
+            "b": 1,
+            "x": 58,
+            "r": -4,
+            "l1": [
+              10,
+              -6
+            ],
+            "ballR": 0.12
+          },
+          {
+            "b": 1,
+            "x": 58,
+            "r": 4,
+            "l1": [
+              16,
+              -10
+            ],
+            "ballR": 0.05
+          }
+        ],
+        "pfeil": "huefte"
+      }
+    },
+    {
+      "id": "ball-gesaess-wand",
+      "titel": "Gesäß lösen an der Wand",
+      "geraet": "baelle",
+      "ziele": [
+        "becken"
+      ],
+      "muster": "becken",
+      "intensitaet": 1,
+      "einseitig": true,
+      "gurt": "keiner",
+      "aufbau": "Seitlich versetzt mit dem Rücken zur Wand, ein Ball zwischen einer Gesäßhälfte und Wand.",
+      "ablauf": [
+        "Etwas Gewicht in den Ball lehnen.",
+        "Mit kleinen Kniebewegungen den Ball über die Gesäßmuskulatur rollen.",
+        "Stellen, die sich fest anfühlen, ruhig halten und atmen."
+      ],
+      "achte_auf": "Nicht auf Knochen rollen, nur über die Muskulatur.",
+      "warum": "Lockert die Gesäßmuskulatur, auf der man im Sitzen die meiste Zeit sitzt.",
+      "stufen": [
+        {
+          "hinweis": "Wenig Gewicht im Ball.",
+          "einheit": "sek",
+          "min": 30,
+          "max": 60
+        },
+        {
+          "hinweis": "Mehr Gewicht im Ball, langsamer.",
+          "einheit": "sek",
+          "min": 30,
+          "max": 60
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "anker": false,
+        "gurt": "keiner",
+        "posen": [
+          {
+            "b": 1,
+            "x": 60,
+            "r": -6,
+            "l1": [
+              14,
+              -4
+            ],
+            "ballR": -0.05
+          },
+          {
+            "b": 1,
+            "x": 60,
+            "r": -2,
+            "l1": [
+              30,
+              -16
+            ],
+            "ballR": 0.0
+          }
+        ],
+        "pfeil": "huefte"
+      }
+    },
+    {
+      "id": "ball-gewicht-verlagern",
+      "titel": "Gewicht verlagern auf zwei Bällen",
+      "geraet": "baelle",
+      "ziele": [
+        "becken",
+        "fuesse"
+      ],
+      "muster": "balance",
+      "intensitaet": 1,
+      "einseitig": false,
+      "gurt": "keiner",
+      "aufbau": "Zwei Bälle, ohne Schuhe. Neben dem Schreibtisch oder Treppengeländer, ein Ball unter jedem Fußgewölbe.",
+      "ablauf": [
+        "Auf beiden Bällen stehen und festhalten.",
+        "Das Gewicht langsam auf die rechte Seite verlagern, das Becken wandert mit.",
+        "Über die Mitte zur linken Seite – wie ein langsames Pendel."
+      ],
+      "achte_auf": "Die Bewegung kommt aus dem Becken, der Oberkörper bleibt aufrecht.",
+      "vorsicht": "Nur mit festem Halt in Reichweite. Auf glattem Boden die Bälle nicht verwenden.",
+      "warum": "Schult die Gewichtsverlagerung über Füße und Becken auf weicher Unterlage.",
+      "stufen": [
+        {
+          "hinweis": "Kleine Verlagerung, beidhändig festhalten.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Größere Verlagerung, einhändig festhalten.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        }
+      ],
+      "bild": {
+        "ansicht": "front",
+        "anker": false,
+        "gurt": "keiner",
+        "posen": [
+          {
+            "x": -8,
+            "n": -4,
+            "ll": [
+              -4,
+              -4
+            ],
+            "lr": [
+              12,
+              12
+            ],
+            "ballFuesse": true
+          },
+          {
+            "x": 8,
+            "n": 4,
+            "ll": [
+              12,
+              12
+            ],
+            "lr": [
+              -4,
+              -4
+            ],
+            "ballFuesse": true
+          }
+        ],
+        "pfeil": "huefte"
+      }
+    },
+    {
+      "id": "ball-schulterblatt-wand",
+      "titel": "Schulterblatt ausrollen",
+      "geraet": "baelle",
+      "ziele": [
+        "ruecken"
+      ],
+      "muster": "ruecken",
+      "intensitaet": 1,
+      "einseitig": true,
+      "gurt": "keiner",
+      "aufbau": "Rücken zur Wand, ein Ball zwischen Schulterblatt und Wand, neben der Wirbelsäule. Füße etwa eine Fußlänge vor der Wand.",
+      "ablauf": [
+        "Etwas Gewicht in den Ball lehnen.",
+        "Durch leichtes Beugen und Strecken der Knie den Ball über das Schulterblatt rollen.",
+        "Den Arm dabei locker vor dem Körper kreuzen, dann liegt das Schulterblatt frei."
+      ],
+      "achte_auf": "Nicht direkt auf der Wirbelsäule rollen.",
+      "warum": "Lockert die Muskeln um das Schulterblatt, die bei Bildschirmarbeit lange Haltearbeit leisten.",
+      "stufen": [
+        {
+          "hinweis": "Wenig Gewicht im Ball.",
+          "einheit": "sek",
+          "min": 30,
+          "max": 60
+        },
+        {
+          "hinweis": "Mehr Gewicht im Ball, Stellen gezielt halten.",
+          "einheit": "sek",
+          "min": 30,
+          "max": 60
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "anker": false,
+        "gurt": "keiner",
+        "posen": [
+          {
+            "b": 1,
+            "x": 62,
+            "r": -8,
+            "l1": [
+              12,
+              -2
+            ],
+            "ballR": 0.82,
+            "a1": [
+              50,
+              -40
+            ]
+          },
+          {
+            "b": 1,
+            "x": 62,
+            "r": -8,
+            "l1": [
+              36,
+              -22
+            ],
+            "ballR": 0.95,
+            "a1": [
+              50,
+              -40
+            ]
+          }
+        ],
+        "pfeil": "kopf"
+      }
+    },
+    {
+      "id": "ball-brustkorb-wand",
+      "titel": "Brustkorb öffnen an der Wand",
+      "geraet": "baelle",
+      "ziele": [
+        "ruecken"
+      ],
+      "muster": "wirbelsaeule",
+      "intensitaet": 1,
+      "einseitig": false,
+      "gurt": "keiner",
+      "aufbau": "Rücken zur Wand, zwei Bälle links und rechts der Brustwirbelsäule auf Höhe der Schulterblätter.",
+      "ablauf": [
+        "Leicht in die Bälle lehnen, Knie locker.",
+        "Die gestreckten Arme über vorn langsam nach oben heben.",
+        "Ebenso langsam senken, der Brustkorb bleibt an den Bällen."
+      ],
+      "achte_auf": "Kein Hohlkreuz beim Heben, Rippen bleiben unten.",
+      "warum": "Die Bälle geben der Brustwirbelsäule einen Widerlager-Punkt, um den sich der Brustkorb öffnen kann.",
+      "stufen": [
+        {
+          "hinweis": "Arme bis Schulterhöhe.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Arme bis über den Kopf, oben kurz halten.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "anker": false,
+        "gurt": "keiner",
+        "posen": [
+          {
+            "b": 1,
+            "x": 60,
+            "r": -8,
+            "l1": [
+              10,
+              -4
+            ],
+            "ballR": 0.7,
+            "ballR2": true,
+            "a1": [
+              10,
+              10
+            ]
+          },
+          {
+            "b": 1,
+            "x": 60,
+            "r": -8,
+            "l1": [
+              10,
+              -4
+            ],
+            "ballR": 0.7,
+            "ballR2": true,
+            "a1": [
+              165,
+              165
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ball-wandkniebeuge",
+      "titel": "Wandkniebeuge mit Ball",
+      "geraet": "baelle",
+      "ziele": [
+        "ruecken",
+        "becken"
+      ],
+      "muster": "ruecken",
+      "intensitaet": 2,
+      "einseitig": false,
+      "gurt": "keiner",
+      "aufbau": "Rücken zur Wand, ein Ball im unteren Rücken, etwas seitlich der Wirbelsäule. Füße gut eine Fußlänge vor der Wand.",
+      "ablauf": [
+        "Den Ball mit dem Rücken an der Wand halten.",
+        "Langsam in die Kniebeuge sinken, der Ball rollt dabei den Rücken hinauf.",
+        "Ebenso langsam hochdrücken, der Ball rollt zurück."
+      ],
+      "achte_auf": "Knie bleiben über den Füßen, nicht tiefer als bis zur waagerechten Oberschenkelstellung.",
+      "warum": "Kräftigt die Beine und massiert dabei die Rückenmuskulatur entlang der Wirbelsäule.",
+      "stufen": [
+        {
+          "hinweis": "Halbe Kniebeuge.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Tiefer, unten zwei Sekunden halten.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "anker": false,
+        "gurt": "keiner",
+        "posen": [
+          {
+            "b": 1,
+            "x": 74,
+            "r": -6,
+            "l1": [
+              22,
+              -4
+            ],
+            "ballR": 0.2
+          },
+          {
+            "b": 1,
+            "x": 74,
+            "r": -4,
+            "l1": [
+              78,
+              -6
+            ],
+            "ballR": 0.55
+          }
+        ],
+        "pfeil": "huefte"
+      }
+    },
+    {
+      "id": "ball-armkreise-wand",
+      "titel": "Armkreise mit Ball an der Wand",
+      "geraet": "baelle",
+      "ziele": [
+        "ruecken"
+      ],
+      "muster": "schulter",
+      "intensitaet": 1,
+      "einseitig": true,
+      "gurt": "keiner",
+      "aufbau": "Mit Blick zur Wand stehen, ein Ball zwischen Handfläche und Wand auf Schulterhöhe, Arm gestreckt.",
+      "ablauf": [
+        "Den Ball mit leichtem Druck an der Wand halten.",
+        "Mit gestrecktem Arm langsame Kreise rollen, erst klein, dann größer.",
+        "Nach der Hälfte der Zeit die Richtung wechseln."
+      ],
+      "achte_auf": "Die Schulter bleibt unten, der Nacken locker.",
+      "warum": "Bewegt das Schultergelenk unter leichter Last und weckt die Muskulatur um das Schulterblatt.",
+      "stufen": [
+        {
+          "hinweis": "Kleine Kreise, wenig Druck.",
+          "einheit": "sek",
+          "min": 20,
+          "max": 40
+        },
+        {
+          "hinweis": "Große Kreise, mehr Druck in den Ball.",
+          "einheit": "sek",
+          "min": 20,
+          "max": 40
+        }
+      ],
+      "bild": {
+        "ansicht": "seite",
+        "anker": false,
+        "gurt": "keiner",
+        "posen": [
+          {
+            "b": -1,
+            "x": 74,
+            "a1": [
+              88,
+              88
+            ],
+            "ballH": true
+          },
+          {
+            "b": -1,
+            "x": 74,
+            "a1": [
+              128,
+              128
+            ],
+            "ballH": true
+          }
+        ],
+        "pfeil": "haende"
       }
     }
   ]

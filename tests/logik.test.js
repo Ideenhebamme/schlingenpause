@@ -154,3 +154,37 @@ test('Nach dem Tauschen bleibt die Gruppierung erhalten', () => {
     }
   }
 });
+
+test('Ball-Pausen enthalten nur Ball-Übungen der gewählten Region', () => {
+  for (const ziel of ['fuesse', 'becken', 'ruecken', 'mix']) {
+    for (let seed = 1; seed < 20; seed++) {
+      const s = erstelleSession({ bibliothek: bib, zustaende: {}, ziel, dauer: 'kurz', geraet: 'baelle', jetzt: t0, rng: rngAus(seed) });
+      assert.equal(s.eintraege.length, 3);
+      assert.ok(s.eintraege.every((e) => nach(e.id).geraet === 'baelle'), `${ziel}: fremdes Gerät`);
+      if (ziel !== 'mix') assert.ok(s.eintraege.every((e) => nach(e.id).ziele.includes(ziel)), `${ziel}: falsche Region`);
+      assert.equal(anzahlGurtwechsel(s), 0);
+    }
+  }
+});
+
+test('Schlingen-Pausen enthalten ohne Einstieg keine Ball-Übungen', () => {
+  for (let seed = 1; seed < 30; seed++) {
+    const s = erstelleSession({ bibliothek: bib, zustaende: {}, ziel: 'mix', dauer: 'lang', jetzt: t0, rng: rngAus(seed) });
+    assert.ok(s.eintraege.every((e) => (nach(e.id).geraet ?? 'schlinge') === 'schlinge'));
+  }
+});
+
+test('Ball-Einstieg läuft nur einmal zu Beginn, auch bei zwei Runden', () => {
+  const s = erstelleSession({ bibliothek: bib, zustaende: {}, ziel: 'kraft', dauer: 'lang', ballEinstieg: true, jetzt: t0, rng: rngAus(5) });
+  assert.equal(s.eintraege.length, 5);
+  assert.ok(s.eintraege[0].einmalig && nach(s.eintraege[0].id).geraet === 'baelle');
+  const folge = schrittFolge(s);
+  assert.equal(folge.length, 1 + 4 * 2);
+  assert.equal(folge[0].index, 0);
+  assert.equal(folge.filter((x) => x.index === 0).length, 1);
+  const getauscht = tauscheUebung(s, 0, { bibliothek: bib, zustaende: {}, jetzt: t0, rng: rngAus(9) });
+  assert.ok(getauscht.eintraege[0].einmalig && nach(getauscht.eintraege[0].id).geraet === 'baelle');
+  assert.notEqual(getauscht.eintraege[0].id, s.eintraege[0].id);
+  const getauscht2 = tauscheUebung(s, 2, { bibliothek: bib, zustaende: {}, jetzt: t0, rng: rngAus(9) });
+  assert.ok(getauscht2.eintraege[0].einmalig, 'Einstieg bleibt vorn');
+});

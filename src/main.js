@@ -1,13 +1,13 @@
 import './style.css';
 import bibliothek from './daten/uebungen.json';
 import { pruefeBibliothek } from './logik/schema.js';
-import { erstelleSession, tauscheUebung, schaetzeMinuten, schrittFolge, anzahlGurtwechsel, gurtVon } from './logik/auswahl.js';
+import { erstelleSession, tauscheUebung, schaetzeMinuten, schrittFolge, anzahlGurtwechsel, gurtVon, geraetVon } from './logik/auswahl.js';
 import { zustandFuer, wendeRueckmeldungAn, formatVorgabe, setzeStufe, startZustand, vorgabe } from './logik/progression.js';
 import { laden, speichern, leererZustand, alsBackupText, ausBackupText, speicherVerfuegbar } from './logik/speicher.js';
 import { h, knopf } from './ui/dom.js';
 import { tonVorbereiten, piep, piepEnde, wachHalten } from './ui/geraet.js';
 
-const VERSION = '0.4.0';
+const VERSION = '0.5.0';
 
 function piktogramm(u) {
   if (!u.bild) return null;
@@ -35,10 +35,16 @@ const ZIELE = {
   haltung:    { name: 'Haltung & Rücken', text: 'Oberer Rücken, Schulterblätter',  klasse: 'z-haltung' },
   mobilitaet: { name: 'Mobilität',        text: 'Dehnen, Hüfte, Brustwirbelsäule', klasse: 'z-mobilitaet' },
   mix:        { name: 'Überrasch mich',   text: 'Querbeet aus allem',              klasse: 'z-mix' },
+  fuesse:     { name: 'Füße',             text: 'Ausrollen, greifen, Balance',     klasse: 'z-fuesse' },
+  becken:     { name: 'Becken',           text: 'Kippen, lösen, verlagern',        klasse: 'z-becken' },
+  ruecken:    { name: 'Rücken',           text: 'Ausrollen und öffnen an der Wand', klasse: 'z-ruecken' },
 };
+const ZIEL_KACHELN = { schlinge: ['haltung', 'kraft', 'mobilitaet', 'mix'], baelle: ['fuesse', 'becken', 'ruecken', 'mix'] };
+const GERAET_LABEL = { schlinge: 'Schlinge', baelle: 'Bälle' };
 const MUSTER = {
   zug: 'Zug', druck: 'Druck', beine: 'Beine', rumpf: 'Rumpf',
   schulter: 'Schulter', huefte: 'Hüfte', wirbelsaeule: 'Wirbelsäule',
+  fuss: 'Fuß', balance: 'Balance', becken: 'Becken', ruecken: 'Rücken',
 };
 const DAUER_LABEL = { kurz: 'kurz', lang: 'länger' };
 const GURT_LABEL = { kurz: 'kurz', mittel: 'mittel', lang: 'lang' };
@@ -99,6 +105,8 @@ function sicherheitsText() {
     h('p', {}, 'Vor der ersten Nutzung mit kräftigem Zug in alle Übungsrichtungen prüfen, ob Befestigung und Gurt sicher halten. Gurt und Karabiner regelmäßig auf Abrieb kontrollieren.'),
     h('h3', {}, 'Platz'),
     h('p', {}, 'Vor dem Anker etwa 2–2,5 m freien Boden einplanen. Rutschfeste Schuhe oder barfuß – nicht in Socken auf glattem Boden.'),
+    h('h3', {}, 'Bälle'),
+    h('p', {}, 'Ohne Schuhe auf rutschfestem Boden üben. Beim Stehen auf den Bällen immer eine Hand am Schreibtisch oder Geländer. Bei Übungen an der Wand nicht direkt auf der Wirbelsäule rollen.'),
     h('h3', {}, 'Körper'),
     h('p', {}, 'Die Übungen sind Vorschläge, keine medizinische oder therapeutische Anleitung. Die eigene Körperwahrnehmung hat Vorrang. Bei Schmerzen, Schwindel oder Unwohlsein abbrechen.'),
   ];
@@ -124,10 +132,12 @@ function zeigeStart() {
   const heute = zustand.sessions.filter((s) => istHeute(s.start));
   const letzte = zustand.sessions.at(-1);
   const dauer = zustand.einstellungen.dauer === 'lang' ? 'lang' : 'kurz';
+  const geraet = zustand.einstellungen.geraet === 'baelle' ? 'baelle' : 'schlinge';
+  const ballEinstieg = !!zustand.einstellungen.ballEinstieg;
 
   const statusText = heute.length === 0
     ? (letzte ? `Heute noch keine Pause · zuletzt ${relativeZeit(letzte.start)}` : 'Noch keine Pause gemacht')
-    : `Heute ${heute.length} ${heute.length === 1 ? 'Pause' : 'Pausen'} · zuletzt ${uhrzeit(letzte.start)} ${ZIELE[letzte.ziel]?.name ?? ''}`;
+    : `Heute ${heute.length} ${heute.length === 1 ? 'Pause' : 'Pausen'} · zuletzt ${uhrzeit(letzte.start)} ${letzte.geraet === 'baelle' ? 'Bälle · ' : ''}${ZIELE[letzte.ziel]?.name ?? ''}`;
 
   const dauerKnopf = (wert, titel, info) => h('button', {
     type: 'button',
@@ -136,13 +146,21 @@ function zeigeStart() {
     onclick: () => { zustand.einstellungen.dauer = wert; sichern(); zeigeStart(); },
   }, h('span', { class: 'segment-titel' }, titel), h('span', { class: 'segment-info' }, info));
 
+  const geraetKnopf = (wert) => h('button', {
+    type: 'button',
+    class: `segment segment-einzeilig${geraet === wert ? ' ist-aktiv' : ''}`,
+    'aria-pressed': geraet === wert ? 'true' : 'false',
+    onclick: () => { zustand.einstellungen.geraet = wert; sichern(); zeigeStart(); },
+  }, h('span', { class: 'segment-titel' }, GERAET_LABEL[wert]));
+
   const zielKachel = (key) => {
     const z = ZIELE[key];
+    const text = key === 'mix' && geraet === 'baelle' ? 'Querbeet aus allen Ball-Übungen' : z.text;
     return h('button', {
       type: 'button',
       class: `kachel ${z.klasse}`,
-      onclick: () => zeigePlan(erstelleSession({ bibliothek, zustaende: zustand.uebungen, ziel: key, dauer })),
-    }, h('span', { class: 'kachel-name' }, z.name), h('span', { class: 'kachel-text' }, z.text));
+      onclick: () => zeigePlan(erstelleSession({ bibliothek, zustaende: zustand.uebungen, ziel: key, dauer, geraet, ballEinstieg })),
+    }, h('span', { class: 'kachel-name' }, z.name), h('span', { class: 'kachel-text' }, text));
   };
 
   zeige(
@@ -158,14 +176,26 @@ function zeigeStart() {
         ? h('p', { class: 'banner banner-warnung' }, 'Speichern ist gerade nicht möglich – der Trainingsstand geht beim Schließen verloren.')
         : null,
 
+      h('h2', { class: 'abschnitt' }, 'Womit?'),
+      h('div', { class: 'segmente', role: 'group', 'aria-label': 'Gerät' },
+        geraetKnopf('schlinge'),
+        geraetKnopf('baelle'),
+      ),
+
       h('h2', { class: 'abschnitt' }, 'Dauer'),
       h('div', { class: 'segmente', role: 'group', 'aria-label': 'Dauer' },
-        dauerKnopf('kurz', 'Kurz', 'ca. 3–5 Min'),
-        dauerKnopf('lang', 'Länger', 'ca. 7–10 Min'),
+        dauerKnopf('kurz', 'Kurz', geraet === 'baelle' ? 'ca. 3–4 Min' : 'ca. 3–5 Min'),
+        dauerKnopf('lang', 'Länger', geraet === 'baelle' ? 'ca. 6–8 Min' : 'ca. 7–10 Min'),
       ),
 
       h('h2', { class: 'abschnitt' }, 'Worauf hast du Lust?'),
-      h('div', { class: 'kacheln' }, ['haltung', 'kraft', 'mobilitaet', 'mix'].map(zielKachel)),
+      h('div', { class: 'kacheln' }, ZIEL_KACHELN[geraet].map(zielKachel)),
+      geraet === 'schlinge'
+        ? h('label', { class: 'schalter' },
+            h('input', { type: 'checkbox', checked: ballEinstieg, onchange: (e) => { zustand.einstellungen.ballEinstieg = e.target.checked; sichern(); } }),
+            h('span', {}, 'Mit Ball-Übung als Einstieg'),
+          )
+        : null,
     ),
     h('nav', { class: 'fussnav', 'aria-label': 'Weitere Bereiche' },
       knopf('Übungen', () => zeigeBibliothek(), 'fussnav-link'),
@@ -186,7 +216,7 @@ function zeigePlan(session, getauscht = []) {
     return h('li', { class: 'plan-karte' },
       h('div', { class: 'plan-nr', 'aria-hidden': 'true' }, String(i + 1)),
       h('div', { class: 'plan-inhalt' },
-        h('p', { class: 'plan-titel' }, u.titel, h('span', { class: `gurt-pill gurt-${e.gurt ?? gurtVon(u)}` }, `Gurt ${GURT_LABEL[e.gurt ?? gurtVon(u)]}`)),
+        h('p', { class: 'plan-titel' }, u.titel, planPill(e, u)),
         h('p', { class: 'plan-vorgabe' }, `Stufe ${e.stufeIndex + 1}/${e.anzahlStufen} · ${formatVorgabe(e.einheit, e.ziel, u.einseitig)}`),
         h('p', { class: 'plan-aufbau' }, u.aufbau.split('.')[0] + '.'),
       ),
@@ -200,11 +230,11 @@ function zeigePlan(session, getauscht = []) {
   zeige(
     kopf({ zurueck: zeigeStart }),
     h('section', { class: 'seite' },
-      h('p', { class: `ziel-tag ${z.klasse}` }, `${z.name} · ${DAUER_LABEL[session.dauer]}`),
+      h('p', { class: `ziel-tag ${z.klasse}` }, `${session.geraet === 'baelle' ? 'Bälle · ' : ''}${z.name} · ${DAUER_LABEL[session.dauer]}`),
       h('h1', { class: 'titel-gross' }, `ca. ${minuten} Min`),
       h('p', { class: 'leise' },
         `${session.eintraege.length} Übungen · ${session.runden} ${session.runden === 1 ? 'Runde' : 'Runden'}`),
-      h('p', { class: 'leise' }, gurtZusammenfassung(session)),
+      session.eintraege.some((e) => e.gurt && e.gurt !== 'keiner') ? h('p', { class: 'leise' }, gurtZusammenfassung(session)) : null,
       h('ol', { class: 'plan-liste' }, session.eintraege.map(karte)),
     ),
     aktionsleiste(knopf('Los geht’s', () => {
@@ -214,8 +244,16 @@ function zeigePlan(session, getauscht = []) {
   );
 }
 
+function planPill(e, u) {
+  if (geraetVon(u) === 'baelle') {
+    return h('span', { class: 'gurt-pill pill-ball' }, e.einmalig ? 'Ball · Einstieg' : 'Ball');
+  }
+  const g = e.gurt ?? gurtVon(u);
+  return h('span', { class: `gurt-pill gurt-${g}` }, `Gurt ${GURT_LABEL[g]}`);
+}
+
 function gurtZusammenfassung(session) {
-  const start = session.eintraege[0]?.gurt ?? 'mittel';
+  const start = session.eintraege.find((e) => e.gurt && e.gurt !== 'keiner')?.gurt ?? 'mittel';
   const n = anzahlGurtwechsel(session);
   if (n === 0) return `Gurte die ganze Zeit auf „${GURT_LABEL[start]}“`;
   return `Start mit Gurten auf „${GURT_LABEL[start]}“ · ${n}× umstellen`;
@@ -247,6 +285,7 @@ function beendeDurchlauf(abgebrochen = false) {
     zustand.sessions.push({
       start: l.start,
       ende: Date.now(),
+      geraet: l.session.geraet ?? 'schlinge',
       ziel: l.session.ziel,
       dauer: l.session.dauer,
       runden: l.session.runden,
@@ -294,9 +333,16 @@ function zeigeSchritt() {
   const bereich = eintrag.einheit === 'sek' ? halteTimer(eintrag, u) : null;
 
   const gurt = eintrag.gurt ?? gurtVon(u);
-  const vorher = lauf.pos > 0 ? lauf.session.eintraege[lauf.schritte[lauf.pos - 1].index] : null;
-  const gurtVorher = vorher ? (vorher.gurt ?? gurtVon(nachId.get(vorher.id))) : null;
-  const gurtHinweis = gurtVorher === null
+  // letzte vorherige Übung mit Gurt (Ball-Übungen haben keinen)
+  let gurtVorher = null;
+  for (let k = lauf.pos - 1; k >= 0; k--) {
+    const e = lauf.session.eintraege[lauf.schritte[k].index];
+    const g = e.gurt ?? gurtVon(nachId.get(e.id));
+    if (g !== 'keiner') { gurtVorher = g; break; }
+  }
+  const gurtHinweis = gurt === 'keiner'
+    ? null
+    : gurtVorher === null
     ? h('div', { class: 'gurt-hinweis' }, `Gurte auf „${GURT_LABEL[gurt]}“ einstellen`, h('span', { class: 'gurt-hoehe' }, GURT_HOEHE[gurt]))
     : gurt !== gurtVorher
       ? h('div', { class: 'gurt-hinweis gurt-wechsel' }, `Jetzt umstellen: Gurte auf „${GURT_LABEL[gurt]}“`, h('span', { class: 'gurt-hoehe' }, GURT_HOEHE[gurt]))
@@ -459,7 +505,7 @@ function zeigeBibliothek() {
   }, name);
 
   const liste = bibliothek.uebungen
-    .filter((u) => bibFilter === 'alle' || u.ziele.includes(bibFilter))
+    .filter((u) => bibFilter === 'alle' || (bibFilter === 'baelle' ? geraetVon(u) === 'baelle' : u.ziele.includes(bibFilter)))
     .map((u) => {
       const z = zustandFuer(zustand.uebungen, u);
       const v = vorgabe(u, z);
@@ -481,6 +527,7 @@ function zeigeBibliothek() {
         filterKnopf('kraft', 'Kraft'),
         filterKnopf('haltung', 'Haltung'),
         filterKnopf('mobilitaet', 'Mobilität'),
+        filterKnopf('baelle', 'Bälle'),
       ),
       h('ul', { class: 'bib-liste' }, liste),
     ),
@@ -555,7 +602,7 @@ function zeigeVerlauf() {
         h('h2', { class: 'abschnitt' }, g.tag),
         h('ul', { class: 'verlauf-liste' }, g.eintraege.map((s) => h('li', {},
           h('span', { class: 'verlauf-zeit' }, uhrzeit(s.start)),
-          h('span', {}, `${ZIELE[s.ziel]?.name ?? s.ziel} · ${DAUER_LABEL[s.dauer] ?? ''} · ${Math.max(1, Math.round((s.ende - s.start) / 60000))} Min`),
+          h('span', {}, `${s.geraet === 'baelle' ? 'Bälle · ' : ''}${ZIELE[s.ziel]?.name ?? s.ziel} · ${DAUER_LABEL[s.dauer] ?? ''} · ${Math.max(1, Math.round((s.ende - s.start) / 60000))} Min`),
           h('span', { class: 'verlauf-uebungen' },
             [...new Set(s.eintraege.map((e) => nachId.get(e.id)?.titel ?? e.id))].join(', ')
             + (s.abgebrochen ? ' (abgebrochen)' : '')),
