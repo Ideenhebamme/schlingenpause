@@ -101,7 +101,7 @@ Außenrotation der Schulter (Face Pull, W-Heben) ist mit `vorsicht` markiert –
 
 - `src/ui/sprache.js`: Web Speech API (Stimmen des iPhones, offline). Erste Ausgabe muss in
   einem Tipp-Handler starten (`entsperren()` beim Einschalten und bei „Los geht’s“).
-- Einstellung `vorlesen` (Schalter auf dem Start und in den Einstellungen), `tempo`
+- Einstellung `vorlesen` (Schalter auf dem Start und in den Einstellungen), `stimme` (voiceURI, Auswahl in den Einstellungen; Rangfolge Premium > Erweitert > Standard, Siri-Stimmen gibt iOS für Web-Apps nicht frei), `tempo`
   langsam/normal/schnell. Knopf „Vorlesen/Stopp“ in jeder Übung.
 - Automatisch: erstes Vorkommen einer Übung ausführlich (Gurt, Name, Vorgabe, Position,
   Aufbau, Ablauf, Achte auf, Vorsicht), spätere Runden kurz. Halteübungen starten nach dem

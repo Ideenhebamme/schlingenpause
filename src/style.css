@@ -463,3 +463,15 @@ button:focus-visible, summary:focus-visible, input:focus-visible {
 .btn-vorlesen[data-laeuft="1"] { background: var(--blau); color: #fff; border-color: var(--blau); }
 .segmente-drei { grid-template-columns: 1fr 1fr 1fr; }
 .form-label-klein { font-size: 14px; color: var(--leise); margin: 14px 0 6px; }
+
+.form-select {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--linie);
+  background: var(--flaeche);
+  font: inherit;
+  font-size: 16px;
+  color: var(--text);
+}

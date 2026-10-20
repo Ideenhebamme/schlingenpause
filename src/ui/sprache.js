@@ -4,21 +4,62 @@
 
 const ok = typeof window !== 'undefined' && 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
 let stimme = null;
+let gewuenscht = null; // voiceURI aus den Einstellungen
 let auftrag = 0; // erhöht sich bei jedem neuen Vorlesen → ältere Ketten brechen ab
+const beiAenderung = new Set();
+
+// Spaß- und Effektstimmen von Apple, die nicht für Ansagen taugen
+const EFFEKT = /\b(eddy|flo|grandma|grandpa|oma|opa|reed|rocko|sandy|shelley|bahh|bells|boing|bubbles|cellos|wobble|zarvox|news|jester|organ|superstar|trinoids|whisper|albert|fred|junior|kathy|ralph)\b/i;
+
+// Rangfolge: 3 Premium, 2 Erweitert, 1 Standard, 0.5 Siri (von iOS für Web-Apps meist gesperrt), 0 Effekt
+function qualitaet(v) {
+  const id = `${v.voiceURI ?? ''} ${v.name ?? ''}`.toLowerCase();
+  if (/siri/.test(id)) return 0.5;
+  if (/premium/.test(id)) return 3;
+  if (/enhanced|erweitert|verbessert/.test(id)) return 2;
+  if (EFFEKT.test(v.name ?? '')) return 0;
+  return 1;
+}
+
+export function qualitaetsName(v) {
+  const q = qualitaet(v);
+  return q === 0.5 ? 'Siri, evtl. nicht nutzbar' : ['Effekt', 'Standard', 'Erweitert', 'Premium'][q];
+}
+
+// Alle deutschen Stimmen, beste zuerst
+export function deutscheStimmen() {
+  if (!ok) return [];
+  return speechSynthesis.getVoices()
+    .filter((v) => v.lang?.toLowerCase().replace('_', '-').startsWith('de'))
+    .sort((a, b) => qualitaet(b) - qualitaet(a) || (b.lang === 'de-DE') - (a.lang === 'de-DE') || a.name.localeCompare(b.name));
+}
 
 function waehleStimme() {
   if (!ok) return;
-  const deutsch = speechSynthesis.getVoices().filter((v) => v.lang?.toLowerCase().startsWith('de'));
-  stimme =
-    deutsch.find((v) => /premium|enhanced|erweitert/i.test(v.name)) ??
-    deutsch.find((v) => /anna|helena|petra|markus|yannick/i.test(v.name)) ??
-    deutsch.find((v) => v.localService) ??
-    deutsch[0] ??
-    null;
+  const liste = deutscheStimmen();
+  stimme = (gewuenscht && liste.find((v) => v.voiceURI === gewuenscht)) ?? liste.find((v) => qualitaet(v) >= 1) ?? liste[0] ?? null;
+  beiAenderung.forEach((f) => f());
 }
 if (ok) {
   waehleStimme();
   speechSynthesis.addEventListener?.('voiceschanged', waehleStimme);
+  // iOS liefert die Liste manchmal erst verzögert
+  setTimeout(waehleStimme, 500);
+  setTimeout(waehleStimme, 2000);
+}
+
+export function setzeStimme(voiceURI) {
+  gewuenscht = voiceURI || null;
+  waehleStimme();
+}
+
+export function aktuelleStimme() {
+  return stimme;
+}
+
+export function wennStimmenGeladen(f) {
+  beiAenderung.add(f);
+  return () => beiAenderung.delete(f);
 }
 
 export function spracheVerfuegbar() {

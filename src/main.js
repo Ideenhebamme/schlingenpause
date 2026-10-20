@@ -6,9 +6,9 @@ import { zustandFuer, wendeRueckmeldungAn, formatVorgabe, setzeStufe, startZusta
 import { laden, speichern, leererZustand, alsBackupText, ausBackupText, speicherVerfuegbar } from './logik/speicher.js';
 import { h, knopf } from './ui/dom.js';
 import { tonVorbereiten, piep, piepEnde, wachHalten } from './ui/geraet.js';
-import { spracheVerfuegbar, sprich, sage, stoppe, entsperren } from './ui/sprache.js';
+import { spracheVerfuegbar, sprich, sage, stoppe, entsperren, deutscheStimmen, qualitaetsName, setzeStimme, aktuelleStimme, wennStimmenGeladen } from './ui/sprache.js';
 
-const VERSION = '0.6.0';
+const VERSION = '0.6.1';
 
 function piktogramm(u) {
   if (!u.bild) return null;
@@ -29,6 +29,7 @@ if (!pruefung.ok) console.error('Übungsbibliothek fehlerhaft:', pruefung.fehler
 
 const nachId = new Map(bibliothek.uebungen.map((u) => [u.id, u]));
 let zustand = laden();
+setzeStimme(zustand.einstellungen.stimme);
 const app = document.getElementById('app');
 
 const ZIELE = {
@@ -720,6 +721,8 @@ function zeigeEinstellungen() {
               h('span', {}, 'Übungen automatisch vorlesen'),
             ),
             h('p', { class: 'leise klein' }, 'Beim ersten Durchgang ausführlich, in weiteren Runden nur Name, Vorgabe und Position. Halteübungen starten nach dem Vorlesen von selbst, mit Ansagen zu Start, Seitenwechsel und Ende.'),
+            h('p', { class: 'form-label-klein' }, 'Stimme'),
+            stimmenAuswahl(),
             h('p', { class: 'form-label-klein' }, 'Tempo'),
             h('div', { class: 'segmente segmente-drei', role: 'group', 'aria-label': 'Sprechtempo' },
               ['langsam', 'normal', 'schnell'].map((t) => h('button', {
@@ -730,7 +733,7 @@ function zeigeEinstellungen() {
             h('div', { class: 'knopf-reihe' },
               knopf('Probe hören', () => { entsperren(); sprich(['Rudern.', '10 Wdh.', 'Position: Füße eine Fußlänge hinter dem Ankerpunkt.'], { tempo: tempo() }); }, 'btn btn-sekundaer'),
             ),
-            h('p', { class: 'leise klein' }, 'Die Stimme kommt vom iPhone. Eine bessere deutsche Stimme lässt sich unter Einstellungen → Bedienungshilfen → Gesprochene Inhalte → Stimmen → Deutsch laden.'),
+            h('p', { class: 'leise klein' }, 'Siri-Stimmen gibt iOS nicht für Web-Apps frei. Nutzbar sind die Stimmen unter Einstellungen → Bedienungshilfen → Gesprochene Inhalte → Stimmen → Deutsch; dort eine Variante „Premium“ oder „Erweitert“ laden. Danach die App einmal ganz schließen und neu öffnen.'),
           ]
         : h('p', { class: 'leise' }, 'Dieser Browser bietet keine Sprachausgabe an.'),
 
@@ -763,6 +766,32 @@ function zeigeEinstellungen() {
       h('p', { class: 'leise klein version' }, `Version ${VERSION} · Bibliothek ${bibliothek.library_version} · Daten bleiben auf diesem Gerät.`),
     ),
   );
+}
+
+function stimmenAuswahl() {
+  const auswahl = h('select', { class: 'form-select', 'aria-label': 'Stimme' });
+  const fuellen = () => {
+    const liste = deutscheStimmen();
+    const aktiv = aktuelleStimme();
+    const optionen = liste.length
+      ? liste.map((v) => {
+          const o = h('option', { value: v.voiceURI }, `${v.name} · ${qualitaetsName(v)}${v.lang !== 'de-DE' ? ` (${v.lang})` : ''}`);
+          if (aktiv && v.voiceURI === aktiv.voiceURI) o.selected = true;
+          return o;
+        })
+      : [h('option', { value: '' }, 'Stimmen werden geladen …')];
+    auswahl.replaceChildren(...optionen);
+  };
+  fuellen();
+  const abmelden = wennStimmenGeladen(() => { if (auswahl.isConnected) fuellen(); else abmelden(); });
+  auswahl.addEventListener('change', () => {
+    zustand.einstellungen.stimme = auswahl.value;
+    sichern();
+    setzeStimme(auswahl.value);
+    entsperren();
+    sprich(['So klinge ich.'], { tempo: tempo() });
+  });
+  return auswahl;
 }
 
 async function backupExport() {
