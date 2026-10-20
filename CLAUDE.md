@@ -56,13 +56,18 @@ je näher die Füße Richtung Ankerpunkt kommen (Körper flacher).
 ## Piktogramme
 
 `scripts/piktogramme.mjs` erzeugt aus `bild` je Übung `public/bilder/<id>.svg`
-(Start- und Endposition nebeneinander, Strichfigur mit Anker und Gurt).
+(Start- und Endposition nebeneinander; im Endbild die Startpose hell und ein Bewegungspfeil).
 Posen werden über Gelenkwinkel beschrieben – Doku im Kopf des Skripts.
 Läuft automatisch bei `npm run build`; einzeln mit `npm run bilder`.
 
 `npm test` prüft die Bibliothek mit `src/logik/schema.js` und rendert alle Piktogramme.
-Aktuell: Bibliothek 1.1.0 mit 29 Übungen (4 davon mit Gurt „lang“: Brustpressen, Trizeps, Fallout) (Kraft, Haltung & Rücken, Mobilität).
-Anker bei Nils: Mittelsäule der Wendeltreppe, 2,0–2,2 m; Körpergröße 1,83 m.
+Aktuell: Bibliothek 1.2.0 mit 42 Übungen (Kraft, Haltung & Rücken, Mobilität), alle im Stehen.
+Gurt „lang“ nur bei Übungen mit Rücken zum Anker (Brustpressen, Fly, Trizeps, Fallout).
+Gurthöhen in der App: kurz = Griffe auf Brusthöhe, mittel = Hüfthöhe, lang = Kniehöhe.
+Gerät: Variosling Sling Trainer (Modell 2025), zwei Gurte an einem Karabiner, Eingriff-Modus für einarmige Übungen.
+Anker bei Nils: Ankerschlaufe an der Außenseite der Wendeltreppe, ca. 2,2 m; von Nils getestet. Körpergröße 1,83 m.
+Neue Übungen orientieren sich an den Übungsseiten von variosling.de – Texte eigen formuliert,
+Piktogramme aus eigenen Posen gerendert (keine Bilder des Herstellers übernehmen).
 Außenrotation der Schulter (Face Pull, W-Heben) ist mit `vorsicht` markiert – Nils testet, was geht.
 
 ## Logik

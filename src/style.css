@@ -438,3 +438,5 @@ button:focus-visible, summary:focus-visible, input:focus-visible {
   font-weight: 600;
 }
 .gurt-hinweis.gurt-wechsel { background: var(--gruen); color: #fff; }
+
+.gurt-hoehe { display: block; font-size: 13px; font-weight: 400; opacity: 0.85; }

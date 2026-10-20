@@ -21,14 +21,18 @@
 //   griff [dx, dy]  beide Hände gestreckt an einem Punkt relativ zur Schultermitte
 //
 // bild.gurt: "zwei" | "einer" (beide Hände an einem Griff) | "links" | "rechts" | "arm1"
+// bild.anker_x: x-Position des Ankers (Seitenansicht Standard 0, Front Standard 0)
+// bild.pfeil: "haende" | "huefte" | "kopf" | "fuss" | false – Bewegungspfeil im Endbild
+//             (ohne Angabe: der Punkt mit der größten Bewegung)
+// bild.geist: false – keine helle Startpose im Endbild
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
-const L = { kopf: 11, hals: 5, rumpf: 52, oberarm: 30, unterarm: 33, ober: 46, unter: 46, fuss: 15, knoechel: 6, schulter: 19, huefte: 9 };
+const L = { kopf: 12, hals: 5, rumpf: 52, oberarm: 30, unterarm: 33, ober: 46, unter: 46, fuss: 15, knoechel: 6, schulter: 19, huefte: 9 };
 const ANKER_Y = 212;
-const FARBE = { koerper: '#1B1F23', hinten: '#9AA0A6', gurt: '#6C8538', boden: '#C9C6BC', saeule: '#D8D5CC', text: '#8A8F96' };
+const FARBE = { koerper: '#1B1F23', hinten: '#A3A8AE', geist: '#E4E1D8', gurt: '#6C8538', pfeil: '#024B89', boden: '#C9C6BC', saeule: '#D8D5CC', text: '#8A8F96' };
 const rad = (g) => (g * Math.PI) / 180;
 
 function segWinkel(spec) {
@@ -37,7 +41,7 @@ function segWinkel(spec) {
 }
 
 // ---------- Seitenansicht ----------
-function seitePose(p) {
+function seitePose(p, ankerX = 0) {
   const b = p.b ?? -1;
   const runter = (w, len) => [b * Math.sin(rad(w)) * len, -Math.cos(rad(w)) * len];
   const plus = (a, v) => [a[0] + v[0], a[1] + v[1]];
@@ -70,7 +74,7 @@ function seitePose(p) {
   const dx = (p.x ?? 80) - b1.kn[0];
   const T = (pt) => (pt ? [pt[0] + dx, pt[1] + dy] : pt);
 
-  const anker = [0, ANKER_Y];
+  const anker = [ankerX, ANKER_Y];
   const arm = (spec, Sw) => {
     if (!spec) return null;
     const zumAnker = Math.atan2(anker[0] - Sw[0], -(anker[1] - Sw[1])); // Winkel ab unten (Bildschirm-x)
@@ -161,84 +165,145 @@ const f = (v) => Math.round(v * 10) / 10;
 const pt = (p) => `${f(p[0])},${f(-p[1])}`;
 const linie = (pts, farbe, breite) =>
   `<polyline points="${pts.map(pt).join(' ')}" fill="none" stroke="${farbe}" stroke-width="${breite}" stroke-linecap="round" stroke-linejoin="round"/>`;
+const STAERKE = { rumpf: 16, ober: 11, unter: 9.5, arm: 9, unterarm: 8 };
 
-function zeichnePanel(fig, bild, ansicht, ox, nummer) {
+// Körper einer Figur zeichnen. farbe überschreibt alles (für die helle Startpose).
+function zeichneKoerper(fig, ansicht, farbe) {
+  const out = [];
+  const c = farbe ?? FARBE.koerper;
+  const hinten = farbe ?? FARBE.hinten;
+  const bein = (bb, H, col) => bb && [
+    linie([H, bb.knie], col, STAERKE.ober),
+    linie([bb.knie, bb.kn], col, STAERKE.unter),
+    linie([bb.kn, bb.fuss], col, STAERKE.unter - 2),
+  ].join('');
+  // Arme mit heller Kontur, damit sie vor dem Rumpf sichtbar bleiben
+  const kontur = farbe ? farbe : '#FFFFFF';
+  const arm = (a, S, col, mitKontur = true) => a && [
+    mitKontur ? linie([S, a.E, a.Hd], kontur, STAERKE.arm + 4) : '',
+    linie([S, a.E], col, STAERKE.arm), linie([a.E, a.Hd], col, STAERKE.unterarm)].join('');
+
+  if (ansicht === 'seite') {
+    out.push(bein(fig.beine[1], fig.H, hinten) ?? '');
+    out.push(arm(fig.arme[1], fig.S, hinten, false) ?? '');
+    out.push(bein(fig.beine[0], fig.H, c));
+    out.push(linie([fig.H, fig.S], c, STAERKE.rumpf));
+    out.push(arm(fig.arme[0], fig.S, c));
+  } else {
+    out.push(bein(fig.beine[0], fig.hueften[0], c));
+    out.push(bein(fig.beine[1], fig.hueften[1], c));
+    // Rumpf als Trapez (Schultern breiter als Hüfte)
+    const [sl, sr] = fig.schultern, [hl, hr] = fig.hueften;
+    out.push(`<polygon points="${[sl, sr, hr, hl].map(pt).join(' ')}" fill="${c}" stroke="${c}" stroke-width="9" stroke-linejoin="round"/>`);
+    out.push(arm(fig.arme[0], fig.schultern[0], c));
+    out.push(arm(fig.arme[1], fig.schultern[1], c));
+  }
+  out.push(`<circle cx="${f(fig.K[0])}" cy="${f(-fig.K[1])}" r="${L.kopf}" fill="${c}"/>`);
+  return out.join('');
+}
+
+function griffpunkte(fig, bild, ansicht) {
+  const haende = fig.arme.filter(Boolean).map((a) => a.Hd);
+  const g = bild.gurt ?? 'zwei';
+  if (g === 'keiner') return [];
+  if (g === 'zwei') return ansicht === 'seite' ? [fig.arme[0].Hd] : haende;
+  if (g === 'arm1' || g === 'links') return [fig.arme[0].Hd];
+  if (g === 'rechts') return [fig.arme[1].Hd];
+  const b = haende[1] ?? haende[0];
+  return [[(haende[0][0] + b[0]) / 2, (haende[0][1] + b[1]) / 2]];
+}
+
+function zeichneGurt(fig, ziele, farbe) {
   const out = [];
   const [ax, ay] = fig.anker;
-  // Säule + Boden
-  out.push(`<line x1="${ax}" y1="${-ay}" x2="${ax}" y2="${-240}" stroke="${FARBE.saeule}" stroke-width="7" stroke-linecap="round"/>`);
+  if (ziele.length === 2) {
+    const mitte = [(ziele[0][0] + ziele[1][0]) / 2, (ziele[0][1] + ziele[1][1]) / 2];
+    const gabel = [ax + (mitte[0] - ax) * 0.4, ay + (mitte[1] - ay) * 0.4];
+    out.push(linie([fig.anker, gabel], farbe, 4));
+    ziele.forEach((z) => out.push(linie([gabel, z], farbe, 3.2)));
+  } else {
+    ziele.forEach((z) => out.push(linie([fig.anker, z], farbe, 4)));
+  }
+  return out.join('');
+}
+
+// Punkte, deren Bewegung als Pfeil gezeigt werden kann
+function merkpunkte(fig) {
+  const haende = fig.arme.filter(Boolean).map((a) => a.Hd);
+  const mitte = haende.reduce((a, h) => [a[0] + h[0] / haende.length, a[1] + h[1] / haende.length], [0, 0]);
+  const fuss = (fig.beine[1] ?? fig.beine[0]).kn;
+  return { haende: mitte, huefte: fig.H, kopf: fig.K, fuss };
+}
+
+function pfeil(von, nach, ansicht) {
+  const d = [nach[0] - von[0], nach[1] - von[1]];
+  const len = Math.hypot(d[0], d[1]);
+  if (len < 14) return '';
+  const u = [d[0] / len, d[1] / len];
+  const n = [-u[1], u[0]]; // Normale
+  const versatz = 16;
+  // Pfeil leicht neben die Bahn legen, Enden etwas einkürzen
+  const a = [von[0] + n[0] * versatz + u[0] * 6, von[1] + n[1] * versatz + u[1] * 6];
+  const e = [nach[0] + n[0] * versatz - u[0] * 6, nach[1] + n[1] * versatz - u[1] * 6];
+  const k = [(a[0] + e[0]) / 2 + n[0] * len * 0.18, (a[1] + e[1]) / 2 + n[1] * len * 0.18];
+  // Richtung am Ende der Kurve
+  const t = [e[0] - k[0], e[1] - k[1]];
+  const tl = Math.hypot(t[0], t[1]);
+  const tu = [t[0] / tl, t[1] / tl], tn = [-tu[1], tu[0]];
+  const spitze = 9;
+  const p1 = [e[0] - tu[0] * spitze + tn[0] * spitze * 0.6, e[1] - tu[1] * spitze + tn[1] * spitze * 0.6];
+  const p2 = [e[0] - tu[0] * spitze - tn[0] * spitze * 0.6, e[1] - tu[1] * spitze - tn[1] * spitze * 0.6];
+  return `<path d="M ${pt(a)} Q ${pt(k)} ${pt(e)}" fill="none" stroke="${FARBE.pfeil}" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="1 7"/>` +
+    `<path d="M ${pt(p1)} L ${pt(e)} L ${pt(p2)}" fill="none" stroke="${FARBE.pfeil}" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>`;
+}
+
+function zeichnePanel(fig, vorher, bild, ansicht, ox, nummer) {
+  const out = [];
+  const [ax, ay] = fig.anker;
+  out.push(`<line x1="${ax}" y1="${-ay}" x2="${ax}" y2="${-246}" stroke="${FARBE.saeule}" stroke-width="8" stroke-linecap="round"/>`);
   const bx0 = ansicht === 'front' ? -105 : -25, bx1 = ansicht === 'front' ? 105 : 185;
   out.push(`<line x1="${bx0}" y1="0" x2="${bx1}" y2="0" stroke="${FARBE.boden}" stroke-width="3" stroke-linecap="round"/>`);
 
-  const dick = 7.5;
-  const zeichneArm = (a, farbe, S) => a && linie([S, a.E, a.Hd], farbe, dick - 1);
-  const zeichneBein = (bb, farbe, H) => bb && linie([H, bb.knie, bb.kn, bb.fuss], farbe, dick);
-
-  if (ansicht === 'seite') {
-    // hinteres Bein/Arm zuerst, hell
-    out.push(zeichneBein(fig.beine[1], FARBE.hinten, fig.H) ?? '');
-    out.push(zeichneArm(fig.arme[1], FARBE.hinten, fig.S) ?? '');
+  // helle Startpose im Endbild
+  if (vorher && bild.geist !== false) {
+    out.push(zeichneGurt(vorher, griffpunkte(vorher, bild, ansicht), FARBE.geist));
+    out.push(zeichneKoerper(vorher, ansicht, FARBE.geist));
   }
+  const ziele = griffpunkte(fig, bild, ansicht);
+  out.push(zeichneGurt(fig, ziele, FARBE.gurt));
+  out.push(`<circle cx="${ax}" cy="${-ay}" r="5.5" fill="${FARBE.gurt}"/>`);
+  out.push(zeichneKoerper(fig, ansicht));
+  ziele.forEach((z) => out.push(`<rect x="${f(z[0] - 5)}" y="${f(-z[1] - 2.5)}" width="10" height="5" rx="2.5" fill="${FARBE.gurt}"/>`));
 
-  // Gurt
-  const haende = fig.arme.filter(Boolean).map((a) => a.Hd);
-  let ziele = [];
-  const g = bild.gurt ?? 'zwei';
-  if (g === 'zwei') ziele = ansicht === 'seite' ? [fig.arme[0].Hd] : haende;
-  else if (g === 'arm1' || g === 'links') ziele = [fig.arme[0].Hd];
-  else if (g === 'rechts') ziele = [fig.arme[1].Hd];
-  else if (g === 'einer') ziele = [[(haende[0][0] + (haende[1] ?? haende[0])[0]) / 2, (haende[0][1] + (haende[1] ?? haende[0])[1]) / 2]];
-  if (g !== 'keiner') {
-    if (ziele.length === 2) {
-      // Y-Gurt: gemeinsamer Strang bis zur Gabelung
-      const mitte = [(ziele[0][0] + ziele[1][0]) / 2, (ziele[0][1] + ziele[1][1]) / 2];
-      const gabel = [ax + (mitte[0] - ax) * 0.45, ay + (mitte[1] - ay) * 0.45];
-      out.push(linie([fig.anker, gabel], FARBE.gurt, 3.5));
-      ziele.forEach((z) => out.push(linie([gabel, z], FARBE.gurt, 3)));
-    } else {
-      ziele.forEach((z) => out.push(linie([fig.anker, z], FARBE.gurt, 3.5)));
+  if (vorher && bild.pfeil !== false) {
+    const a = merkpunkte(vorher), b = merkpunkte(fig);
+    let schluessel = bild.pfeil;
+    if (!schluessel) {
+      schluessel = Object.keys(a).reduce((best, k) =>
+        Math.hypot(b[k][0] - a[k][0], b[k][1] - a[k][1]) > Math.hypot(b[best][0] - a[best][0], b[best][1] - a[best][1]) ? k : best, 'haende');
     }
+    out.push(pfeil(a[schluessel], b[schluessel], ansicht));
   }
-  out.push(`<circle cx="${ax}" cy="${-ay}" r="5" fill="${FARBE.gurt}"/>`);
 
-  // Körper
-  if (ansicht === 'seite') {
-    out.push(zeichneBein(fig.beine[0], FARBE.koerper, fig.H));
-    out.push(linie([fig.H, fig.S], FARBE.koerper, dick + 1.5));
-    out.push(zeichneArm(fig.arme[0], FARBE.koerper, fig.S));
-  } else {
-    out.push(zeichneBein(fig.beine[0], FARBE.koerper, fig.hueften[0]));
-    out.push(zeichneBein(fig.beine[1], FARBE.koerper, fig.hueften[1]));
-    out.push(linie([fig.hueften[0], fig.hueften[1]], FARBE.koerper, dick));
-    out.push(linie([[(fig.hueften[0][0] + fig.hueften[1][0]) / 2, (fig.hueften[0][1] + fig.hueften[1][1]) / 2], fig.S], FARBE.koerper, dick + 1.5));
-    out.push(linie([fig.schultern[0], fig.schultern[1]], FARBE.koerper, dick));
-    out.push(zeichneArm(fig.arme[0], FARBE.koerper, fig.schultern[0]));
-    out.push(zeichneArm(fig.arme[1], FARBE.koerper, fig.schultern[1]));
-  }
-  // Griffe
-  ziele.forEach((z) => out.push(`<circle cx="${f(z[0])}" cy="${f(-z[1])}" r="3.6" fill="${FARBE.gurt}"/>`));
-  out.push(`<circle cx="${f(fig.K[0])}" cy="${f(-fig.K[1])}" r="${L.kopf}" fill="${FARBE.koerper}"/>`);
-
-  const tx = ansicht === 'front' ? 95 : 175;
-  out.push(`<text x="${tx}" y="-222" text-anchor="end" font-family="-apple-system,system-ui,sans-serif" font-size="18" font-weight="600" fill="${FARBE.text}">${nummer}</text>`);
+  const tx = ansicht === 'front' ? 97 : 177;
+  out.push(`<text x="${tx}" y="-226" text-anchor="end" font-family="-apple-system,system-ui,sans-serif" font-size="17" font-weight="600" fill="${FARBE.text}">${nummer}</text>`);
   return `<g transform="translate(${ox},0)">${out.join('')}</g>`;
 }
 
 export function renderBild(bild) {
   const ansicht = bild.ansicht ?? 'seite';
-  const breite = ansicht === 'front' ? 220 : 220;
+  const breite = 220;
   const links = ansicht === 'front' ? -110 : -30;
   const figuren = bild.posen.map((p) =>
-    ansicht === 'front' ? frontPose(p, bild.anker_x ?? 0) : seitePose(p));
+    ansicht === 'front' ? frontPose(p, bild.anker_x ?? 0) : seitePose(p, bild.anker_x ?? 0));
   const abstand = 24;
-  const panels = figuren.map((fig, i) => zeichnePanel(fig, bild, ansicht, i * (breite + abstand), i + 1));
+  const panels = figuren.map((fig, i) => zeichnePanel(fig, i > 0 ? figuren[i - 1] : null, bild, ansicht, i * (breite + abstand), i + 1));
   const gesamt = figuren.length * breite + (figuren.length - 1) * abstand;
-  // Pfeil zwischen den Panels
-  const pfeile = figuren.slice(1).map((_, i) => {
+  const trenner = figuren.slice(1).map((_, i) => {
     const x = links + (i + 1) * breite + i * abstand + abstand / 2;
-    return `<path d="M ${x - 6} -120 L ${x + 4} -110 L ${x - 6} -100" fill="none" stroke="${FARBE.text}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+    return `<line x1="${x}" y1="-215" x2="${x}" y2="-20" stroke="${FARBE.boden}" stroke-width="1.5" stroke-dasharray="2 6" stroke-linecap="round"/>`;
   });
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${links} -248 ${gesamt} 256" role="img">${panels.join('')}${pfeile.join('')}</svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${links} -254 ${gesamt} 262" role="img">${panels.join('')}${trenner.join('')}</svg>`;
 }
 
 // ---------- CLI ----------

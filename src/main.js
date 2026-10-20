@@ -7,7 +7,7 @@ import { laden, speichern, leererZustand, alsBackupText, ausBackupText, speicher
 import { h, knopf } from './ui/dom.js';
 import { tonVorbereiten, piep, piepEnde, wachHalten } from './ui/geraet.js';
 
-const VERSION = '0.3.0';
+const VERSION = '0.4.0';
 
 function piktogramm(u) {
   if (!u.bild) return null;
@@ -42,6 +42,7 @@ const MUSTER = {
 };
 const DAUER_LABEL = { kurz: 'kurz', lang: 'länger' };
 const GURT_LABEL = { kurz: 'kurz', mittel: 'mittel', lang: 'lang' };
+const GURT_HOEHE = { kurz: 'Griffe hängen etwa auf Brusthöhe', mittel: 'Griffe hängen etwa auf Hüfthöhe', lang: 'Griffe hängen etwa auf Kniehöhe' };
 
 function sichern() {
   speichern(zustand);
@@ -94,8 +95,8 @@ function aktionsleiste(...kinder) {
 function sicherheitsText() {
   return [
     h('h3', {}, 'Befestigung'),
-    h('p', {}, 'Den Gurt um die Mittelsäule der Treppe legen, direkt oberhalb einer Stufenhalterung auf etwa 2–2,2 m Höhe, damit er nicht abrutschen kann. Nicht am Handlauf oder an den Drahtseilen befestigen.'),
-    h('p', {}, 'Vor der ersten Nutzung mit kräftigem Zug in alle Übungsrichtungen prüfen, ob Säule und Gurt sicher halten. Den Gurt regelmäßig auf Abrieb kontrollieren.'),
+    h('p', {}, 'Die Ankerschlaufe an einem tragenden Teil der Treppe befestigen, etwa 2,2 m hoch, so dass sie nicht wandern kann. Der Anker soll ein Mehrfaches des Körpergewichts tragen; Handlauf, Geländerstäbe und Drahtseile sind dafür nicht gedacht.'),
+    h('p', {}, 'Vor der ersten Nutzung mit kräftigem Zug in alle Übungsrichtungen prüfen, ob Befestigung und Gurt sicher halten. Gurt und Karabiner regelmäßig auf Abrieb kontrollieren.'),
     h('h3', {}, 'Platz'),
     h('p', {}, 'Vor dem Anker etwa 2–2,5 m freien Boden einplanen. Rutschfeste Schuhe oder barfuß – nicht in Socken auf glattem Boden.'),
     h('h3', {}, 'Körper'),
@@ -296,9 +297,9 @@ function zeigeSchritt() {
   const vorher = lauf.pos > 0 ? lauf.session.eintraege[lauf.schritte[lauf.pos - 1].index] : null;
   const gurtVorher = vorher ? (vorher.gurt ?? gurtVon(nachId.get(vorher.id))) : null;
   const gurtHinweis = gurtVorher === null
-    ? h('div', { class: 'gurt-hinweis' }, `Gurte auf „${GURT_LABEL[gurt]}“ einstellen`)
+    ? h('div', { class: 'gurt-hinweis' }, `Gurte auf „${GURT_LABEL[gurt]}“ einstellen`, h('span', { class: 'gurt-hoehe' }, GURT_HOEHE[gurt]))
     : gurt !== gurtVorher
-      ? h('div', { class: 'gurt-hinweis gurt-wechsel' }, `Jetzt umstellen: Gurte auf „${GURT_LABEL[gurt]}“`)
+      ? h('div', { class: 'gurt-hinweis gurt-wechsel' }, `Jetzt umstellen: Gurte auf „${GURT_LABEL[gurt]}“`, h('span', { class: 'gurt-hoehe' }, GURT_HOEHE[gurt]))
       : null;
 
   const unten = letzteRunde
