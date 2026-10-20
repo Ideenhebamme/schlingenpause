@@ -447,3 +447,19 @@ button:focus-visible, summary:focus-visible, input:focus-visible {
 
 .segment-einzeilig { min-height: 46px; justify-content: center; }
 .pill-ball { background: #DDF0E9; color: #23705A; }
+
+/* ---------- Vorlesen ---------- */
+.stufe-zeile { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.btn-vorlesen {
+  color: var(--blau);
+  font-size: 15px;
+  font-weight: 600;
+  padding: 8px 14px;
+  min-height: 40px;
+  border-radius: 999px;
+  border: 1px solid var(--linie);
+  background: var(--flaeche);
+}
+.btn-vorlesen[data-laeuft="1"] { background: var(--blau); color: #fff; border-color: var(--blau); }
+.segmente-drei { grid-template-columns: 1fr 1fr 1fr; }
+.form-label-klein { font-size: 14px; color: var(--leise); margin: 14px 0 6px; }

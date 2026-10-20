@@ -6,8 +6,9 @@ import { zustandFuer, wendeRueckmeldungAn, formatVorgabe, setzeStufe, startZusta
 import { laden, speichern, leererZustand, alsBackupText, ausBackupText, speicherVerfuegbar } from './logik/speicher.js';
 import { h, knopf } from './ui/dom.js';
 import { tonVorbereiten, piep, piepEnde, wachHalten } from './ui/geraet.js';
+import { spracheVerfuegbar, sprich, sage, stoppe, entsperren } from './ui/sprache.js';
 
-const VERSION = '0.5.0';
+const VERSION = '0.6.0';
 
 function piktogramm(u) {
   if (!u.bild) return null;
@@ -41,6 +42,10 @@ const ZIELE = {
 };
 const ZIEL_KACHELN = { schlinge: ['haltung', 'kraft', 'mobilitaet', 'mix'], baelle: ['fuesse', 'becken', 'ruecken', 'mix'] };
 const GERAET_LABEL = { schlinge: 'Schlinge', baelle: 'Bälle' };
+const TEMPO = { langsam: 0.85, normal: 1, schnell: 1.15 };
+const vorlesenAn = () => !!zustand.einstellungen.vorlesen && spracheVerfuegbar();
+const tempo = () => TEMPO[zustand.einstellungen.tempo] ?? 1;
+const ansage = (text) => { if (vorlesenAn()) sage(text, { tempo: tempo() }); };
 const MUSTER = {
   zug: 'Zug', druck: 'Druck', beine: 'Beine', rumpf: 'Rumpf',
   schulter: 'Schulter', huefte: 'Hüfte', wirbelsaeule: 'Wirbelsäule',
@@ -196,6 +201,12 @@ function zeigeStart() {
             h('span', {}, 'Mit Ball-Übung als Einstieg'),
           )
         : null,
+      spracheVerfuegbar()
+        ? h('label', { class: 'schalter' },
+            h('input', { type: 'checkbox', checked: !!zustand.einstellungen.vorlesen, onchange: (e) => { zustand.einstellungen.vorlesen = e.target.checked; sichern(); if (e.target.checked) entsperren(); } }),
+            h('span', {}, 'Übungen vorlesen'),
+          )
+        : null,
     ),
     h('nav', { class: 'fussnav', 'aria-label': 'Weitere Bereiche' },
       knopf('Übungen', () => zeigeBibliothek(), 'fussnav-link'),
@@ -239,6 +250,7 @@ function zeigePlan(session, getauscht = []) {
     ),
     aktionsleiste(knopf('Los geht’s', () => {
       tonVorbereiten();
+      if (vorlesenAn()) entsperren();
       starteDurchlauf(session);
     }, 'btn btn-primaer')),
   );
@@ -277,6 +289,8 @@ function stoppeTimer() {
 
 function beendeDurchlauf(abgebrochen = false) {
   stoppeTimer();
+  stoppe();
+  if (!abgebrochen) ansage('Pause beendet.');
   wachHalten(false);
   const l = lauf;
   lauf = null;
@@ -300,6 +314,7 @@ function beendeDurchlauf(abgebrochen = false) {
 
 function weiter() {
   stoppeTimer();
+  stoppe();
   lauf.pos += 1;
   if (lauf.pos >= lauf.schritte.length) beendeDurchlauf(false);
   else zeigeSchritt();
@@ -330,7 +345,9 @@ function zeigeSchritt() {
     h('div', { class: 'fortschritt-fuellung' }));
   fortschrittBalken.firstChild.style.width = `${fortschritt * 100}%`;
 
-  const bereich = eintrag.einheit === 'sek' ? halteTimer(eintrag, u) : null;
+  const timerTeil = eintrag.einheit === 'sek' ? halteTimer(eintrag, u) : null;
+  const bereich = timerTeil?.box ?? null;
+  const ersteMal = !lauf.schritte.slice(0, lauf.pos).some((x) => x.index === schritt.index);
 
   const gurt = eintrag.gurt ?? gurtVon(u);
   // letzte vorherige Übung mit Gurt (Ball-Übungen haben keinen)
@@ -347,6 +364,43 @@ function zeigeSchritt() {
     : gurt !== gurtVorher
       ? h('div', { class: 'gurt-hinweis gurt-wechsel' }, `Jetzt umstellen: Gurte auf „${GURT_LABEL[gurt]}“`, h('span', { class: 'gurt-hoehe' }, GURT_HOEHE[gurt]))
       : null;
+
+  // Text zum Vorlesen: beim ersten Mal ausführlich, in späteren Runden kurz
+  const gurtAnsage = gurt === 'keiner' ? null
+    : gurtVorher === null ? `Gurte auf ${GURT_LABEL[gurt]} einstellen. ${GURT_HOEHE[gurt]}.`
+    : gurt !== gurtVorher ? `Jetzt umstellen: Gurte auf ${GURT_LABEL[gurt]}. ${GURT_HOEHE[gurt]}.`
+    : null;
+  const abschnitte = [
+    gurtAnsage,
+    `${u.titel}.`,
+    `${formatVorgabe(eintrag.einheit, eintrag.ziel, u.einseitig)}.`,
+    `Position: ${eintrag.hinweis}`,
+    ...(ersteMal ? [
+      `Aufbau: ${u.aufbau}`,
+      'Ablauf:',
+      ...u.ablauf,
+      `Achte auf: ${u.achte_auf}`,
+      u.vorsicht ? `Vorsicht: ${u.vorsicht}` : null,
+    ] : []),
+    timerTeil && vorlesenAn() ? 'Der Timer startet gleich.' : null,
+  ];
+  const posBeimStart = lauf.pos;
+  const vorleseKnopf = spracheVerfuegbar() ? knopf('Vorlesen', () => vorlesen(true), 'btn-vorlesen') : null;
+  function vorlesen(perHand = false) {
+    if (perHand && vorleseKnopf?.dataset.laeuft === '1') {
+      stoppe();
+      vorleseKnopf.textContent = 'Vorlesen';
+      vorleseKnopf.dataset.laeuft = '0';
+      return;
+    }
+    if (perHand) entsperren();
+    if (vorleseKnopf) { vorleseKnopf.textContent = 'Stopp'; vorleseKnopf.dataset.laeuft = '1'; }
+    sprich(abschnitte, { tempo: tempo() }).then((komplett) => {
+      if (!lauf || lauf.pos !== posBeimStart) return;
+      if (vorleseKnopf) { vorleseKnopf.textContent = 'Vorlesen'; vorleseKnopf.dataset.laeuft = '0'; }
+      if (komplett && !perHand && timerTeil && vorlesenAn()) timerTeil.los({ automatisch: true });
+    });
+  }
 
   const unten = letzteRunde
     ? aktionsleiste(
@@ -373,7 +427,10 @@ function zeigeSchritt() {
       gurtHinweis,
       h('h1', { class: 'titel-gross' }, u.titel),
       h('p', { class: 'vorgabe' }, formatVorgabe(eintrag.einheit, eintrag.ziel, u.einseitig)),
-      h('p', { class: 'stufe' }, `Stufe ${eintrag.stufeIndex + 1} von ${eintrag.anzahlStufen}`),
+      h('div', { class: 'stufe-zeile' },
+        h('p', { class: 'stufe' }, `Stufe ${eintrag.stufeIndex + 1} von ${eintrag.anzahlStufen}`),
+        vorleseKnopf,
+      ),
       piktogramm(u),
       vorsichtHinweis(u),
 
@@ -401,23 +458,25 @@ function zeigeSchritt() {
     ),
     unten,
   );
+  if (vorlesenAn()) vorlesen(false);
 }
 
 // Countdown für Halteübungen: 5 s Vorlauf, dann Haltezeit, bei einseitigen
 // Übungen danach Seitenwechsel.
 function halteTimer(eintrag, u) {
-  const VORLAUF = 5;
   const seiten = u.einseitig ? 2 : 1;
   let seite = 1;
 
   const anzeige = h('p', { class: 'timer-zahl' }, formatSek(eintrag.ziel));
   const status = h('p', { class: 'timer-status' }, u.einseitig ? 'Seite 1' : 'Bereit');
-  const start = knopf('Timer starten', () => los(), 'btn btn-timer');
+  const start = knopf('Timer starten', () => { stoppe(); los(); }, 'btn btn-timer');
   const box = h('div', { class: 'timer' }, status, anzeige, start);
 
-  function los() {
-    tonVorbereiten();
+  function los({ automatisch = false } = {}) {
+    const VORLAUF = automatisch ? 8 : 5;
+    if (!automatisch) tonVorbereiten();
     stoppeTimer();
+    let zehnGesagt = false;
     start.hidden = true;
     box.classList.add('laeuft');
     let phase = 'vorlauf';
@@ -431,6 +490,10 @@ function halteTimer(eintrag, u) {
         zuletzt = rest;
         anzeige.textContent = phase === 'vorlauf' ? String(rest) : formatSek(rest);
         if (zustand.einstellungen.ton && phase === 'vorlauf' && rest > 0 && rest <= 3) piep({ frequenz: 660, dauer: 0.12 });
+        if (phase === 'halten' && !zehnGesagt && eintrag.ziel >= 25 && rest === 10) {
+          zehnGesagt = true;
+          ansage('Noch zehn Sekunden.');
+        }
       }
       if (rest > 0) return;
       if (phase === 'vorlauf') {
@@ -439,17 +502,24 @@ function halteTimer(eintrag, u) {
         zuletzt = null;
         status.textContent = u.einseitig ? `Seite ${seite} – halten` : 'Halten';
         if (zustand.einstellungen.ton) piep({ frequenz: 990, dauer: 0.2 });
+        ansage(u.einseitig ? `Seite ${seite}. Halten.` : 'Halten.');
         return;
       }
       stoppeTimer();
       box.classList.remove('laeuft');
       if (zustand.einstellungen.ton) piepEnde();
+      ansage(seite < seiten ? 'Seite wechseln.' : 'Geschafft.');
       if (seite < seiten) {
         seite += 1;
         status.textContent = `Seite ${seite}`;
         anzeige.textContent = formatSek(eintrag.ziel);
         start.textContent = 'Seite 2 starten';
         start.hidden = false;
+        // beim Vorlesen läuft die zweite Seite von selbst an
+        if (vorlesenAn()) {
+          const meinTimerLauf = lauf?.pos;
+          setTimeout(() => { if (lauf && lauf.pos === meinTimerLauf && !timer && seite === 2) los({ automatisch: true }); }, 1500);
+        }
       } else {
         status.textContent = 'Geschafft';
         anzeige.textContent = '✓';
@@ -461,7 +531,7 @@ function halteTimer(eintrag, u) {
     timer = { id: setInterval(tick, 200) };
     tick();
   }
-  return box;
+  return { box, los };
 }
 
 function formatSek(s) {
@@ -641,6 +711,28 @@ function zeigeEinstellungen() {
         h('span', {}, 'Signaltöne beim Halte-Timer'),
       ),
       h('p', { class: 'leise klein' }, 'Ist das iPhone stumm geschaltet, bleiben die Töne eventuell aus.'),
+
+      h('h2', { class: 'abschnitt' }, 'Vorlesen'),
+      spracheVerfuegbar()
+        ? [
+            h('label', { class: 'schalter' },
+              h('input', { type: 'checkbox', checked: !!zustand.einstellungen.vorlesen, onchange: (e) => { zustand.einstellungen.vorlesen = e.target.checked; sichern(); if (e.target.checked) entsperren(); } }),
+              h('span', {}, 'Übungen automatisch vorlesen'),
+            ),
+            h('p', { class: 'leise klein' }, 'Beim ersten Durchgang ausführlich, in weiteren Runden nur Name, Vorgabe und Position. Halteübungen starten nach dem Vorlesen von selbst, mit Ansagen zu Start, Seitenwechsel und Ende.'),
+            h('p', { class: 'form-label-klein' }, 'Tempo'),
+            h('div', { class: 'segmente segmente-drei', role: 'group', 'aria-label': 'Sprechtempo' },
+              ['langsam', 'normal', 'schnell'].map((t) => h('button', {
+                type: 'button',
+                class: `segment segment-einzeilig${(zustand.einstellungen.tempo ?? 'normal') === t ? ' ist-aktiv' : ''}`,
+                onclick: () => { zustand.einstellungen.tempo = t; sichern(); zeigeEinstellungen(); },
+              }, h('span', { class: 'segment-titel' }, t[0].toUpperCase() + t.slice(1))))),
+            h('div', { class: 'knopf-reihe' },
+              knopf('Probe hören', () => { entsperren(); sprich(['Rudern.', '10 Wdh.', 'Position: Füße eine Fußlänge hinter dem Ankerpunkt.'], { tempo: tempo() }); }, 'btn btn-sekundaer'),
+            ),
+            h('p', { class: 'leise klein' }, 'Die Stimme kommt vom iPhone. Eine bessere deutsche Stimme lässt sich unter Einstellungen → Bedienungshilfen → Gesprochene Inhalte → Stimmen → Deutsch laden.'),
+          ]
+        : h('p', { class: 'leise' }, 'Dieser Browser bietet keine Sprachausgabe an.'),
 
       h('h2', { class: 'abschnitt' }, 'Auf den Home-Bildschirm'),
       h('div', { class: 'prosa' },
