@@ -1,6 +1,6 @@
 {
   "schema_version": "1.1.0",
-  "library_version": "1.3.0",
+  "library_version": "1.3.1",
   "platzhalter": false,
   "uebungen": [
     {
@@ -2999,36 +2999,42 @@
       }
     },
     {
-      "id": "mob-golfschwung",
-      "titel": "Golfschwung",
+      "id": "rumpf-holzhacker",
+      "titel": "Diagonaler Holzhacker",
       "ziele": [
-        "mobilitaet",
+        "kraft",
         "haltung"
       ],
-      "muster": "wirbelsaeule",
-      "intensitaet": 1,
+      "muster": "rumpf",
+      "intensitaet": 2,
       "einseitig": true,
       "gurt": "mittel",
-      "aufbau": "Gurte auf mittlere Länge, Einhand-Modus. Seitlich zum Anker, beide Hände am Griff, Füße schulterbreit.",
+      "aufbau": "Gurte auf mittlere Länge, Einhand-Modus. Seitlich zum Anker, beide Hände am Griff, Füße etwas mehr als schulterbreit. So weit vom Anker weg stellen, dass der Gurt mit gestreckten Armen schräg nach oben zum Anker gespannt ist.",
       "ablauf": [
-        "In eine halbe Kniebeuge gehen, die Hände zeigen tief zur ankerfernen Seite.",
-        "Aus den Beinen aufrichten und die Arme diagonal nach oben Richtung Anker schwingen.",
-        "Der Oberkörper dreht mit, der Blick folgt den Händen.",
-        "Kontrolliert zurück nach unten."
+        "Start: Arme gestreckt schräg nach oben Richtung Anker, der Oberkörper ist zum Anker gedreht.",
+        "Die Hände diagonal vor dem Körper nach unten zum ankerfernen Knie ziehen, dabei leicht in die Knie gehen und den Oberkörper mitdrehen.",
+        "Der Gurt bleibt die ganze Zeit gespannt.",
+        "Langsam zurück nach oben – der Zug des Gurtes will dich zurückziehen, du bremst ihn."
       ],
-      "achte_auf": "Rücken bleibt lang, die Knie zeigen über die Füße.",
-      "warum": "Mobilisiert Brustwirbelsäule und Schultern in einer Diagonale, die im Alltag selten vorkommt.",
+      "achte_auf": "Die Bewegung kommt aus Rumpf und Hüfte, die Arme bleiben fast gestreckt, der Rücken lang.",
+      "warum": "Kräftigt die schräge Bauch- und Rumpfmuskulatur in einer Diagonale und bringt Drehung in die Brustwirbelsäule.",
       "stufen": [
         {
-          "hinweis": "Kleiner Bewegungsumfang, ruhiges Tempo.",
+          "hinweis": "Nah am Anker stehen, wenig Spannung.",
           "einheit": "wdh",
-          "min": 6,
-          "max": 10
+          "min": 8,
+          "max": 12
         },
         {
-          "hinweis": "Voller Bewegungsumfang, tiefere Kniebeuge.",
+          "hinweis": "Einen Schritt weiter weg vom Anker.",
           "einheit": "wdh",
-          "min": 6,
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Noch weiter weg, in drei Sekunden zurück nach oben.",
+          "einheit": "wdh",
+          "min": 8,
           "max": 10
         }
       ],
@@ -3036,37 +3042,10 @@
         "ansicht": "front",
         "gurt": "einer",
         "anker_x": -92,
+        "pfeil": "haende",
         "posen": [
           {
-            "x": 8,
-            "n": 8,
-            "ll": [
-              [
-                22,
-                0.82
-              ],
-              [
-                -6,
-                0.86
-              ]
-            ],
-            "lr": [
-              [
-                22,
-                0.82
-              ],
-              [
-                -6,
-                0.86
-              ]
-            ],
-            "griff": [
-              30,
-              -48
-            ]
-          },
-          {
-            "x": 8,
+            "x": 14,
             "n": -6,
             "ll": [
               10,
@@ -3077,8 +3056,36 @@
               10
             ],
             "griff": [
-              -48,
-              38
+              -46,
+              40
+            ]
+          },
+          {
+            "x": 14,
+            "n": 8,
+            "ll": [
+              [
+                22,
+                0.84
+              ],
+              [
+                -6,
+                0.86
+              ]
+            ],
+            "lr": [
+              [
+                22,
+                0.84
+              ],
+              [
+                -6,
+                0.86
+              ]
+            ],
+            "griff": [
+              34,
+              -50
             ]
           }
         ]

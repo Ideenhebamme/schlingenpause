@@ -8,7 +8,7 @@ import { h, knopf } from './ui/dom.js';
 import { tonVorbereiten, piep, piepEnde, wachHalten } from './ui/geraet.js';
 import { spracheVerfuegbar, sprich, sage, stoppe, entsperren, deutscheStimmen, qualitaetsName, setzeStimme, aktuelleStimme, wennStimmenGeladen } from './ui/sprache.js';
 
-const VERSION = '0.6.2';
+const VERSION = '0.6.3';
 
 function piktogramm(u) {
   if (!u.bild) return null;
