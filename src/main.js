@@ -8,7 +8,7 @@ import { h, knopf } from './ui/dom.js';
 import { tonVorbereiten, piep, piepEnde, wachHalten } from './ui/geraet.js';
 import { spracheVerfuegbar, sprich, sage, stoppe, entsperren, deutscheStimmen, qualitaetsName, setzeStimme, aktuelleStimme, wennStimmenGeladen } from './ui/sprache.js';
 
-const VERSION = '0.6.1';
+const VERSION = '0.6.2';
 
 function piktogramm(u) {
   if (!u.bild) return null;
@@ -165,7 +165,8 @@ function zeigeStart() {
     return h('button', {
       type: 'button',
       class: `kachel ${z.klasse}`,
-      onclick: () => zeigePlan(erstelleSession({ bibliothek, zustaende: zustand.uebungen, ziel: key, dauer, geraet, ballEinstieg })),
+      // Haken erst beim Tippen lesen – er kann sich seit dem Aufbau der Seite geändert haben
+      onclick: () => zeigePlan(erstelleSession({ bibliothek, zustaende: zustand.uebungen, ziel: key, dauer, geraet, ballEinstieg: !!zustand.einstellungen.ballEinstieg })),
     }, h('span', { class: 'kachel-name' }, z.name), h('span', { class: 'kachel-text' }, text));
   };
 
