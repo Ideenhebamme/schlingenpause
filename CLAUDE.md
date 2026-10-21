@@ -81,7 +81,7 @@ Außenrotation der Schulter (Face Pull, W-Heben) ist mit `vorsicht` markiert –
 - Piktogramme: `anker: false`, Bälle über `ball1/ball2` (unter dem Fuß), `ballR` (Rücken–Wand),
   `ballH` (Hand–Wand), `ballK`/`ballFuesse` (Frontansicht). Texte ohne Bezug auf die
   Franklin-Methode als Lehre – nur „zwei weiche Noppenbälle“.
-- Bibliothek 1.3.1: 42 Schlingen- + 13 Ball-Übungen. „Golfschwung“ ersetzt durch „Diagonaler Holzhacker“ (Zug von oben am Anker schräg nach unten weg – nur so spannt der Gurt bei hohem Anker).
+- Bibliothek 1.3.2: 43 Schlingen- + 13 Ball-Übungen. „Diagonaler Holzhacker“ (oben am Anker → schräg unten weg) und „Golfschwung“ (tief am ankernahen Knie → diagonal hoch über die ankerferne Schulter, von Nils in der Praxis bestätigt) als Gegenstücke.
 - Grundregel: Arbeitsrichtung immer weg vom Anker, damit der Gurt gespannt bleibt.
 
 ## Logik

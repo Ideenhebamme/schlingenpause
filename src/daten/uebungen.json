@@ -1,6 +1,6 @@
 {
   "schema_version": "1.1.0",
-  "library_version": "1.3.1",
+  "library_version": "1.3.2",
   "platzhalter": false,
   "uebungen": [
     {
@@ -3086,6 +3086,93 @@
             "griff": [
               34,
               -50
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mob-golfschwung",
+      "titel": "Golfschwung",
+      "ziele": [
+        "mobilitaet",
+        "haltung"
+      ],
+      "muster": "wirbelsaeule",
+      "intensitaet": 2,
+      "einseitig": true,
+      "gurt": "mittel",
+      "aufbau": "Gurte auf mittlere Länge, Einhand-Modus. Seitlich zum Anker, beide Hände am Griff, Füße etwas mehr als schulterbreit, Knie leicht gebeugt wie in der Golf-Grundstellung. So weit vom Anker weg stellen, dass der Gurt schon in der Startposition leicht gespannt ist.",
+      "ablauf": [
+        "Start: Oberkörper leicht nach vorn geneigt, Arme gestreckt, die Hände tief vor dem ankernahen Knie.",
+        "Diagonal nach oben schwingen: Die Hände ziehen vor dem Körper vorbei hoch über die ankerferne Schulter – nach oben und gleichzeitig weg vom Anker.",
+        "Dabei aus den Knien aufrichten und den Oberkörper mitdrehen, der Blick folgt den Händen.",
+        "Kontrolliert zurück in die Grundstellung."
+      ],
+      "achte_auf": "Der Gurt bleibt die ganze Bewegung über gespannt; die Drehung kommt aus Hüfte und Brustwirbelsäule.",
+      "warum": "Die Gegenbewegung zum Holzhacker: arbeitet diagonal nach oben, kräftigt den Rumpf und mobilisiert die Brustwirbelsäule.",
+      "stufen": [
+        {
+          "hinweis": "Nah am Anker, leichte Spannung, kleiner Schwung.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        },
+        {
+          "hinweis": "Einen Schritt weiter weg vom Anker, voller Schwung.",
+          "einheit": "wdh",
+          "min": 8,
+          "max": 12
+        }
+      ],
+      "bild": {
+        "ansicht": "front",
+        "gurt": "einer",
+        "anker_x": -100,
+        "pfeil": "haende",
+        "posen": [
+          {
+            "x": 36,
+            "n": -6,
+            "ll": [
+              [
+                20,
+                0.84
+              ],
+              [
+                -6,
+                0.86
+              ]
+            ],
+            "lr": [
+              [
+                20,
+                0.84
+              ],
+              [
+                -6,
+                0.86
+              ]
+            ],
+            "griff": [
+              -20,
+              -54
+            ]
+          },
+          {
+            "x": 36,
+            "n": 6,
+            "ll": [
+              10,
+              10
+            ],
+            "lr": [
+              10,
+              10
+            ],
+            "griff": [
+              42,
+              34
             ]
           }
         ]
